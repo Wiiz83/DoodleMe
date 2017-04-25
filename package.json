@@ -1,15 +1,12 @@
 {
-  "name": "rest-crud",
-  "description": "REST CRUD Example Node.js & Mysql",
-  "version": "0.0.1",
-  "private": true,
+  "name": "doodlme",
+  "description": "Projet Web L3 MIAGE",
   "main": "server.js",
   "dependencies": {
-    "body-parser": "1.9.0",
-    "ejs": "^1.0.0",
-    "express": "4.9.5",
+    "body-parser": "*",
+    "express": "*",
     "express-myconnection": "*",
-    "express-validator": "^2.6.0",
+    "express-validator": "*",
     "mysql": "*"
   }
 }
