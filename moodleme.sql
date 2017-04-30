@@ -2,7 +2,7 @@ DROP DATABASE  IF EXISTS doodlme;
 --
 CREATE DATABASE doodlme ;
 USE   doodlme;
-
+--
 CREATE TABLE Users (
 	ID int(11) AUTO_INCREMENT,
 	firstName varchar(250) ,
