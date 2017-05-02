@@ -1,13 +1,13 @@
 DROP DATABASE  IF EXISTS doodlme;
---
+ 
 CREATE DATABASE doodlme ;
 USE   doodlme;
-----
-CREATE TABLE Users (
+ CREATE TABLE Users (
 	ID int(11) AUTO_INCREMENT,
 	firstName varchar(250) ,
 	lastName varchar(250),
 	pseudo varchar(50) NOT NULL ,
+    	passHash varchar(250) NOT NULL,
 	registrationDate TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (ID)
 ) ENGINE=INNODB  ;
@@ -53,6 +53,5 @@ ADD CONSTRAINT FOREIGN KEY (userID) REFERENCES Users(ID) ON DELETE CASCADE;
 
 ALTER TABLE EventAnswers
 ADD CONSTRAINT FOREIGN KEY (EventSlotID) REFERENCES EventSlots(ID) ON DELETE CASCADE;
-
 
 
