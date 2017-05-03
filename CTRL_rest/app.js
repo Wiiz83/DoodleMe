@@ -108,3 +108,45 @@ app.put('/user/', function (req, res) {
     	res.status(400).json({error: 'Erreur lors de la modification'});
     }
 })
+
+app.post('/eventSlot/', function (req, res){
+	if(typeof req.body.id === 'undefined' || typeof req.body.nom === 'undefined' || typeof req.body.prenom === 'undefined'){
+		res.status(400).json({error: 'eventSlot non enregistré'});
+	}else if(user.listeUsers[req.body.id] != 'undefined'){
+		res.status(400).json({error: 'eventSlot déjà existant'});
+	}else{
+		res.json(connection.query('INSERT INTO eventSlots(idEventSlot, eventDate, eventId VALUES ('req.body.idEventSlot', 'req.body.idEvent', 'req.body.eventDate')'));
+	}
+})
+
+app.get('/eventSlot/:id', function(req, res){
+	if(typeof req.params.id === 'undefined') {
+    	res.status(400).json({ error: 'eventSlot non trouvé' });
+    }else if(event.listeEvents[id] != 'undefined'){
+    	res.json(connection.query('SELECT * FROM eventSlots WHERE idEventSlot = 'req.body.idEventSlot';'));
+    }else{
+    	res.status(400).json({error: 'Erreur lors de la récupération de l\'utilisateur'});
+    }
+})
+
+app.get('/eventSlots/', function(req, res){
+	if(event.listeEvents != null){
+		res.json(connection.query('SELECT * FROM eventSlots'));
+	}else{
+		res.status(400).json({error: 'Aucun évènement !'});
+	}
+})
+
+app.put('/eventSlot/', function (req, res) {
+	res.setHeader('Content-Type', 'text/html');
+    console.log(req.query);
+    if(typeof req.params.id === 'undefined') {
+    	res.status(400).json({ error: 'eventSlot non trouvé' });
+    }else if(event.listeUsers[id] != 'undefined'){
+    	connection.query('UPDATE TABLE eventSlot SET idEventSlot='req.body.idEventSlot', idEvent='req.body.idEvent', eventDate='req.body.eventDate' WHERE idEventSlot='req.body.idEventSlot';');
+    	res.json(connection.query('SELECT * FROM eventSlots WHERE idEventSlot='req.body.idEventSlot';'));
+    	res.json(event.listeUsers[id]);
+    }else{
+    	res.status(400).json({error: 'Erreur lors de la modification'});
+    }
+})
