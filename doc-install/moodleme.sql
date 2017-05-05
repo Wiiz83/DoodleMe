@@ -9,6 +9,7 @@ USE   doodlme;
 	lastName varchar(250),
 	pseudo varchar(50) NOT NULL ,
 	registrationDate TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
+	passHash varchar(250),
 	PRIMARY KEY (ID)
 ) ENGINE=INNODB  ;
 
