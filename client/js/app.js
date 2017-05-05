@@ -1,13 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name DoodleMe
- * @description
- * # DoodleMe
- *
- * Main module of the application.
- */
 angular
   .module('DoodleMe', [
     'ngAnimate',
