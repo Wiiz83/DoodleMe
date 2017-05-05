@@ -9,8 +9,20 @@ Desktop.ini
 # Windows shortcuts
 *.lnk
 
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
 # Thumbnails
 ._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+### Linux ###
+*~
 
 ### Node ###
 # Logs
@@ -19,5 +31,5 @@ logs
 
 # Deps
 node_modules
-
+./server/node_modules
 ./.vscode
