@@ -11,7 +11,7 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="css/style.css">
     <!-- endbuild -->
   </head>
   <body ng-app="DoodleMe">
@@ -25,7 +25,7 @@
         <div class="container">
           <div class="navbar-header">
 
-            <a class="navbar-brand" href="#/">tp2</a>
+            <a class="navbar-brand" href="#/">DoodleMe</a>
           </div>
 
           <div class="collapse">
@@ -63,7 +63,7 @@
     </script>
 
     <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
+    <!-- bower:js 
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -74,14 +74,9 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/services/myservicebanque.js"></script>
-        <script src="scripts/services/myfactorybanque.js"></script>
-        <script src="scripts/services/myfactorycomptes.js"></script>
-        <script src="scripts/services/myfactorycompte.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers/main.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

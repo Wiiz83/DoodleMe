@@ -12,7 +12,7 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/connexion.html',
+        templateUrl: 'html/connexion.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
@@ -20,5 +20,3 @@ angular
         redirectTo: '/'
       });
   });
-
-
