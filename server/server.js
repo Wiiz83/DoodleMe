@@ -6,7 +6,7 @@ var express = require('express'),
     bodyParserJsonError = require('express-body-parser-json-error'); 
 
 
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '../client/public')));
 app.use(bodyParser.json());
 app.use(bodyParserJsonError());// détection des json mal formattés
 
