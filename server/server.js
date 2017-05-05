@@ -28,12 +28,12 @@ app.use(
 );
 
 
-// import Controlleurs REST
-app.use('/api', require('./Controllers/users.js'));
+// import controlleurs REST
+app.use('/api', require('./controllers/users.js'));
 
 
 // Démarage serveur
-var server = app.listen(3000, function () {
+var server = app.listen(80, function () {
 
     console.log("Listening to port %s", server.address().port);
 
