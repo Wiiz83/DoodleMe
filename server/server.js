@@ -3,20 +3,18 @@ var express = require('express'),
     path = require('path'),
     bodyParser = require('body-parser'),
     app = express(),
-    expressValidator = require('express-validator');
+    bodyParserJsonError = require('express-body-parser-json-error'); 
 
 
-app.use(express.static(path.join(__dirname, 'client')));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, '../client')));
 app.use(bodyParser.json());
-app.use(expressValidator());
+app.use(bodyParserJsonError());// détection des json mal formattés
 
-// Connexion BD SQL
+// Connexion BD MySQL
 var connection = require('express-myconnection'),
     mysql = require('mysql');
 
 app.use(
-
     connection(mysql, {
         host: 'localhost',
         user: 'root',
@@ -24,17 +22,13 @@ app.use(
         database: 'doodlme',
         debug: false
     }, 'request')
-
 );
 
 
 // import controlleurs REST
 app.use('/api', require('./controllers/users.js'));
 
-
 // Démarage serveur
 var server = app.listen(3000, function () {
-
     console.log("Listening to port %s", server.address().port);
-
 });

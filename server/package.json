@@ -5,8 +5,7 @@
   "dependencies": {
     "body-parser": "*",
     "express": "*",
-    "express-myconnection": "*",
-    "express-validator": "*",
-    "mysql": "*"
-  }
+    "express-body-parser-json-error": "^0.1.0",
+    "express-myconnection": "*"
+      }
 }

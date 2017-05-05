@@ -7,15 +7,9 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Lancer le programme",
-            "program": "${workspaceRoot}\\server.js"
-        },
-        {
-            "type": "node",
-            "request": "attach",
-            "name": "Attacher au port",
-            "address": "localhost",
-            "port": 5858
-        }
+            "name": "Launch Program",
+            "program": "${workspaceRoot}/server/server.js"
+        } 
+         
     ]
 }
