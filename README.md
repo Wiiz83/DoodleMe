@@ -5,13 +5,13 @@ On souhaite mettre en œuvre une application web gérant les disponibilités d�
 
 # Mise en place du projet :
 ## Premier lancement du programme :
-npm install dans le dossier serveur
+Dossier client :
+npm install
+bower install
 
-bower install dans le dossier client
-
-grunt dans le dossier client
-
-node server.js dans le dossier serveur
+Dossier serveur:
+npm install
+node server.js
 
 Affichage du site sur l'adresse : http://localhost:3000
 
