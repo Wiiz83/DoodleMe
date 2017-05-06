@@ -1,83 +1,188 @@
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
+/*
+===========================================================
+CSS Reset
+===========================================================
+*/
 
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+margin: 0;
+padding: 0;
+border: 0;
+font-size: 100%;
+font: inherit;
+vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+display: block;
+}
 body {
-  padding: 0;
+line-height: 1;
+}
+ol, ul {
+list-style: none;
+}
+blockquote, q {
+quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+content: '';
+content: none;
+}
+table {
+border-collapse: collapse;
+border-spacing: 0;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+
+/*
+===========================================================
+Font Styles
+===========================================================
+*/
+body {
+font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 10px;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
+/*
+===========================================================
+Custom Buttons
+===========================================================
+*/
+
+.btn-login {
+padding: 10px 27px;
+cursor: pointer;
 }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+.btn:hover {
+background: #FFF;
+color: #5F007F;
 }
 
-.container-narrow > hr {
-  margin: 30px 0;
+.btn {
+cursor: pointer;
+text-decoration: none;
+border: 0;
+background: #5F007F;
+color: #FFF;
+box-shadow: 1px 1px 3px #888;
 }
 
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-}
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
+.btn-small {
+margin: 0 auto;
+padding: 6px 12px;
+
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-}
-.marketing p + h4 {
-  margin-top: 28px;
+.accept-button {
+background: url("../images/icon-accept.png") no-repeat;
+width: 40px;
+height: 40px;
+border: 0;
+background-size: 40px 40px;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+.decline-button {
+background: url("../images/icon-decline.png") no-repeat;
+width: 40px;
+height: 40px;
+border: 0;
+background-size: 40px 40px;
+}
 
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+
+/*
+===========================================================
+Login page
+===========================================================
+*/
+
+#login-page {
+background: url(../images/background.png) no-repeat center center fixed;
+background-size: cover;
+background-color: #CCC;
+height: 100%;
+}
+
+.login-box {
+border-radius: 10px;
+background-color: rgba(255, 255, 255, .5);
+width: 600px;
+margin-left: auto;
+margin-right:auto;
+padding: 12px 24px 12px 12px;
+margin-bottom: 66px;
+margin-top: 100px !important;
+}
+
+.login-box form {
+margin: 22px;
+}
+
+#login-page .logo {
+padding-top: 20px;  
+height: 25%;
+}
+
+.logo img {
+display: block;
+margin-left: auto;
+margin-right: auto;
+width:540px; 
+height: auto;
+vertical-align: middle;
+}
+
+.logo h2 {
+font-family: "Harlow", Verdana, Tahoma;
+display: block;
+margin-left: auto;
+margin-right: auto;
+width: 540px;
+font-size: 17pt;
+vertical-align: middle;
+text-align: center;
+color: #004888;
+}
+
+.login-data input {
+display: block;
+border: 2px solid #c6c9cc;
+border-radius: 3px;
+margin: 5px 0 12px 0;
+text-align: center;
+padding: 5px 5px;
+width: 100%;
+}
+
+.login-action {
+text-align: center;
+}
+
+.login-action input {
+margin: 12px 0 5px 0;
+}
+
+#spoti-login {
+margin: 10px 22px 0 22px;
+width: 220px;
+}
+
+.create-account {
+  color : #003871;
 }
