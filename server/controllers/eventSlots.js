@@ -33,7 +33,7 @@ var getEventDate = function(){
 }
 
 app.post('/eventSlot/', function (req, res){
-	if(typeof req.body.ID === 'undefined' || typeof req.body.eventID === 'undefined' || typeof req.body.eventDate === 'undefined' || typeof req.body.comment === 'undefined'){
+	if(typeof req.body.eventID === 'undefined' || typeof req.body.eventDate === 'undefined' || typeof req.body.comment === 'undefined'){
 		res.status(500).json({error: 'eventSlot non enregistré'});
 	}else if(user.listeUsers[req.body.id] != 'undefined'){
 		res.status(400).json({error: 'eventSlot déjà existant'});

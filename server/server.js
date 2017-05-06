@@ -28,6 +28,9 @@ app.use(
 
 // import controlleurs REST
 app.use('/api', require('./controllers/users.js'));
+app.use('/api', require('./controllers/event.js'));
+app.use('/api', require('./controllers/eventAnswer.js'));
+app.use('/api', require('./controllers/eventSlot.js'));
 
 // Démarage serveur
 var server = app.listen(3000, function () {
