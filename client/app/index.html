@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Connexion à DoodleMe</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -15,41 +15,42 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="clientApp">
+  <body ng-app="clientApp" id="login-page">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
     <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="#/">client</a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
-            </ul>
-          </div>
-        </div>
+      <div class="logo">
+          <img src="../view/assets/images/logo.png" alt="MyPromus logo">
+          <br/>
+          <h2>Make Your Event Possible.</h2>
       </div>
     </div>
 
     <div class="container">
-    <div ng-view=""></div>
+        <div class="login-box">
+        <form>
+            <fieldset class="login-data">
+                <input type="text" name="username" autocomplete="off" placeholder="Username" required>
+                <input type="password" name="password" autocomplete="off" placeholder="Password" required>
+                <p style="text-align:center; color:red;">
+                    <?php if(isset($errorlogin)){echo "$output_error";} ?>
+                </p>
+            </fieldset>
+
+            <fieldset class="login-action">
+                <input class="btn-login" style="cursor:pointer" type="submit" name="submit" value="SIGN IN">
+                <br>
+                <small>
+                <a href="" style="font-weight: bold !important;">Create an account now !</a>
+                </small>
+            </fieldset>
+        </form>
+    </div>
+
+
     </div>
 
     <div class="footer">
