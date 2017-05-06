@@ -21,15 +21,15 @@ auth_route.post(function (req, res) {
     data[1] = hashPassword(user.password);
      req.getConnection(function (err, conn) {
         if (err) return res.sendStatus(500).json(err);
-        var query = conn.query("SELECT * FROM USER WHERE pseudo=? AND passwordHash=?",
+        var query = conn.query("SELECT * FROM USERS WHERE pseudo=? AND passHash=?",
             data, function (err, result) {
-                if (err) {
-                    console.log(query.sql);
+                 console.log(query.sql);
+                if (err) {                   
                     console.log(err);
                     return res.sendStatus(500).json(err);
                 }
-                if (result[0].cnt == 1) {
-                    return res.json(getAuthToken(data));
+                if (result.length == 1) {
+                    return res.json(getAuthToken(result[0].ID, result[0].passHash));
                 }
                 else
                     return res.sendStatus(401);
