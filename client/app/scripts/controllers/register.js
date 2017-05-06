@@ -1,30 +1,39 @@
 'use strict';
 
  angular.module('clientApp')
-  .controller('RegisterCtrl',function ($scope, DoodleMeUsers, NewUser) {
-	console.log("1");
-    $scope.resultat = '';
-    $scope.obj = { id : '0', somme : '0' };
-    console.log("2");
-    $scope.creerCompte = function() {
-	  console.log("3");
-      var objToSave = new MyFactoryComptes();
-      objToSave.id = $scope.obj.id;
-      objToSave.somme = $scope.obj.somme;
-      objToSave.$save(function(savedObj) {
-        $scope.resultat = savedObj;
-       }, function(error) {
-        $scope.resultat = error.data.error;
-       });
-    };
-});
+ .controller('RegisterCtrl', function ($scope, userService) {
 
- /*
- .controller('RegisterCtrl', function ($scope, eventService) {
  	$scope.createUser = function(){
-    		eventService.create($scope.event, function(data){
-    			$scope.status = data.status;
+        console.log("0")
+    		userService.create($scope.event, function(data){
+          console.log("1")
+    			$scope.firstName = data.firstName;
+          $scope.lastName = data.lastName;
+          $scope.pseudo = data.pseudo;
+          $scope.password = data.password;
     		});
     };
- });
-*/
+
+});
+
+
+ /*
+.controller('RegisterCtrl', function($scope, $http) {
+ 
+   $scope.submit= function(){
+      var data = $.param({
+         user : JSON.stringify({
+            firstName : $scope.firstName,
+            lastName: $scope.lastName,
+            pseudo : $scope.pseudo,
+            password : $scope.password
+       })
+      });
+
+      $http.post("/users", data).then(function(data, status) {
+        console.log('User created successfully');
+      })
+   }
+ 
+});
+  */

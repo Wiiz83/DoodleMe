@@ -20,18 +20,19 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="container">
+    <div class="container" ng-controller="RegisterCtrl"> 
         <div class="login-box">
             <div class="logo">
                 <img src="/images/logo.png" alt="DoodleMe logo">
                 <h2>Vos rendez vous sans prise de tête.</h2>
             </div>
+          <!--<form ng-submit="createUser()">-->
           <form ng-submit="createUser()">
               <fieldset class="login-data">
-                   <input type="text" name="username" autocomplete="off" ng-model="users.firstName" placeholder="Prénom" required>
-                   <input type="text" name="username" autocomplete="off" ng-model="users.lastName" placeholder="Nom" required>
-                  <input type="text" name="username" autocomplete="off" ng-model="users.pseudo" placeholder="Pseudo" required>
-                  <input type="password" name="password" autocomplete="off" ng-model="users.password" placeholder="Mot de passe" required>
+                   <input type="text" name="username" autocomplete="off" ng-model="firstName" placeholder="Prénom" required>
+                   <input type="text" name="username" autocomplete="off" ng-model="lastName" placeholder="Nom" required>
+                  <input type="text" name="username" autocomplete="off" ng-model="pseudo" placeholder="Pseudo" required>
+                  <input type="password" name="password" autocomplete="off" ng-model="password" placeholder="Mot de passe" required>
 
                   <div ng-if="status === 'error'">
                     <p class="erreur">   </p>
@@ -40,6 +41,7 @@
 
               <fieldset class="login-action">
                   <input class="btn-login" style="cursor:pointer" type="submit" name="submit" value="S'inscrire">
+                 <!--<input ng-click="submit()" class="btn-login" style="cursor:pointer" type="submit" name="submit" value="S'inscrire">
               </fieldset>
           </form>
       </div>
@@ -61,6 +63,7 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/register.js"></script>
+    <script src="scripts/services/userservice.js"></script>
     <!-- endbuild -->
 
 </body>
