@@ -20,45 +20,31 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="logo">
-          <img src="../view/assets/images/logo.png" alt="MyPromus logo">
-          <br/>
-          <h2>Make Your Event Possible.</h2>
-      </div>
-    </div>
-
     <div class="container">
         <div class="login-box">
-        <form>
-            <fieldset class="login-data">
-                <input type="text" name="username" autocomplete="off" placeholder="Username" required>
-                <input type="password" name="password" autocomplete="off" placeholder="Password" required>
-                <p style="text-align:center; color:red;">
-                    <?php if(isset($errorlogin)){echo "$output_error";} ?>
-                </p>
-            </fieldset>
+            <div class="logo">
+                <img src="/images/logo.png" alt="DoodleMe logo">
+                <h2>Vos rendez vous sans prise de tête.</h2>
+            </div>
+          <form>
+              <fieldset class="login-data">
+                  <input type="text" name="username" autocomplete="off" placeholder="Pseudo" required>
+                  <input type="password" name="password" autocomplete="off" placeholder="Mot de passe" required>
+                  <p style="text-align:center; color:red;">
+                      <?php if(isset($errorlogin)){echo "$output_error";} ?>
+                  </p>
+              </fieldset>
 
-            <fieldset class="login-action">
-                <input class="btn-login" style="cursor:pointer" type="submit" name="submit" value="SIGN IN">
-                <br>
-                <small>
-                <a href="" style="font-weight: bold !important;">Create an account now !</a>
-                </small>
-            </fieldset>
-        </form>
-    </div>
-
-
-    </div>
-
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+              <fieldset class="login-action">
+                  <input class="btn-login" style="cursor:pointer" type="submit" name="submit" value="Connexion">
+                  <br> <br>
+                  <small>
+                  <a href="" class="create-account">Créer un compte maintenant !</a>
+                  </small>
+              </fieldset>
+          </form>
       </div>
     </div>
-
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
