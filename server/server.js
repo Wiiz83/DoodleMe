@@ -13,26 +13,34 @@ app.use(bodyParser.json());
 app.use(bodyParserJsonError());// détection des json mal formattés
 
 // Connexion BD MySQL
-var connection = require('express-myconnection'),
-    mysql = require('mysql');
-
-app.use(
-    connection(mysql, {
+var mysql = require('mysql');
+var connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'doodlme',
-        debug: false
-    }, 'request')
-);
+        database: 'doodlme'
+});
 
+
+app.post('/users', function(req, res){
+  var data = req.body;
+  var query = "INSERT INTO users (`firstName`, `lastName`, `pseudo`, `passHash`) VALUES ('" + data.firstName + "', '" + data.lastName + "', '" + data.pseudo + "', '" + data.password + "');";
+  var query = connection.query(query, data, function (err, result) {
+     if (err) {
+       console.error(err);
+       return res.send(err);
+     } else {
+       return res.send('Ok');
+     }
+});
+});
 
 // import controlleurs REST
-app.use('/api', require('./controllers/users.js'));
+//app.use('/api', require('./controllers/users.js'));
 //app.use('/api', require('./controllers/event.js'));
 //app.use('/api', require('./controllers/eventAnswer.js'));
 //app.use('/api', require('./controllers/eventSlot.js'));
-app.use('/api', require('./controllers/auth.js'));
+//app.use('/api', require('./controllers/auth.js'));
 
 
 // Démarage serveur

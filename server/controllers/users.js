@@ -1,4 +1,4 @@
-var express = require('express');
+/*var express = require('express');
 var router = express.Router();
 
 router.post('/users', function(req, res){
@@ -15,7 +15,7 @@ router.post('/users', function(req, res){
 });
 
 module.exports = router;
-
+*/
 /*
 var users_route = router.route('/users');
 
