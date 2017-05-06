@@ -6,7 +6,7 @@ var express = require('express'),
     bodyParserJsonError = require('express-body-parser-json-error'); 
 
 
-app.use(express.static('../client/app/views/', {index: 'index.html'}))
+app.use(express.static('../client/app/', {index: 'login.html'}))
 //app.use(express.static('../client/app/views/html/', {index: 'login.html'}))
 app.use('/bower_components',  express.static( path.join(__dirname, '../client/bower_components')));
 app.use(bodyParser.json());
