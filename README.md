@@ -1,12 +1,14 @@
-## DoodleMe
+# DoodleMe
 
 On souhaite mettre en œuvre une application web gérant les disponibilités d’un groupe de personnes pour fixer des évènements (style « doodle® »).
 
-# Lancement du projet :
 ## Premier lancement du programme :
 npm install
+
 bower install 
+
 grunt
+
 node /server/server.js
 
 ## Base de données
