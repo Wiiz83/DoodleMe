@@ -1,6 +1,21 @@
 var express = require('express');
 var router = express.Router();
 
+router.post('/users', function(req, res){
+  console.log(req.body);
+  // TODO
+  var query = conn.query("INSERT INTO users (firstName, lastName, pseudo, passHash)  VALUES (req.body.,req.body.,req.body.,req.body.)", data, function (err, result) {
+     if (err) {
+       console.error(err);
+       return res.send(err);
+     } else {
+       return res.send('Ok');
+     }
+});
+});
+
+module.exports = router;
+
 /*
 var users_route = router.route('/users');
 
@@ -21,24 +36,7 @@ users_route.get(function (req, res) {
         });
     });
 });
-*/
-router.post('/users', function(req, res){
-  console.log(req.body);
-  var query = conn.query("INSERT INTO users (firstName, lastName, pseudo, passHash)  VALUES (req.body.,req.body.,req.body.,req.body.)", data, function (err, result) {
- // var query = conn.query("INSERT INTO users (firstName, lastName, pseudo, passHash)  SET ?", cope, function (err, result) {
-     if (err) {
-       console.error(err);
-       return res.send(err);
-     } else {
-       return res.send('Ok');
-     }
-});
-});
 
-module.exports = router;
-
-
-/*
 //Add a user
 users_route.post(function (req, res) {
     var user = req.body;
