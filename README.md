@@ -13,6 +13,7 @@ node /server/server.js
 
 ## Base de données
 Executer le fichier doc-install/moodleme.sql sur PhpMyAdmin
+
 Vérifier la configuration de la connexion à cette base dans server/js
 
 ## Lancement du programme : 
@@ -23,7 +24,8 @@ https://www.sitepoint.com/kickstart-your-angularjs-development-with-yeoman-grunt
 http://vegas.univ-tlse3.fr/chamilo/main/document/showinframes.php?cidReq=LM6STI6&id_session=45&gidReq=0&origin=&id=87
 _____________________________________________________________________________________________________________
 
-Version 1
+## Objectifs :
+### Version 1 :
 
 Le système fonctionne sur la base d’évènements qui sont constitués d’une description et d’une liste de créneaux (date et heure).
 
