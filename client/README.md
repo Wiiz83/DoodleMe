@@ -1,12 +1,16 @@
-# client
+## Premier lancement du programme :
+npm install
+bower install 
+grunt
+node /server/server.js
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.16.0.
+## Base de données
+Executer le fichier doc-install/moodleme.sql sur PhpMyAdmin
+Vérifier la configuration de la connexion à cette base dans server/js
 
-## Build & development
+## Lancement du programme : 
+node /server/serveur.js
 
-Run `grunt` for building and `grunt serve` for preview.
-
-## Testing
-
-Running `grunt test` will run the unit tests with karma.
+## Sources :
+https://www.sitepoint.com/kickstart-your-angularjs-development-with-yeoman-grunt-and-bower/
+http://vegas.univ-tlse3.fr/chamilo/main/document/showinframes.php?cidReq=LM6STI6&id_session=45&gidReq=0&origin=&id=87
