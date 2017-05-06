@@ -2,14 +2,18 @@
 
 On souhaite mettre en œuvre une application web gérant les disponibilités d’un groupe de personnes pour fixer des évènements (style « doodle® »).
 
+
+# Mise en place du projet :
 ## Premier lancement du programme :
-npm install
+npm install dans le dossier serveur
 
-bower install 
+bower install dans le dossier client
 
-grunt
+grunt dans le dossier client
 
-node /server/server.js
+node server.js dans le dossier serveur
+
+Affichage du site sur l'adresse : http://localhost:3000
 
 ## Base de données
 Executer le fichier doc-install/moodleme.sql sur PhpMyAdmin
@@ -58,9 +62,7 @@ c) Gestion des authentifications
 
 d) Internationalisation de l’application (via les modules Angular idoines).
 
-_____________________________________________________________________________________________________________
-_____________________________________________________________________________________________________________
-_____________________________________________________________________________________________________________
+
 
 ## Organisation du projet et travail attendu
 
@@ -78,9 +80,7 @@ Une maquette de la solution envisagée doit être développée.
 
 Celle-ci devra donner une image fidèle de la solution réelle ensuite déployée.
 
-_____________________________________________________________________________________________________________
-_____________________________________________________________________________________________________________
-_____________________________________________________________________________________________________________
+
 
 ## Évaluation
 

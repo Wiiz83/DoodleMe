@@ -145,7 +145,6 @@ margin-left: auto;
 margin-right: auto;
 width:540px; 
 height: auto;
-vertical-align: middle;
 }
 
 .logo h2 {
@@ -155,7 +154,6 @@ margin-left: auto;
 margin-right: auto;
 width: 540px;
 font-size: 17pt;
-vertical-align: middle;
 text-align: center;
 color: #004888;
 }
