@@ -65,10 +65,10 @@ app.get('/events/', function(req, res){
 })
 
 app.post('/event/', function (req, res) {
-	if(req.body.id === 'undefined' || req.body.desc === 'undefined' || req.body.date === 'undefined'){
+	if(req.body.desc === 'undefined' || req.body.date === 'undefined'){
 		res.status(400).json({ error: 'Il manque des paramètres pour la création de l\'évènement'});
 	}else if(event.newEvent(req.body.id, req.body.desc, req.body.date)){
-		connection.query('UPDATE TABLE user SET nom='req.body.nom', prenom='req.body.prenom', pseudo='req.body.pseudo' WHERE idUser='req.body.id';');
+		connection.query('INSERT INTO Events(title, description, address, creatorID, closedSlotID) VALUES ('req.body.title', 'req.body.description', 'req.body.address', 'req.body.creatorID', 'closedSlotID');');
     	res.json(connection.query('SELECT * FROM user WHERE idUser='req.body.idUser';'));
 	}
 })

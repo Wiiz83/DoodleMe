@@ -35,7 +35,7 @@ app.get('/eventAnswer/:id', function (req, res) {
 })
 
 app.post('/eventAnswer/', function (req, res){
-    if(typeof req.body.userID === 'undefined' || typeof req.body.EventSlotID === 'undefined' || typeof req.params.isAvalaible === 'undefined'){
+    if(typeof req.body.EventSlotID === 'undefined' || typeof req.params.isAvalaible === 'undefined'){
         res.status(400).json({error: 'Réponse non enregistré'});
     }else{
         res.json(connection.query('INSERT INTO EventAnswer(userID, EventSlotID, isAvalaible) VALUES ('req.body.userID', 'req.body.EventSlotID', 'req.body.isAvalaible')'));
