@@ -1,13 +1,8 @@
 var express = require('express');
-var app = express();
+var app = express.Router();
 var server = require('http').Server(app);
 var bodyParser = require('body-parser');
-var connection = mysql.createCOnnection({
-	host: 'localhost',
-	user: 'root',
-	password: '',
-	database: 'projetWeb'
-})
+
 
 connection.connect(function(err) {
   if (err) throw err;
@@ -73,3 +68,5 @@ app.put('/eventSlot/', function (req, res) {
     	res.status(500).json({error: 'Erreur lors de la modification'});
     }
 })
+
+module.exports = router;

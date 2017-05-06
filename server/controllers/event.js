@@ -1,13 +1,8 @@
 var express = require('express');
-var app = express();
+var app = express.Router();
 var server = require('http').Server(app);
 var bodyParser = require('body-parser');
-var connection = mysql.createCOnnection({
-	host: 'localhost',
-	user: 'root',
-	password: '',
-	database: 'projetWeb'
-})
+
 
 connection.connect(function(err) {
   if (err) throw err;
@@ -47,7 +42,7 @@ var getDate = function(){
 app.get('/event/:id', function (req, res) {
 	if(typeof req.params.id === 'undefined') {
     	res.status(400).json({ error: 'Evenement non trouvé' });
-    }else if(event.listeEvents[id] != 'undefined'){
+    }else if(connection.query('SELECT * FROM events WHERE idEVent = 'req.body.idEvent';') != 'undefined'){
     	res.json(connection.query('SELECT * FROM events WHERE idEVent = 'req.body.idEvent';'));
     }else{
     	res.status(400).json({error: 'Erreur lors de la récupération de l\'évènement'});
@@ -78,10 +73,12 @@ app.put('/event/', function (req, res) {
     console.log(req.query);
     if(typeof req.params.id === 'undefined') {
     	res.status(400).json({ error: 'Evenement non trouvé' });
-    }else if(event.listeEvents[id] != 'undefined'){
+    }else if(connection.query('SELECT * FROM user WHERE idEvent='req.body.idEvent';') != 'undefined'){
     	connection.query('UPDATE TABLE events SET description='req.body.description', date='req.body.date';');
     	res.json(connection.query('SELECT * FROM user WHERE idEvent='req.body.idEvent';'));
     }else{
     	res.status(400).json({error: 'Erreur lors de la modification'});
     }
 })
+
+module.exports = router;
