@@ -31,7 +31,7 @@ CREATE TABLE EventAnswers (
 )  ENGINE=INNODB;
  
 CREATE TABLE EventSlots (
-  ID    int(11),
+  ID    int(11) AUTO_INCREMENT,
   eventID int(11),
   eventDate DATETIME NOT NULL,
   comment varchar(250),
