@@ -31,6 +31,8 @@ app.use('/api', require('./controllers/users.js'));
 app.use('/api', require('./controllers/event.js'));
 app.use('/api', require('./controllers/eventAnswer.js'));
 app.use('/api', require('./controllers/eventSlot.js'));
+app.use('/api', require('./controllers/auth.js'));
+
 
 // Démarage serveur
 var server = app.listen(3000, function () {
