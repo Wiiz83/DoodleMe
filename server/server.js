@@ -6,7 +6,8 @@ var express = require('express'),
     bodyParserJsonError = require('express-body-parser-json-error'); 
 
 
-app.use(express.static('../client/app/views/html/', {index: 'login.html'}))
+app.use(express.static('../client/app/views/', {index: 'index.html'}))
+//app.use(express.static('../client/app/views/html/', {index: 'login.html'}))
 app.use('/bower_components',  express.static( path.join(__dirname, '../client/bower_components')));
 app.use(bodyParser.json());
 app.use(bodyParserJsonError());// détection des json mal formattés
@@ -28,9 +29,9 @@ app.use(
 
 // import controlleurs REST
 app.use('/api', require('./controllers/users.js'));
-app.use('/api', require('./controllers/event.js'));
-app.use('/api', require('./controllers/eventAnswer.js'));
-app.use('/api', require('./controllers/eventSlot.js'));
+//app.use('/api', require('./controllers/event.js'));
+//app.use('/api', require('./controllers/eventAnswer.js'));
+//app.use('/api', require('./controllers/eventSlot.js'));
 app.use('/api', require('./controllers/auth.js'));
 
 

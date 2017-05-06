@@ -38,7 +38,7 @@ var getDate = function(){
 	return this.date;
 }
 
-
+/*
 app.get('/event/:id', function (req, res) {
 	if(typeof req.params.id === 'undefined') {
     	res.status(400).json({ error: 'Evenement non trouvé' });
@@ -82,3 +82,5 @@ app.put('/event/', function (req, res) {
 })
 
 module.exports = router;
+
+*/

@@ -1,3 +1,5 @@
+/*
+
 var express = require('express');
 var app = express.Router();
 var server = require('http').Server(app);
@@ -59,3 +61,5 @@ app.put('/EventAnswer/', function (req, res) {
 })
 
 module.exports = router;
+
+*/
