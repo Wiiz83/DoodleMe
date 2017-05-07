@@ -30,13 +30,13 @@ app.post('/users', function(req, res){
           res.status(400).json({ error: 'Merci de remplir tous les champs.' });
   } else {
     // vérifie que le pseudo n'existe pas déjà
-    var queryExists = 'SELECT EXISTS(SELECT * FROM users WHERE pseudo= " + data.pseudo + ") AS user_exists;';
+    var queryExists = 'SELECT * FROM users WHERE pseudo="' + data.pseudo + '";';
     console.log(queryExists);
     connection.query(queryExists, data, function (err, result) {
-      if (err) {
-        res.status(409).json({ error: "Le pseudo "+data.pseudo+" est déjà utilisé." });
-        console.error(err);
-        return res.send(err);
+      if (err)
+        return res.status(500);
+      if (result.length>0) {
+       return  res.status(409).json({ error: "Le pseudo "+data.pseudo+" est déjà utilisé." });
       } else {
         // insertion de l'utilisateur dans la base
         var query = "INSERT INTO users (`firstName`, `lastName`, `pseudo`, `passHash`) VALUES ('" + data.firstName + "', '" + data.lastName + "', '" + data.pseudo + "', '" + data.password + "');";
@@ -53,6 +53,7 @@ app.post('/users', function(req, res){
     });
   }
 });
+
 
 
 // import controlleurs REST
