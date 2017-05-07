@@ -4,8 +4,9 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "*",
+    "cookie-parser": "^1.4.3",
     "express": "*",
     "express-body-parser-json-error": "^0.1.0",
     "express-myconnection": "*"
-      }
+  }
 }
