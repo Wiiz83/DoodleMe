@@ -33,6 +33,7 @@ users_route.post(function (req, res) {
         if (data[i] == undefined) {
             return res.status(400).send({ status: "ERREUR", description: "Requete mal formattée" });
         }
+    data[3] = hash(user.password);
     req.getConnection(function (err, conn) {
         if (err)
             return res.status(500).send({ status: "ERREUR", description: "Problème de connexion à la base de données"});

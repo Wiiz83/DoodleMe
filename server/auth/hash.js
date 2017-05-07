@@ -1,9 +1,6 @@
 var crypto = require('crypto');
-var salt = 'C3Dn6]vsXxakJ/=+';
 
-var hashPassword = function(pass){
-    return crypto.pbkdf2Sync(pass, this.salt, 1000, 64).toString('hex');
-}
-
-
-module.exports = hashPassword ;
+module.exports = function(pass){
+    var salt = 'C3Dn6]vsXxakJ/=+';
+    return crypto.pbkdf2Sync(pass, salt,  100000, 32, 'sha1').toString('hex');
+} ;

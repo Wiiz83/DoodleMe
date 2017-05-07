@@ -1,5 +1,3 @@
-var getAuthToken = function (userID, userPassHash){
-    return userID+userPassHash;
+module.exports =  function (user){
+    return user.ID  + user.passHash;
 }
-
-module.exports = getAuthToken ;
