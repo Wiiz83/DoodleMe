@@ -20,7 +20,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="container">
+    <div class="container" ng-controller="LoginCtrl">
         <div class="login-box">
             <div class="logo">
                 <img src="/images/logo.png" alt="DoodleMe logo">
@@ -28,13 +28,14 @@
             </div>
           <form ng-submit="connectUser()">
               <fieldset class="login-data">
-                  <input type="text" name="username" autocomplete="off" placeholder="Pseudo" required>
-                  <input type="password" name="password" autocomplete="off" placeholder="Mot de passe" required>
+                  <input type="text" name="username" ng-model="pseudo" autocomplete="off" placeholder="Pseudo" required>
+                  <input type="password" name="password" ng-model="password" autocomplete="off" placeholder="Mot de passe" required>
+
                   <div ng-if="status === 'error'">
-                    <p class="erreur">   </p>
+                    <p class="erreur">Resultat : {{resultat | json}}</p>
                   </div>
                   <div ng-if="status === 'succes'">
-                    <p class="succes">Utilisateur créé avec succès.</p>
+                    <p class="succes">Resultat : {{resultat | json}}</p>
                   </div>
               </fieldset>
 
@@ -64,7 +65,8 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/register.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/services/userlogin.js"></script>
     <!-- endbuild -->
 
 </body>
