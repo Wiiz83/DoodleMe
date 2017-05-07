@@ -57,7 +57,7 @@ users_route.post(function (req, res) {
                                     return res.status(500).send({ status: "ERREUR", description: err.message });
                                 }
                                 else
-                                    return res.send({ status: "SUCCES"});
+                                    return res.redirect("/login.html");
                             });
                     }
             });
