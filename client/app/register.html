@@ -33,9 +33,14 @@
                   <input type="text" name="username" autocomplete="off" ng-model="pseudo" placeholder="Pseudo" required>
                   <input type="password" name="password" autocomplete="off" ng-model="password" placeholder="Mot de passe" required>
 
-                  <div class="alert alert-danger">
+                <!--  <div class="alert alert-danger">
                     <p class="erreur">{{resultat | json}}</p>
-                  </div>
+                  </div>-->
+
+                  	<div ng-if="status === 'error'" class="alert alert-danger">
+                       {{resultat}}
+                    </div>
+
               </fieldset>
 
               <fieldset class="login-action">
