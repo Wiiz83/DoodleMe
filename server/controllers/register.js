@@ -31,18 +31,18 @@ users_route.post(function (req, res) {
     var data = [user.firstName, user.lastName, user.pseudo, user.password];
     for (var i = 0; i < data.length; i++)
         if (data[i] == undefined) {
-            return res.status(400).send({ "status": "ERREUR", "description": "Requete mal formattée" });;
+            return res.status(400).send({ status: "ERREUR", description: "Requete mal formattée" });
         }
     req.getConnection(function (err, conn) {
         if (err)
-            return res.status(500).send({ "status": "ERREUR", "description": "Problème de connexion à la base de données"});;
+            return res.status(500).send({ status: "ERREUR", description: "Problème de connexion à la base de données"});
         // insertion
         var query = conn.query("SELECT * FROM users WHERE pseudo=?",
             user.pseudo, function (err, result) {
                 if (err) {
                     console.log(query.sql);
                     console.log(err);
-                    return res.status(500).send({ "status": "ERREUR", "description": err });;
+                    return res.status(500).send({ status: "ERREUR", description: err });
                 }
                 else
                     if (result.length > 0)
@@ -53,10 +53,10 @@ users_route.post(function (req, res) {
                                 if (err) {
                                     console.log(query.sql);
                                     console.log(err);
-                                    return res.status(500).send({ "status": "ERREUR", "description": err.message });;
+                                    return res.status(500).send({ status: "ERREUR", description: err.message });
                                 }
                                 else
-                                    return res.send({ "status": "SUCCES"});
+                                    return res.send({ status: "SUCCES"});
                             });
                     }
             });

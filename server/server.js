@@ -31,7 +31,7 @@ app.use('/api', require('./controllers/register.js'));
 //app.use('/api', require('./controllers/event.js'));
 //app.use('/api', require('./controllers/eventAnswer.js'));
 //app.use('/api', require('./controllers/eventSlot.js'));
- //app.use('/api', require('./controllers/login.js'));
+ app.use('/api', require('./controllers/login.js'));
 
 
 // Démarage serveur
