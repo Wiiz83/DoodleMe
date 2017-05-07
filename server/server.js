@@ -21,19 +21,39 @@ var connection = mysql.createConnection({
         database: 'doodlme'
 });
 
-
+// Ajout d'un nouvel utilisateur
 app.post('/users', function(req, res){
   var data = req.body;
-  var query = "INSERT INTO users (`firstName`, `lastName`, `pseudo`, `passHash`) VALUES ('" + data.firstName + "', '" + data.lastName + "', '" + data.pseudo + "', '" + data.password + "');";
-  var query = connection.query(query, data, function (err, result) {
-     if (err) {
-       console.error(err);
-       return res.send(err);
-     } else {
-       return res.send('Ok');
-     }
+  console.log(data);
+  // check si informations sont toutes remplis 
+   if(typeof data.firstName === 'undefined' || typeof data.lastName === 'undefined' || typeof data.pseudo === 'undefined' || typeof data.password === 'undefined') {
+          res.status(400).json({ error: 'Merci de remplir tous les champs.' });
+  } else {
+    // vérifie que le pseudo n'existe pas déjà
+    var queryExists = 'SELECT EXISTS(SELECT * FROM users WHERE pseudo= " + data.pseudo + ") AS user_exists;';
+    console.log(queryExists);
+    connection.query(queryExists, data, function (err, result) {
+      if (err) {
+        res.status(409).json({ error: "Le pseudo "+data.pseudo+" est déjà utilisé." });
+        console.error(err);
+        return res.send(err);
+      } else {
+        // insertion de l'utilisateur dans la base
+        var query = "INSERT INTO users (`firstName`, `lastName`, `pseudo`, `passHash`) VALUES ('" + data.firstName + "', '" + data.lastName + "', '" + data.pseudo + "', '" + data.password + "');";
+        console.log(query);
+        connection.query(query, data, function (err, result) {
+          if (err) {
+            console.error(err);
+            return res.send(err);
+          } else {
+            return res.send('Ok');
+          }
+        });
+      }
+    });
+  }
 });
-});
+
 
 // import controlleurs REST
 //app.use('/api', require('./controllers/users.js'));

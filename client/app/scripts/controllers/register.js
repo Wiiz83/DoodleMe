@@ -4,9 +4,7 @@
  .controller('RegisterCtrl', function ($scope, userService) {
 
  	$scope.createUser = function(){
-     if(){
 
-     }
         var objToSave = new userService();
         objToSave.firstName = $scope.firstName;
         objToSave.lastName = $scope.lastName;
