@@ -46,7 +46,7 @@ app.post('/api/register', function(req, res){
             console.error(err);
             return res.send(err);
           } else {
-            return res.send('Ok');
+            return res.redirect('/login.html');
           }
         });
       }

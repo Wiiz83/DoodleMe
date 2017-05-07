@@ -9,7 +9,7 @@ function hashPassword(pass){
     return pass;
 }
 
-var auth_route = router.route('/auth');
+var auth_route = router.route('/login');
  //Add a user
 auth_route.post(function (req, res) {
     var user = req.body;
