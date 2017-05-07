@@ -6,11 +6,16 @@ On souhaite mettre en œuvre une application web gérant les disponibilités d�
 # Mise en place du projet :
 ## Premier lancement du programme :
 Dossier client :
+
 npm install
+
 bower install
 
+
 Dossier serveur:
+
 npm install
+
 node server.js
 
 Affichage du site sur l'adresse : http://localhost:3000
