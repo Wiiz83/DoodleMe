@@ -1,0 +1,14 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+      "files.exclude": {
+    "**/node_modules/": true,
+    "**/bower_components/": true,
+    "**/gulp/": true,
+    "**/test/": true,
+    "**/.gitignore": false,
+    "**/README.md": true,
+    ".vscode": true,
+    "**/package.json": true
+  }
+
+}

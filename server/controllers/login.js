@@ -1,13 +1,6 @@
 var express = require('express');
+var hash  = require('../auth/hash.js');
 var router = express.Router();
-
-function getAuthToken (userID, userPassHash){
-    return userID+userPassHash; //TODO
-}
-
-function hashPassword(pass){
-    return pass;
-}
 
 var auth_route = router.route('/login');
  //Add a user
@@ -18,7 +11,7 @@ auth_route.post(function (req, res) {
         if (data[i] == undefined) {
             return res.sendStatus(400);
         }
-    data[1] = hashPassword(user.password);
+    data[1] = auth.hashPassword(user.password);
      req.getConnection(function (err, conn) {
         if (err) return res.sendStatus(500).json(err);
         var query = conn.query("SELECT * FROM USERS WHERE pseudo=? AND passHash=?",
