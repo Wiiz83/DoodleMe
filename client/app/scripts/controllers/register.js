@@ -11,10 +11,13 @@
     objToSave.pseudo = $scope.pseudo;
     objToSave.password = $scope.password;
 
-    objToSave.$save(function(savedObj) {
-      $scope.resultat = savedObj;
-    }, function(error) {
-      $scope.resultat = error.data.error;
+    objToSave.$save(function(data) {
+      var status = data.status;
+      console.log(status);
+    }, function(response) {
+      console.log("Statut" + response.data.status);
+      console.log("Description" + response.data.description);
+      $scope.resultat = response.data.description;
     });
 };
 });
