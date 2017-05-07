@@ -56,8 +56,10 @@ users_route.post(function (req, res) {
                                     console.log(err);
                                     return res.status(500).send({ status: "Erreur", description: err.message });
                                 }
-                                else
+                                else{
+                                    res.cookie("pseudo", user.pseudo);
                                     return res.send({ status: "Succès"}); 
+                                    }
                             });
                     }
             });
