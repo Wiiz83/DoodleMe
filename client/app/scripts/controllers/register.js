@@ -1,7 +1,7 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('RegisterCtrl', function ($scope, userRegister) {
+ .controller('RegisterCtrl', function ($scope, userRegister, $window) {
 
  	$scope.createUser = function(){
 
@@ -11,13 +11,10 @@
     objToSave.pseudo = $scope.pseudo;
     objToSave.password = $scope.password;
 
-    objToSave.$save(function(data) {
-      var status = data.status;
-      console.log(status);
+    objToSave.$save(function(response) {
+      $window.location.href = '/login.html?ready';
     }, function(response) {
-      console.log("Statut" + response.data.status);
-      console.log("Description" + response.data.description);
-      $scope.resultat = response.data.description;
+      $scope.errorMessage = response.data.description;
     });
 };
 });
