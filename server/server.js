@@ -22,7 +22,7 @@ var connection = mysql.createConnection({
 });
 
 // Ajout d'un nouvel utilisateur
-app.post('/users', function(req, res){
+app.post('/api/register', function(req, res){
   var data = req.body;
   console.log(data);
   // check si informations sont toutes remplis 
