@@ -31,10 +31,10 @@
                   <input type="text" name="username" ng-model="pseudo" autocomplete="off" placeholder="Pseudo" required>
                   <input type="password" name="password" ng-model="password" autocomplete="off" placeholder="Mot de passe" required>
 
-                  <div ng-if="status === 'error'">
+                  <div ng-if="status === 'error'" class="alert alert-danger">
                     <p class="erreur">Resultat : {{resultat | json}}</p>
                   </div>
-                  <div ng-if="status === 'succes'">
+                  <div ng-if="status === 'succes'" class="alert alert-success">
                     <p class="succes">Resultat : {{resultat | json}}</p>
                   </div>
               </fieldset>
