@@ -1,0 +1,20 @@
+<div class="container" ng-controller="RegisterCtrl">
+    <div class="login-box">
+        <div class="logo">
+             <a ng-click="changeView('')" class="create-account"><img src="/images/logo.png" alt="DoodleMe logo"></a>
+            <h2>Vos rendez vous sans prise de tête.</h2>
+        </div>
+        <form ng-submit="createUser()">
+            <fieldset class="login-data">
+                <input type="text" name="username" autocomplete="off" ng-model="firstName" placeholder="Prénom" required>
+                <input type="text" name="username" autocomplete="off" ng-model="lastName" placeholder="Nom" required>
+                <input type="text" name="username" autocomplete="off" ng-model="pseudo" placeholder="Pseudo" required>
+                <input type="password" name="password" autocomplete="off" ng-model="password" placeholder="Mot de passe" required>
+                <div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
+            </fieldset>
+            <fieldset class="login-action">
+                <input class="btn-login" style="cursor:pointer" type="submit" name="submit" value="S'inscrire">
+            </fieldset>
+        </form>
+    </div>
+</div>

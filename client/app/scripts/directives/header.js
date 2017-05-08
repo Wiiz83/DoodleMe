@@ -3,7 +3,7 @@
  angular.module('clientApp')
  .directive('navBar', function () {
  	return {
- 		templateUrl: 'views/directives/nav.html',
+ 		templateUrl: 'views/directives/header.html',
  		restrict: 'E',
  		controller: function($scope, $location) {
  			$scope.isActive = function (viewLocation) { 

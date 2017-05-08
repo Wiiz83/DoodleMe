@@ -10,7 +10,7 @@ var express = require('express'),
     bodyParserJsonError = require('express-body-parser-json-error');
 var token_calc = require('./auth/token.js');
 
-app.use(express.static('../client/app/', { index: 'login.html' }))
+app.use(express.static(__dirname + '/../client/app'));
 //app.use(express.static('../client/app/views/html/', {index: 'login.html'}))
 app.use('/bower_components', express.static(path.join(__dirname, '../client/bower_components')));
 app.use(bodyParser.json());

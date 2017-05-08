@@ -1,13 +1,18 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('LoginCtrl', function ($scope, $window, $location, userLogin) {
+ .controller('LoginCtrl', function ($scope, $window, $rootScope, $location, $routeParams, userLogin) {;
 
-  var readyToLogin = $location.search();
-
-  if (readyToLogin !== undefined){
+ // var readyToLogin = $location.search();
+  var readyToLogin = $routeParams.ready;
+  if (readyToLogin === "yes"){
      $scope.successMessage = "Inscription réussi, vous pouvez vous connecter.";
   } 
+
+  $scope.changeView = function(view){
+      $location.path(view); 
+  }
+
 
  	$scope.connectUser = function(){
         var objToSave = new userLogin();
@@ -15,7 +20,7 @@
         objToSave.password = $scope.password;
 
         objToSave.$save(function(response) {
-          $window.location.href = '/accueil.html';
+           $location.path('accueil');
         }, function(response) {
           $scope.errorMessage = response.data.description;
         });

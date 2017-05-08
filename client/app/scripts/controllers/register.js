@@ -1,7 +1,11 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('RegisterCtrl', function ($scope, userRegister, $window) {
+ .controller('RegisterCtrl', function ($scope, userRegister, $rootScope, $location, $window) {
+
+  $scope.changeView = function(view){
+      $location.path(view); 
+  }
 
  	$scope.createUser = function(){
 
@@ -12,7 +16,8 @@
     objToSave.password = $scope.password;
 
     objToSave.$save(function(response) {
-      $window.location.href = '/login.html?ready';
+     // $window.location.href = '/login.html?ready';
+       $location.path('').search({ready: 'yes'});
     }, function(response) {
       $scope.errorMessage = response.data.description;
     });
