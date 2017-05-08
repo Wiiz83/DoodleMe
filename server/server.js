@@ -1,3 +1,6 @@
+// ignorer la sécurité (dev)
+var unsecure = true;
+
 // Chargement de Express.js
 var express = require('express'),
     path = require('path'),
@@ -30,9 +33,7 @@ app.use(
 
 // interception de toutes les requetes
 app.use('/api', function (req, res, next) {
-    //console.log(req.method, req.url);
-    //console.log('Cookies: ', req.cookies);
-    if (req.url === '/login' || req.url === '/register')
+    if (req.url === '/login' || req.url === '/register' || unsecure)
         return next();
     else {
         if (req.cookies.id != undefined && req.cookies.pseudo != undefined && req.cookies.token != undefined) {
@@ -49,12 +50,12 @@ app.use('/api', function (req, res, next) {
         }
 
     }
-
 });
 
 // import controlleurs REST
 app.use('/api', require('./controllers/register.js'));
-//app.use('/api', require('./controllers/event.js'));
+app.use('/api', require('./controllers/event.js'));
+
 //app.use('/api', require('./controllers/eventAnswer.js'));
 //app.use('/api', require('./controllers/eventSlot.js'));
 app.use('/api', require('./controllers/login.js'));
