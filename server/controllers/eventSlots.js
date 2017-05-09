@@ -30,7 +30,7 @@ var getEventDate = function(){
 router.post('/eventSlot/', function (req, res){
 	if(typeof req.body.eventID === 'undefined' || typeof req.body.eventDate === 'undefined' || typeof req.body.comment === 'undefined'){
 		res.status(500).send({ status: "Erreur", description: "EventSlot non trouvé" });
-	}else if(user.listeUsers[req.body.id] != 'undefined'){
+	}else if(conn.query('SELECT * FROM EventSlots WHERE ID = ?', req.params.ID).length == 1){
 		res.status(400).send({ status: "Erreur", description: "EventSlot déjà existant" });
 	}else{
 		var query = conn.query('INSERT INTO EventSlots(ID, eventID, eventDate, comment) VALUES (?, ?, ?, ?);', req.body.ID, req.params.eventID, req.body.eventDate, req.body.comment,function (err, rows) {
