@@ -16,7 +16,7 @@ USE   doodlme;
 
 CREATE TABLE Events (
 	ID int(11) AUTO_INCREMENT,
-	title varchar(40) NOT NULL,
+	title varchar(40),
 	description varchar(250),
 	address varchar(250),
 	creatorID int(11) NOT NULL,
