@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var event_route = router.route('/event');
+//var event_route = router.route('/events/');
 
 function events(id, desc, date) {
 	this.desc = desc;
@@ -32,8 +32,7 @@ var getDate = function () {
 	return this.date;
 }
 
-
-event_route.get('/events/:id', function (req, res) {
+router.get('/events/:id', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
@@ -52,7 +51,7 @@ event_route.get('/events/:id', function (req, res) {
 
 
 
-event_route.get('/events/', function (req, res) {
+router.get('/events/', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
@@ -69,7 +68,7 @@ event_route.get('/events/', function (req, res) {
 	});
 });
 
-event_route.post('/events/', function (req, res) {
+router.post('/events/', function (req, res) {
 	if (req.body.desc === 'undefined' || req.body.date === 'undefined') {
 		res.status(400).json({ error: 'Il manque des paramètres pour la création de l\'évènement' });
 	} else if (event.newEvent(req.body.id, req.body.desc, req.body.date)) {
@@ -80,7 +79,7 @@ event_route.post('/events/', function (req, res) {
 	}
 })
 
-event_route.put('/events/', function (req, res) {
+router.put('/events/', function (req, res) {
 	res.setHeader('Content-Type', 'text/html');
 	console.log(req.query);
 	if (typeof req.params.id === 'undefined') {
