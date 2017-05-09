@@ -18,25 +18,48 @@ var changeAnswer = function(newAnswer){
 
 router.get('/eventAnswer/:id', function (req, res) {
     if(typeof req.params.userID === 'undefined' || typeof req.params.EventSlotID === 'undefined' || typeof req.params.isAvalaible === 'undefined') {
-        res.status(400).json({ error: 'Réponse non trouvé' });
-    }else if(connection.query('SELECT * FROM EventAnswer WHERE userID = '+req.body.userID+' AND EventSlotID='+req.body.EventSlotID+';') != 'undefined'){
-        res.json(connection.query('SELECT * FROM EventAnswer WHERE userID = '+req.body.userID+' AND EventSlotID='+req.body.EventSlotID+';'));
+        res.status(404).send({ status: "Erreur", description: "Réponse non trouvé" });
     }else{
-        res.status(400).json({error: 'Erreur lors de la récupération de l\'évènement'});
+        var query = conn.query('SELECT * FROM EventAnswers WHERE userID = ? AND EventSlotID = ?;', req.params.userID, req.params.EventSlotID, function (err, rows) {
+			if (err) {
+				console.log(err);
+				res.sendStatus(500);
+			}
+			else{
+                if(rows.length == 0){
+                    res.status(404).send({ status: "Erreur", description: "Aucune réponse" });
+                }
+				res.json(rows);
+            }
+		});
     }
 })
 
 router.post('/eventAnswer/', function (req, res){
-    if(typeof req.body.EventSlotID === 'undefined' || typeof req.params.isAvalaible === 'undefined'){
-        res.status(400).json({error: 'Réponse non enregistré'});
+    if(typeof req.body.EventSlotID === 'undefined' || typeof req.body.isAvalaible === 'undefined'){
+        res.status(400).send({ status: "Erreur", description: "Réponse non  enregistrée" });
     }else{
-        res.json(connection.query('INSERT INTO EventAnswer(userID, EventSlotID, isAvalaible) VALUES ('+req.body.userID+', '+req.body.EventSlotID+', '+req.body.isAvalaible+')'));
+        var query = conn.query('INSERT INTO EventAnswers(userID, EventSlotID, isAvailable) VALUES (?, ?, ?);', req.body.userID, req.body.EventSlotID, function (err, rows) {
+			if (err) {
+				console.log(err);
+				res.sendStatus(500);
+			}
+			else
+				res.send({ status: "Success", description: "Modification éffectuée" });
+		});
     }
 })
 
 router.get('/EventAnswers/', function(req, res){
 	if(typeof req.params.userID != 'undefined' && typeof req.params.EventSlotID != 'undefined'){
-		res.json(connection.query('SELECT * FROM EventAnswer'));
+		var query = conn.query('SELECT * FROM EventAnswers', function (err, rows) {
+			if (err) {
+				console.log(err);
+				res.sendStatus(500);
+			}
+			else
+				res.json(rows);
+		});
 	}else{
 		res.status(400).json({error: 'Aucune réponse !'});
 	}
@@ -47,9 +70,16 @@ router.put('/EventAnswer/', function (req, res) {
     console.log(req.query);
     if(typeof req.params.id === 'undefined') {
     	res.status(400).json({ error: 'Evenement non trouvé' });
-    }else if(connection.query('SELECT * FROM user WHERE userID='+req.body.userID+' AND ;') != 'undefined'){
-    	connection.query('UPDATE TABLE EventAnswer SET userID='+req.body.userID+', EventSlotID='+req.body.EventSlotID+', comment='+req.body.comment+';');
-    	res.json(connection.query('SELECT * FROM user WHERE userID='+req.body.userID+' AND ;'));
+    }else if(connection.query('SELECT * FROM user WHERE userID= ? AND EventSlotID = ?;', req.body.userID, req.body.EventSlotID).length != 0){
+    	 var query = conn.query('UPDATE TABLE EventAnswers SET userID = ?, EventSlotID = ?, isAvailable = ? WHERE userID = ? AND EventSlotID = ?',
+             req.params.userID, req.params.EventSlotID, req.paramsisAvailable, req.paramsuserID, req.paramsEventSlotID, function (err, rows) {
+			if (err) {
+				console.log(err);
+				res.sendStatus(500);
+			}
+			else
+				res.send({ status: "Success", description: "Modification éffectuée" });
+		});
     }else{
     	res.status(400).json({error: 'Erreur lors de la modification'});
     }
