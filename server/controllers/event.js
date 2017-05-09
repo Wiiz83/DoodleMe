@@ -16,12 +16,16 @@ router.get('/events/:id', function (req, res) {
 				console.log(err);
 				res.sendStatus(500);
 			}
-			else
-				res.json(rows);
+			else {
+				if (rows.length == 0)
+					return res.status(404).send({ status: "Erreur", description: "Evenement non trouvé." });
+				else
+					return res.json(rows);
+			}
+
 		});
 	});
 });
-
 
 
 router.get('/events/', function (req, res) {
@@ -42,22 +46,30 @@ router.get('/events/', function (req, res) {
 });
 
 router.post('/events/', function (req, res) {
-	if (req.body.desc === 'undefined' || req.body.date === 'undefined') {
-		res.status(400).send({ status: "Erreur", description: "Requête de création (event) mal formée" });
-	} else if (event.newEvent(req.body.id, req.body.desc, req.body.date)) {
-		req.getConnection(function (err, conn) {
-			conn.query('INSERT INTO Events(title, description, address, creatorID, closedSlotID) VALUES (?, ?, ?, ?, ?);', req.params.title,
-				req.params.description, req.params.address, req.params.creatorID, req.params.closedSlotID, function(err, rows){
+	var event = req.body;
+	var data = [event.title, event.description, event.address, event.creatorID];
+	for (var i = 0; i < data.length; i++)
+		if (data[i] == undefined) {
+			return res.status(400).send({ status: "Erreur", description: "Requete mal formattée" });
+		}
+	req.getConnection(function (err, conn) {
+		if (err)
+			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
+		else {
+			var query = conn.query("INSERT INTO events (title, description, address, creatorID)  VALUES (?,?,?,?)",
+				data, function (err, result) {
 					if (err) {
+						console.log(query.sql);
 						console.log(err);
-						res.sendStatus(500);
-					}else{
-						res.json(rows);
+						return res.status(500).send({ status: "Erreur", description: err.message });
+					}
+					else {
+						return res.send({ status: "Succès" });
 					}
 				});
-		});
-	}
-})
+		}
+	});
+});
 
 router.put('/events/', function (req, res) {
 	res.setHeader('Content-Type', 'text/html');
@@ -72,7 +84,7 @@ router.put('/events/', function (req, res) {
 					if (err) {
 						console.log(err);
 						res.sendStatus(500);
-					}else{
+					} else {
 						res.json(rows);
 					}
 				});
