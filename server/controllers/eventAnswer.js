@@ -1,9 +1,5 @@
 var express = require('express');
-var app = express.Router();
-var server = require('http').Server(app);
-var bodyParser = require('body-parser');
-
-var eventAnswer_route = router.route('/eventAnswer');
+var router = express.Router();
 
 connection.connect(function(err) {
   if (err) throw err;
@@ -20,7 +16,7 @@ var changeAnswer = function(newAnswer){
 	this.eventAnswer = newAnswer;
 }
 
-eventAnswer_route.get('/eventAnswer/:id', function (req, res) {
+router.get('/eventAnswer/:id', function (req, res) {
     if(typeof req.params.userID === 'undefined' || typeof req.params.EventSlotID === 'undefined' || typeof req.params.isAvalaible === 'undefined') {
         res.status(400).json({ error: 'Réponse non trouvé' });
     }else if(connection.query('SELECT * FROM EventAnswer WHERE userID = '+req.body.userID+' AND EventSlotID='+req.body.EventSlotID+';') != 'undefined'){
@@ -30,7 +26,7 @@ eventAnswer_route.get('/eventAnswer/:id', function (req, res) {
     }
 })
 
-eventAnswer_route.post('/eventAnswer/', function (req, res){
+router.post('/eventAnswer/', function (req, res){
     if(typeof req.body.EventSlotID === 'undefined' || typeof req.params.isAvalaible === 'undefined'){
         res.status(400).json({error: 'Réponse non enregistré'});
     }else{
@@ -38,7 +34,7 @@ eventAnswer_route.post('/eventAnswer/', function (req, res){
     }
 })
 
-eventAnswer_route.get('/EventAnswers/', function(req, res){
+router.get('/EventAnswers/', function(req, res){
 	if(typeof req.params.userID != 'undefined' && typeof req.params.EventSlotID != 'undefined'){
 		res.json(connection.query('SELECT * FROM EventAnswer'));
 	}else{
@@ -46,7 +42,7 @@ eventAnswer_route.get('/EventAnswers/', function(req, res){
 	}
 })
 
-eventAnswer_route.put('/EventAnswer/', function (req, res) {
+router.put('/EventAnswer/', function (req, res) {
 	res.setHeader('Content-Type', 'text/html');
     console.log(req.query);
     if(typeof req.params.id === 'undefined') {
