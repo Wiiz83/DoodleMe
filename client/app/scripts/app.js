@@ -28,7 +28,7 @@ angular
       .when('/creerevenement', {
         templateUrl: '/views/creerevenement.html',
         controller: 'CreerEvenementCtrl',
-        controllerAs: 'CreerEvenement'
+        controllerAs: 'CreerEvenementCtrl'
       })
       .when('/mescreations', {
         templateUrl: '/views/mescreations.html',

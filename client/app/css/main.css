@@ -262,3 +262,11 @@ Pop-up créneau
 #max-height{
   max-height:150px
 }
+
+.sans-padding{
+    padding:0 !important;
+}
+
+.right {
+    float : right !important;
+}

@@ -7,6 +7,12 @@
     eventService.getAll(function(data){
         $scope.events = data;
     });
+    
+    $scope.viewEvent = function(){
+        var objToSave = new eventService();
+		var eventId = $scope.ID;
+        $location.path('/evenement?id=' + eventId); 
+     };
 });
 
 

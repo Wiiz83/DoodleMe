@@ -30,7 +30,12 @@
 					<td>{{event.title}}</td>
 					<td>{{event.description}}</td>
 					<td>{{event.address}}</td>
-					<td align='center'><img src="/images/eye.png" alt="DoodleMe logo" height="20"></td>
+					<td align='center'>
+						<input type="hidden" ng-model="ID" value="'{{event.ID}}'">
+						<a ng-click="viewEvent()" class="create-account">
+							<img src="/images/eye.png" alt="DoodleMe logo" height="20">
+						</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>
