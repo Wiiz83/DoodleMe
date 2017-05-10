@@ -71,27 +71,36 @@ router.post('/events/', function (req, res) {
 	});
 });
 
-router.put('/events/', function (req, res) {
-	res.setHeader('Content-Type', 'text/html');
+
+ router.put('/events/:id', function (req, res) {
 	console.log(req.query);
-	if (typeof req.params.id === 'undefined') {
-		res.status(404).send({ status: "Erreur", description: "Evènement non trouvé" });
-	} else {
-		req.getConnection(function (err, conn) {
-			if (conn.query('SELECT * FROM events WHERE idEvent = ?;', req.body.ID).length != 0) {
-				conn.query('UPDATE TABLE events SET description = ?, date = ?;', req.body.description, req.body.date);
-				var query = conn.query('SELECT * FROM events', function (err, rows) {
+	var event = req.body;
+ 	var data = [event.title, event.description, event.address];
+
+	for (var i = 0; i < data.length; i++)
+		if (data[i] == undefined) {
+			return res.status(400).send({ status: "Erreur", description: "Requete mal formattée" });
+		}
+
+	req.getConnection(function (err, conn) {
+		if (err)
+			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
+		else {
+			var query = conn.query("UPDATE TABLE events SET title = ?, description = ?, address= ?; ",
+				data, function (err, result) {
 					if (err) {
+						console.log(query.sql);
 						console.log(err);
-						res.sendStatus(500);
-					} else {
-						res.json(rows);
+						return res.status(500).send({ status: "Erreur", description: err.message });
+					}
+					else {
+						return res.send({ status: "Succès" });
 					}
 				});
-			} else {
-				res.status(400).send({ status: "Erreur", description: "Erreur lors de la modification" });
-			}
-		});
-	}
-})
+		}
+	});
+});
+
+
+
 module.exports = router;

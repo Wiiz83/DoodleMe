@@ -2,11 +2,7 @@
 var express = require('express');
 var router = express.Router();
 
-var eventSlot_route = router.route('/eventSlot');
-
-connection.connect(function(err) {
-  if (err) throw err;
-});
+ 
 
 
 function eventSlots(idSlots, eventId, eventDate){
@@ -27,47 +23,39 @@ var getEventDate = function(){
 	return this.eventDate;
 }
 
-router.post('/eventSlot/', function (req, res){
-	if(typeof req.body.eventID === 'undefined' || typeof req.body.eventDate === 'undefined' || typeof req.body.comment === 'undefined'){
-		res.status(500).send({ status: "Erreur", description: "EventSlot non trouvé" });
-	}else if(conn.query('SELECT * FROM EventSlots WHERE ID = ?', req.params.ID).length == 1){
-		res.status(400).send({ status: "Erreur", description: "EventSlot déjà existant" });
-	}else{
-		var query = conn.query('INSERT INTO EventSlots(ID, eventID, eventDate, comment) VALUES (?, ?, ?, ?);', req.body.ID, req.params.eventID, req.body.eventDate, req.body.comment,function (err, rows) {
+router.get('/eventSlots/:id', function (req, res) {
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.sendStatus(500);
+		}
+		var query = conn.query('SELECT * FROM eventSlots WHERE ID=? ;', req.params.id, function (err, rows) {
 			if (err) {
 				console.log(err);
 				res.sendStatus(500);
 			}
-			else
-				res.send({ status: "Success", description: "Modification éffectuée" });
-		});
-	}
-})
-
-router.get('/eventSlot/:ID', function(req, res){
-	if(typeof req.params.ID === 'undefined') {
-    	res.status(404).send({ status: "Erreur", description: "EventSlot non trouvé" });
-    }else if(connection.query('SELECT * FROM EventSlots WHERE ID = '+req.body.ID+';') != 'undefined'){
-    	var query = conn.query('SELECT * FROM EventSlots WHERE ID = ?;', req.params.ID, function (err, rows) {
-			if (err) {
-				console.log(err);
-				res.sendStatus(500);
+			else {
+				if (rows.length == 0)
+					return res.status(404).send({ status: "Erreur", description: "Element non trouvé." });
+				else
+					return res.json(rows);
 			}
-			else{
-                if(rows.length == 0){
-                    res.status(404).send({ status: "Erreur", description: "Aucun créneau" });
-                }
-				res.json(rows);
-            }
-		});
-    }else{
-    	res.status(500).send({ status: "Erreur", description: "Erreur lors de la récupération du créneau" });
-    }
-})
 
-router.get('/eventSlots/', function(req, res){
-	if(connection.query('SELECT * FROM eventSlots') != 'undefined'){
-		var query = conn.query('SELECT * FROM EventSlots', function (err, rows) {
+		});
+	});
+});
+
+
+router.get('/eventSlots/', function (req, res) {
+	var eventID = req.query.EventID;
+	if (eventID==undefined)
+		return res.status(400).send({ status: "Erreur", description: "EventID non spécifié" });
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.sendStatus(500);
+		}
+		var query = conn.query('SELECT * FROM eventSlots WHERE eventID=?;', eventID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				res.sendStatus(500);
@@ -75,29 +63,65 @@ router.get('/eventSlots/', function(req, res){
 			else
 				res.json(rows);
 		});
-	}else{
-		res.status(404).send({ status: "Erreur", description: "Aucun EventSlot" });
-	}
-})
+	});
+});
 
-router.put('/eventSlot/:ID', function (req, res) {
-	res.setHeader('Content-Type', 'text/html');
-    console.log(req.query);
-    if(typeof req.params.ID === 'undefined') {
-    	res.status(400).send({ error: 'Créneau non trouvé' });
-    }else if(connection.query('SELECT * FROM EventSlots WHERE ID = ? AND eventID = ?', req.body.ID, req.body.eventID).length != 0){
-    	 var query = conn.query('UPDATE TABLE EventSlots SET eventID = ?, eventDate = ?, comment = ? WHERE ID = ?',
-             req.body.eventID, req.params.eventDate, req.body.comment, req.params.ID, function (err, rows) {
-			if (err) {
-				console.log(err);
-				res.sendStatus(500);
-			}
-			else
-				res.send({ status: "Success", description: "Modification éffectuée" });
-		});
-    }else{
-    	res.status(500).json({error: 'Erreur lors de la modification'});
-    }
-})
+router.post('/eventSlots/', function (req, res) {
+	var eventSlot = req.body;
+	var data = [eventSlot.eventID, eventSlot.eventDate, eventSlot.Comment];
+	for (var i = 0; i < data.length; i++)
+		if (data[i] == undefined) {
+			return res.status(400).send({ status: "Erreur", description: "Requete mal formattée" });
+		}
+	req.getConnection(function (err, conn) {
+		if (err)
+			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
+		else {
+			var query = conn.query("INSERT INTO eventSlots (eventID, eventDate, Comment)  VALUES (?,?,?)",
+				data, function (err, result) {
+					if (err) {
+						console.log(query.sql);
+						console.log(err);
+						return res.status(500).send({ status: "Erreur", description: err.message });
+					}
+					else {
+						return res.send({ status: "Succès" });
+					}
+				});
+		}
+	});
+});
+
+
+ router.put('/eventSlots/:id', function (req, res) {
+	console.log(req.query);
+	var event = req.body;
+ 	var data = [eventSlot.eventDate, eventSlot.Comment];
+
+	for (var i = 0; i < data.length; i++)
+		if (data[i] == undefined) {
+			return res.status(400).send({ status: "Erreur", description: "Requete mal formattée" });
+		}
+
+	req.getConnection(function (err, conn) {
+		if (err)
+			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
+		else {
+			var query = conn.query("UPDATE TABLE events SET eventDate = ?, Comment = ?; ",
+				data, function (err, result) {
+					if (err) {
+						console.log(query.sql);
+						console.log(err);
+						return res.status(500).send({ status: "Erreur", description: err.message });
+					}
+					else {
+						return res.send({ status: "Succès" });
+					}
+				});
+		}
+	});
+});
+
+
 
 module.exports = router;
