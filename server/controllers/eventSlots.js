@@ -40,7 +40,6 @@ router.get('/eventSlots/:id', function (req, res) {
 				else
 					return res.json(rows);
 			}
-
 		});
 	});
 });
@@ -68,7 +67,7 @@ router.get('/eventSlots/', function (req, res) {
 
 router.post('/eventSlots/', function (req, res) {
 	var eventSlot = req.body;
-	var data = [eventSlot.eventID, eventSlot.eventDate, eventSlot.Comment];
+	var data = [eventSlot.eventID, eventSlot.eventDate, eventSlot.comment];
 	for (var i = 0; i < data.length; i++)
 		if (data[i] == undefined) {
 			return res.status(400).send({ status: "Erreur", description: "Requete mal formattée" });
@@ -77,7 +76,7 @@ router.post('/eventSlots/', function (req, res) {
 		if (err)
 			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
 		else {
-			var query = conn.query("INSERT INTO eventSlots (eventID, eventDate, Comment)  VALUES (?,?,?)",
+			var query = conn.query("INSERT INTO eventSlots (eventID, eventDate, comment)  VALUES (?,?,?)",
 				data, function (err, result) {
 					if (err) {
 						console.log(query.sql);
