@@ -55,7 +55,6 @@ app.use('/api', function (req, res, next) {
 // import controlleurs REST
 app.use('/api', require('./controllers/register.js'));
 app.use('/api', require('./controllers/event.js'));
-
 app.use('/api', require('./controllers/eventAnswer.js'));
 app.use('/api', require('./controllers/eventSlots.js'));
 app.use('/api', require('./controllers/login.js'));

@@ -23,7 +23,7 @@ router.get('/eventAnswers/', function (req, res) {
 			console.log(err);
 			return res.sendStatus(500);
 		}
-		var query = conn.query('SELECT * FROM eventAnswers WHERE eventSlotID=?;', SlotID, function (err, rows) {
+		var query = conn.query('SELECT userID, isAvailable FROM eventAnswers WHERE eventSlotID=?;', SlotID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				res.sendStatus(500);
