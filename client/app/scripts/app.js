@@ -37,8 +37,8 @@ angular
       })
       .when('/evenement/:eventID', {
         templateUrl: '/views/evenement.html',
-        controller: 'EventCtrl',
-        controllerAs: 'EventCtrl'
+        controller: 'EventDetailsCtrl',
+        controllerAs: 'EventDetailsCtrl'
     })
       .when('/mesparticipations', {
         templateUrl: '/views/mesparticipations.html',

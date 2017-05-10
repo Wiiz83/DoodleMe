@@ -1,7 +1,7 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('LoginCtrl', function ($scope, $window, $rootScope, $location, $routeParams, userLogin) {;
+ .controller('LoginCtrl', function ($scope, $window, $rootScope, $location, $routeParams, FactoryLogin) {
 
  // var readyToLogin = $location.search();
   var readyToLogin = $routeParams.ready;
@@ -15,7 +15,7 @@
 
 
  	$scope.connectUser = function(){
-        var objToSave = new userLogin();
+        var objToSave = new FactoryLogin();
         objToSave.pseudo = $scope.pseudo;
         objToSave.password = $scope.password;
 

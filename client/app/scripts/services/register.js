@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('clientApp')
-.factory('userRegister', function ($resource) {
+.factory('FactoryRegister', function ($resource) {
     return $resource('http://localhost:3000/api/register');
 });

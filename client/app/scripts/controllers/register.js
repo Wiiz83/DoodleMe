@@ -1,7 +1,7 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('RegisterCtrl', function ($scope, userRegister, $rootScope, $location, $window) {
+ .controller('RegisterCtrl', function ($scope, FactoryRegister, $rootScope, $location, $window) {
 
   $scope.changeView = function(view){
       $location.path(view); 
@@ -9,7 +9,7 @@
 
  	$scope.createUser = function(){
 
-    var objToSave = new userRegister();
+    var objToSave = new FactoryRegister();
     objToSave.firstName = $scope.firstName;
     objToSave.lastName = $scope.lastName;
     objToSave.pseudo = $scope.pseudo;

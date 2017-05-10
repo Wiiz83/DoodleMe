@@ -1,10 +1,10 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('AccueilCtrl', function ($scope, $window, $rootScope, $location, $routeParams, eventService) {
+ .controller('AccueilCtrl', function ($location, $scope,FactoryEvents) {
 	$scope.events = {};
 
-    eventService.getAll(function(data){
+    FactoryEvents.getAll(function(data){
         $scope.events = data;
     });
     

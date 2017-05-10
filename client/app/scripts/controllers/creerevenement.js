@@ -1,12 +1,12 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('CreerEvenementCtrl', function ($scope, $window, $rootScope, $location, $routeParams, eventService, $cookies,$cookieStore) {
+ .controller('CreerEvenementCtrl', function ($scope, $window, $rootScope, $location, $routeParams, FactoryEvents, $cookies,$cookieStore) {
   
   $scope.eventValid = 0;
 
  	$scope.createEvent = function(){
-        var objToSave = new eventService();
+        var objToSave = new FactoryEvents();
         objToSave.title = $scope.title;
         objToSave.address = $scope.address;
         objToSave.description = $scope.description;
@@ -32,7 +32,7 @@
      };
 
     $scope.createSlot = function(){
-        var objToSave = new eventService();
+        var objToSave = new FactoryEvents();
         objToSave.eventTime = $scope.eventTime;
         objToSave.eventDate = $scope.eventDate;
         objToSave.eventComment = $scope.eventComment;

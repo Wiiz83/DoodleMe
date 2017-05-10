@@ -1,7 +1,7 @@
  'use strict';
 
 angular.module('clientApp')
-.factory('eventService', function ($resource) {
+.factory('FactorySlot', function ($resource) {
 	return $resource('http://localhost:3000/api/eventSlots/', {}, {
 		create: { method: 'POST'},
         update: { method: 'PUT', params:{idSlot:'@id'} },
