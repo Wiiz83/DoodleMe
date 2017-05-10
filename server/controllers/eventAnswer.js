@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-connection.connect(function(err) {
-  if (err) throw err;
-});
+ 
 
 
 function eventAnswer(idEvent, idUser, eventAns){
@@ -15,6 +13,26 @@ function eventAnswer(idEvent, idUser, eventAns){
 var changeAnswer = function(newAnswer){
 	this.eventAnswer = newAnswer;
 }
+
+router.get('/eventAnswers/', function (req, res) {
+	var SlotID = req.query.SlotID;
+	if (SlotID==undefined)
+		return res.status(400).send({ status: "Erreur", description: "SlotID non spécifié" });
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.sendStatus(500);
+		}
+		var query = conn.query('SELECT * FROM eventAnswers WHERE eventSlotID=?;', SlotID, function (err, rows) {
+			if (err) {
+				console.log(err);
+				res.sendStatus(500);
+			}
+			else
+				res.json(rows);
+		});
+	});
+});
 
 router.post('/eventAnswers/', function (req, res) {
 	var answer = req.body;
