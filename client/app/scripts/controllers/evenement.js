@@ -1,13 +1,16 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('EventDetailsCtrl', function ($routeParams,$scope, FactoryEvents) {
+ .controller('EventDetailsCtrl', function ($routeParams,$scope, FactoryEvent) {
 
     var eventID = $routeParams.eventID;
     console.log(eventID);
 
-    FactoryEvents.get({id: eventID}, function(data) {
+    FactoryEvent.getEvent({id: eventID}, function(data) {
+        console.log("Passe");
         console.log(data);
+        console.log(data.title);
+        console.log(data.address);
     }, function(error) {
         $scope.errorMessage = response.data.description;
     });
