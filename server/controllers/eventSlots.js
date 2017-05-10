@@ -99,7 +99,7 @@ router.post('/eventSlots/', function (req, res) {
 
 	for (var i = 0; i < data.length; i++)
 		if (data[i] == undefined) {
-			return res.status(400).send({ status: "Erreur", description: "Requete mal formattée" });
+			return res.status(400).send({ status: "Erreur", description: "Requete mal formatée" });
 		}
 
 	req.getConnection(function (err, conn) {
