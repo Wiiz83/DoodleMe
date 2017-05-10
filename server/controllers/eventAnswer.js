@@ -1,22 +1,22 @@
 var express = require('express');
 var router = express.Router();
 
- 
 
 
-function eventAnswer(idEvent, idUser, eventAns){
+
+function eventAnswer(idEvent, idUser, eventAns) {
 	this.idEvent = idEvent;
 	this.idUser = idUser;
 	this.eventAns = eventAns;
 }
 
-var changeAnswer = function(newAnswer){
+var changeAnswer = function (newAnswer) {
 	this.eventAnswer = newAnswer;
 }
 
 router.get('/eventAnswers/', function (req, res) {
 	var SlotID = req.query.SlotID;
-	if (SlotID==undefined)
+	if (SlotID == undefined)
 		return res.status(400).send({ status: "Erreur", description: "SlotID non spécifié" });
 	req.getConnection(function (err, conn) {
 		if (err) {
@@ -34,18 +34,19 @@ router.get('/eventAnswers/', function (req, res) {
 	});
 });
 
-router.post('/eventAnswers/', function (req, res) {
+
+router.put('/eventAnswers/', function (req, res) {
 	var answer = req.body;
-	var data = [answer.eventSlotID, answer.userID, answer.isAvailable];
+	var data = [answer.EventSlotID, answer.userID, answer.isAvailable,answer.isAvailable];
 	for (var i = 0; i < data.length; i++)
 		if (data[i] == undefined) {
-			return res.status(400).send({ status: "Erreur", description: "Requete mal formattée" });
+			return res.status(400).send({ status: "Erreur", description: "Requete mal formattée " });
 		}
 	req.getConnection(function (err, conn) {
 		if (err)
 			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
 		else {
-			var query = conn.query("INSERT INTO eventAnswers (eventSlotID, userID, isAvailable)  VALUES (?,?,?)",
+			var query = conn.query("INSERT INTO eventAnswers (eventSlotID, userID, isAvailable)  VALUES (?,?,?) ON DUPLICATE KEY UPDATE isAvailable = ? ;",
 				data, function (err, result) {
 					if (err) {
 						console.log(query.sql);
