@@ -7,8 +7,7 @@
     console.log(eventID);
 
     FactoryEvents.get({id: eventID}, function(data) {
-
-         $scope.event = data;
+        console.log(data);
     }, function(error) {
         $scope.errorMessage = response.data.description;
     });
