@@ -20,7 +20,7 @@ router.get('/events/:id', function (req, res) {
 				if (rows.length == 0)
 					return res.status(404).send({ status: "Erreur", description: "Evenement non trouvé." });
 				else
-					return res.json(rows);
+					return res.json(rows[0]);
 			}
 
 		});
@@ -101,6 +101,26 @@ router.post('/events/', function (req, res) {
 	});
 });
 
+router.delete('/events/:id', function (req, res) {
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.sendStatus(500);
+		}
+		var query = conn.query('DELETE FROM events WHERE ID=? ;', req.params.id, function (err, rows) {
+			if (err) {
+				console.log(err);
+				res.sendStatus(500);
+			}
+			else {
+				if (rows.affectedRows == 0)
+					return res.status(404).send({ status: "Erreur", description: "Evenement à supprimer non trouvé." });
+				else
+					return res.send({ status: "Succès"});
+			}
 
+		});
+	});
+});
 
 module.exports = router;

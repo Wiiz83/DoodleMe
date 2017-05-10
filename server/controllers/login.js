@@ -31,7 +31,7 @@ auth_route.post(function (req, res) {
                     res.cookie("firstName", user.firstName);
                     res.cookie("lastName", user.firstName);
                     res.cookie("token",getAuthToken(user));
-                    return res.send({ status: "SUCCES"});
+                    return res.send({ status: "succès"});
                 }
                 else
                     return res.status(401).send({ status: "Erreur", description: "Pseudo/mot de passe invalides" });

@@ -3,9 +3,8 @@ var router = express.Router();
 var hash = require('../auth/hash.js');
 
 
-var users_route = router.route('/register');
-
-users_route.post(function (req, res) {
+ 
+router.post('/register',function (req, res) {
     var user = req.body;
     var data = [user.firstName, user.lastName, user.pseudo, user.password];
     for (var i = 0; i < data.length; i++)
@@ -26,7 +25,7 @@ users_route.post(function (req, res) {
                 }
                 else
                     if (result.length > 0)
-                        return res.status(409).send({ "status": "Erreur", "description": "L'utilisateur existe déja" });
+                        return res.status(409).send({ status: "Erreur", description: "L'utilisateur existe déja" });
                     else {
                         var query = conn.query("INSERT INTO users (firstName, lastName, pseudo, passHash)  VALUES (?,?,?,?)",
                             data, function (err, result) {
