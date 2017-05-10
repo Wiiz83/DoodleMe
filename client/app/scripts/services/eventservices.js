@@ -10,3 +10,5 @@ angular.module('clientApp')
 		getAll: { method: 'GET', isArray: true, cancellable: true}
 	});
 });
+
+

@@ -1,5 +1,5 @@
 
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="AccueilCtrl">
 <div class="row">
 	<div class="col-md-8 col-md-offset-2" id="page-content">
 
@@ -26,15 +26,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="event in events">
+				<tr ng-repeat="event in events track by $index">
 					<td>{{event.title}}</td>
 					<td>{{event.description}}</td>
 					<td>{{event.address}}</td>
 					<td align='center'>
-						<input type="hidden" ng-model="ID" value="'{{event.ID}}'">
-						<a ng-click="viewEvent()" class="create-account">
-							<img src="/images/eye.png" alt="DoodleMe logo" height="20">
-						</a>
+						<input type="hidden" ng-model="eventID[$index]" value="{{event.ID}}"  ng-init="eventID=event.ID">
+						<input type="image" src="/images/eye.png" ng-click="viewEvent(eventID)" alt="Submit Form" height="20"/>	
 					</td>
 				</tr>
 			</tbody>

@@ -35,6 +35,11 @@ angular
         controller: 'MesCreationsCtrl',
         controllerAs: 'MesCreations'
       })
+      .when('/evenement/:eventID', {
+        templateUrl: '/views/evenement.html',
+        controller: 'EventCtrl',
+        controllerAs: 'EventCtrl'
+    })
       .when('/mesparticipations', {
         templateUrl: '/views/mesparticipations.html',
         controller: 'MesParticipationsCtrl',

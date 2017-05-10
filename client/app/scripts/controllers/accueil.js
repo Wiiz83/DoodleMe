@@ -8,10 +8,8 @@
         $scope.events = data;
     });
     
-    $scope.viewEvent = function(){
-        var objToSave = new eventService();
-		var eventId = $scope.ID;
-        $location.path('/evenement?id=' + eventId); 
+    $scope.viewEvent = function(eventID){
+        $location.path('/evenement/'+eventID);
      };
 });
 
