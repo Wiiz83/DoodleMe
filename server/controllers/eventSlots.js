@@ -106,7 +106,7 @@ router.post('/eventSlots/', function (req, res) {
 		if (err)
 			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
 		else {
-			var query = conn.query("UPDATE TABLE events SET eventDate = ?, comment = ?; ",req.body.eventDate, req.body.coment, function(err, result){
+			var query = conn.query("UPDATE TABLE eventSlots SET eventDate = ?, comment = ? WHERE ID = ?; ",req.body.eventDate, req.body.coment,req.body.ID, function(err, result){
 				data, function (err, result) {
 					if (err) {
 						console.log(query.sql);
