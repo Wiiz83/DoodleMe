@@ -16,7 +16,7 @@ USE   doodlme;
 
 CREATE TABLE Events (
 	ID int(11) AUTO_INCREMENT,
-	title varchar(40),
+	title varchar(40) NOT NULL,
 	description varchar(250),
 	address varchar(250),
 	creatorID int(11) NOT NULL,
@@ -26,8 +26,8 @@ CREATE TABLE Events (
 
 CREATE TABLE EventAnswers (
 	userID int(11) NOT NULL,
-  EventSlotID int(11) NOT NULL,
-  isAvailable boolean NOT NULL,
+	EventSlotID int(11) NOT NULL,
+	isAvailable boolean NOT NULL,
 	PRIMARY KEY (userID, EventSlotID)
 )  ENGINE=INNODB;
  
