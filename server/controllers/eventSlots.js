@@ -95,7 +95,7 @@ router.post('/eventSlots/', function (req, res) {
  router.put('/eventSlots/:id', function (req, res) {
 	console.log(req.query);
 	var event = req.body;
- 	var data = [eventSlot.eventDate, eventSlot.Comment];
+ 	var data = [eventSlot.eventDate, eventSlot.comment];
 
 	for (var i = 0; i < data.length; i++)
 		if (data[i] == undefined) {
@@ -106,7 +106,7 @@ router.post('/eventSlots/', function (req, res) {
 		if (err)
 			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
 		else {
-			var query = conn.query("UPDATE TABLE events SET eventDate = ?, Comment = ?; ",
+			var query = conn.query("UPDATE TABLE events SET eventDate = ?, comment = ?; ",
 				data, function (err, result) {
 					if (err) {
 						console.log(query.sql);
