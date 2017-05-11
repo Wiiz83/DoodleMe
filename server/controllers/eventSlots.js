@@ -23,7 +23,7 @@ var getEventDate = function(){
 	return this.eventDate;
 }
 
-router.get('/eventSlots/:id', function (req, res) {
+router.get('/eventSlot/:id', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
