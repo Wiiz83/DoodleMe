@@ -1,43 +1,164 @@
+<script>
+// Get the modal
+var modalDelete = document.getElementById('myModalDelete');
+// Get the button that opens the modal
+var btnDelete = document.getElementById("btnDelete");
+// Get the <span> element that closes the modal
+var spanDelete = document.getElementsByClassName("closeDelete")[0];
+// When the user clicks the button, open the modal 
+btnDelete.onclick = function () {
+    modalDelete.style.display = "block";
+}
+// When the user clicks on <span> (x), close the modal
+spanDelete.onclick = function () {
+    modalDelete.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modalDelete) {
+        modalDelete.style.display = "none";
+    }
+}
+
+
+var myModalCloture = document.getElementById('myModalCloture');
+// Get the button that opens the modal
+var btnCloture = document.getElementById("btnCloture");
+// Get the <span> element that closes the modal
+var spanCloture = document.getElementsByClassName("closeCloture")[0];
+// When the user clicks the button, open the modal 
+btnCloture.onclick = function () {
+    myModalCloture.style.display = "block";
+}
+// When the user clicks on <span> (x), close the modal
+spanCloture.onclick = function () {
+    myModalCloture.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == myModalCloture) {
+        myModalCloture.style.display = "none";
+    }
+}
+</script>
+
 
 <div class="container-fluid">
-<div class="row">
-	<div class="col-md-8 col-md-offset-2" id="page-content">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2" id="page-content">
 
-		<nav-bar></nav-bar>
+			<nav-bar></nav-bar>
 
-		<div class="col-md-10 col-md-offset-1" id="page-content">
-		<h3>Détails de l'événement</h3>
-		<br>
-        <p>Titre : {{event.title}}</p>
-        <p>Description : {{event.description}}</p>
-        <p>Lieu : {{event.address}}</p>
+			<div class="col-md-10 col-md-offset-1" id="page-content">
+				<h3>Détails de l'événement</h3>
+				<br>
+				<p>Titre : {{event.title}}</p>
+				<p>Description : {{event.description}}</p>
+				<p>Lieu : {{event.address}}</p>
 
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>
-						Titre
-					</th>
-					<th>
-						Description
-					</th>
-					<th>
-						Lieu
-					</th>
-					<th>
-						
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="slot in slots">
-					<td>{{slot.eventDate}}</td>
-					<td>{{slot.comment}}</td>
-					<td align='center'><img src="/images/eye.png" alt="DoodleMe logo" height="20"></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+				<table class="table table-hover table-bordered fixed">
+					<col width="15%" />
+					<col width="15%" />
+					<col width="30%" />
+					<col width="20%" />
+					<col width="20%" />
+					<thead>
+						<tr>
+							<th>
+								Date
+							</th>
+							<th>
+								Heure
+							</th>
+							<th>
+								Description
+							</th>
+							<th>
+								Participants
+							</th>
+							<th>
+								Réponse
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="slot in slots">
+							<td>{{slot.eventDate}}</td>
+							<td>{{slot.eventDate}}</td>
+							<td>{{slot.comment}}</td>
+							<td style="text-align:center">5&nbsp;<i class="fa fa-smile-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;<i class="fa fa-meh-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;
+								<i class="fa fa-frown-o" aria-hidden="true"></i>
+							</td>
+							<td align='center'>
+								<div class="btn-group" data-toggle="buttons">
+									<label id="1" class="btn btn-primary">
+								<input type="radio"><i class="fa fa-smile-o" aria-hidden="true"></i>
+							</label>
+									<label id="2" class="btn btn-primary active" checked>
+								<input type="radio"><i class="fa fa-meh-o" aria-hidden="true"></i>
+							</label>
+									<label id="3" class="btn btn-primary">
+								<input type="radio"><i class="fa fa-frown-o" aria-hidden="true"></i>
+							</label>
+								</div>
+							</td>
+
+						</tr>
+					</tbody>
+
+				</table>
+
+
+
+				<div class="text-center pagination-centered ">
+					<div class="row">
+						<div ng-hide="isAdmin">
+							<div class="col-md-3">
+								<button type="button" id="btnDelete" class="btn btn-danger">Supprimer</button>
+							</div>
+							<div class="col-md-3">
+								<button type="button" id="btnCloture" class="btn btn-warning">Cloturer</button>
+							</div>
+							<div class="col-md-3">
+								<button type="button" ng-click="edit()" class="btn btn-info">Modifier</button>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<button type="button" ng-click="saveSlots()" class="btn btn-success">Enregistrer</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
+
+
+<div id="myModalDelete" class="modal login-data">
+	<!-- Modal content -->
+	<div class="modal-content">
+		<div class="modal-header">
+			<span class="close closeDelete">&times;</span>
+			<h2>Confirmation de suppression</h2>
+		</div>
+		<div class="modal-body">
+			<button type="button" class="btn btn-warning">Non</button>
+			<button type="button" ng-click="delete()" class="btn btn-warning">Oui</button>
+		</div>
+	</div>
+</div>
+
+<div id="myModalCloture" class="modal login-data">
+	<!-- Modal content -->
+	<div class="modal-content">
+		<div class="modal-header">
+			<span class="close closeCloture">&times;</span>
+			<h2>Choix du créneau pour cloturer </h2>
+		</div>
+		<div class="modal-body">
+			<select name="car" id="car">
+                <option value="" ng-repeat="slot in slots">{{slot.eventDate}}</option>
+            </select>
+		</div>
+	</div>
 </div>

@@ -37,7 +37,7 @@
         objToSave.eventDate = $scope.eventDate;
         objToSave.eventComment = $scope.eventComment;
         objToSave.creatorID = $cookieStore.get('id');
-
+        console.log("tg");
         objToSave.$create(function(response) {
             $scope.eventValid = 1;
         }, function(response) {

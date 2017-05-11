@@ -2,7 +2,7 @@
 
 angular.module('clientApp')
 .factory('FactorySlot', function ($resource) {
-	return $resource('http://localhost:3000/api/eventSlots/', {}, {
+	return $resource('http://localhost:3000/api/eventSlots/:id', {}, {
 		create: { method: 'POST'},
         update: { method: 'PUT', params:{idSlot:'@id'} },
 		get: { method: 'GET', params:{idSlot:'@id'} },
