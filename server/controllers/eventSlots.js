@@ -54,11 +54,13 @@ router.get('/eventSlots/:eventID', function (req, res) {
 			return res.sendStatus(500);
 		}
 		var query = conn.query('SELECT * FROM eventSlots WHERE eventID=?;', eventID, function (err, rows) {
+			console.log(query);
 			if (err) {
 				console.log(err);
 				res.sendStatus(500);
 			}
 			else
+				console.log(rows);
 				res.json(rows);
 		});
 	});
