@@ -124,7 +124,7 @@ router.put('/events/:id/close/:slotID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('UPDATE TABLE events SET closedSlotID = ? WHERE ID=?;  ', req.params.slotID, req.params.id, function (err, rows) {
+		var query = conn.query('UPDATE events SET closedSlotID = ? WHERE ID=?;  ', req.params.slotID, req.params.id, function (err, rows) {
 			if (err) {
 				console.log(err);
 				res.status(500).send({ status: "Erreur", description: err.message });
