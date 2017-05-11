@@ -82,7 +82,7 @@ router.put('/events/:id', function (req, res) {
 		if (err)
 			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
 		else {
-			var query = conn.query("UPDATE TABLE events SET title = ?, description = ?, address= ? WHERE ID=?; ",
+			var query = conn.query("UPDATE events SET title = ?, description = ?, address= ? WHERE ID=?; ",
 				data, function (err, result) {
 					if (err) {
 						console.log(query.sql);
