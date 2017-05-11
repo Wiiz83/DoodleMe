@@ -167,4 +167,26 @@ router.get('/events/answeredBy/:userID', function (req, res) {
 	});
 });
 
+router.put('/events/:eventID/close/:slotID', function (req, res) {
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.sendStatus(500);
+		}
+		var query = conn.query('UPDATE table events SET closedSlotID = ? WHERE ID = ?', req.params.slotID, req.params.eventID, function (err, rows) {
+			if (err) {
+				console.log(err);
+				res.sendStatus(500);
+			}
+			else {
+				if (rows.length == 0)
+					return res.status(404).send({ status: "Erreur", description: "Evenements non trouvé." });
+				else
+					return res.json({ status: "Succès"});
+			}
+
+		});
+	});
+});
+
 module.exports = router;
