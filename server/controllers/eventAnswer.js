@@ -2,18 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 
-
-
-function eventAnswer(idEvent, idUser, eventAns) {
-	this.idEvent = idEvent;
-	this.idUser = idUser;
-	this.eventAns = eventAns;
-}
-
-var changeAnswer = function (newAnswer) {
-	this.eventAnswer = newAnswer;
-}
-
 router.get('/eventAnswers/', function (req, res) {
 	var SlotID = req.query.SlotID;
 	if (SlotID == undefined)
@@ -21,12 +9,12 @@ router.get('/eventAnswers/', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
-			return res.sendStatus(500);
+		return res.status(500).send({ status: "Erreur", description: err.message });
 		}
 		var query = conn.query('SELECT userID, isAvailable FROM eventAnswers WHERE eventSlotID=?;', SlotID, function (err, rows) {
 			if (err) {
 				console.log(err);
-				res.sendStatus(500);
+				return res.status(500).send({ status: "Erreur", description: err.message });
 			}
 			else
 				res.json(rows);
