@@ -48,17 +48,18 @@ router.get('/eventSlots/', function (req, res) {
 
 router.post('/eventSlots/', function (req, res) {
 	var eventSlot = req.body;
-	var data = [eventSlot.eventID, eventSlot.eventDate, eventSlot.comment];
+	var data = [eventSlot.eventID, eventSlot.day, eventSlot.time, eventSlot.comment];
 	for (var i = 0; i < data.length; i++)
 		if (data[i] == undefined) {
 			return res.status(400).send({ status: "Erreur", description: "Requete mal formattée" });
 		}
+	slot = [eventSlot.eventID,eventSlot.day+" "+eventSlot.time+":00",eventSlot.comment]
 	req.getConnection(function (err, conn) {
 		if (err)
 			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
 		else {
 			var query = conn.query("INSERT INTO eventSlots (eventID, eventDate, comment)  VALUES (?,?,?)",
-				data, function (err, result) {
+				slot, function (err, result) {
 					if (err) {
 						console.log(query.sql);
 						console.log(err);
@@ -76,18 +77,17 @@ router.post('/eventSlots/', function (req, res) {
 router.put('/eventSlots/:id', function (req, res) {
 	console.log(req.query);
 	var eventSlot = req.body;
-	var data = [eventSlot.eventDate, eventSlot.comment, req.params.id];
-
+	var data = [eventSlot.day, eventSlot.time, eventSlot.comment];
 	for (var i = 0; i < data.length; i++)
 		if (data[i] == undefined) {
 			return res.status(400).send({ status: "Erreur", description: "Requete mal formatée" });
 		}
-
+	slot = [eventSlot.day+" "+eventSlot.time+":00",eventSlot.comment,req.params.id]
 	req.getConnection(function (err, conn) {
 		if (err)
 			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
 		else {
-			var query = conn.query('UPDATE eventSlots SET eventDate = ?, comment = ? WHERE ID = ?;', data, function (err, rows) {
+			var query = conn.query('UPDATE eventSlots SET eventDate = ?, comment = ? WHERE ID = ?;', slot, function (err, rows) {
 				console.log(query.sql);
 				if (err) {
 					console.log(err);
