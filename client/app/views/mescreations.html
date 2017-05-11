@@ -1,0 +1,122 @@
+<div class="container-fluid">
+		<div class="col-md-8 col-md-offset-2" id="page-content">
+
+		<div class="row">
+			<nav-bar></nav-bar>
+		</div>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<h3>Mes événements à venir en attente de clôture</h3>
+				<br>
+                <table class="table table-hover table-bordered fixed">
+                    <col width="15%" />
+					<col width="15%" />
+					<col width="35%" />
+					<col width="15%" />
+                    <thead>
+                        <tr>
+                            <th>
+                                Titre
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Lieu
+                            </th>
+                            <th>
+                                
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="event in events track by $index">
+                            <td>{{event.title}}</td>
+                            <td>{{event.description}}</td>
+                            <td>{{event.address}}</td>
+                            <td align='center'>
+                                <input type="hidden" ng-model="eventID[$index]" value="{{event.ID}}"  ng-init="eventID=event.ID">
+                                <input type="image" src="/images/eye.png" ng-click="viewEvent(eventID)" alt="Submit Form" height="20"/>	
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <h3>Mes événements à venir cloturés</h3>
+				<br>
+                <table class="table table-hover table-bordered fixed">
+                    <col width="15%" />
+					<col width="15%" />
+					<col width="35%" />
+					<col width="15%" />
+                    <thead>
+                        <tr>
+                            <th>
+                                Titre
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Lieu
+                            </th>
+                            <th>
+                                
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="event in events track by $index">
+                            <td>{{event.title}}</td>
+                            <td>{{event.description}}</td>
+                            <td>{{event.address}}</td>
+                            <td align='center'>
+                                <input type="hidden" ng-model="eventID[$index]" value="{{event.ID}}"  ng-init="eventID=event.ID">
+                                <input type="image" src="/images/eye.png" ng-click="viewEvent(eventID)" alt="Submit Form" height="20"/>	
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <h3>Mes événements passés</h3>
+				<br>
+                <table class="table table-hover table-bordered fixed">
+                    <col width="15%" />
+					<col width="15%" />
+					<col width="35%" />
+					<col width="15%" />
+                    <thead>
+                        <tr>
+                            <th>
+                                Titre
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Lieu
+                            </th>
+                            <th>
+                                
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="event in events track by $index">
+                            <td>{{event.title}}</td>
+                            <td>{{event.description}}</td>
+                            <td>{{event.address}}</td>
+                            <td align='center'>
+                                <input type="hidden" ng-model="eventID[$index]" value="{{event.ID}}"  ng-init="eventID=event.ID">
+                                <input type="image" src="/images/eye.png" ng-click="viewEvent(eventID)" alt="Submit Form" height="20"/>	
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+			</div>
+		</div>
+		<div class="row">
+			<div footer></div>
+		</div>
+	</div>
+</div>

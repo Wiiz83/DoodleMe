@@ -77,6 +77,21 @@ table {
     width: 100%;
 }
 
+.navbar {
+    border-radius: 0 !important;
+    border-color : transparent !important;
+}
+
+.navbar-nav, .navbar-nav li, .navbar-nav a {
+    height: 100% !important;
+    vertical-align: middle !important;
+
+}
+
+footer {
+    background-color: #f8f8f8;
+}
+
 
 /*
 ===========================================================

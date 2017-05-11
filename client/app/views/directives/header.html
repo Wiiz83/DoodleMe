@@ -1,18 +1,23 @@
-<nav class="navbar navbar-default" role="navigation">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-        </button> <a class="navbar-brand" ng-class="{ active: isActive('/accueil')}" ng-href="#!/accueil/"><img src="/images/logo.png" alt="DoodleMe logo" height="20"></a>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-            <li ng-class="{ active: isActive('/creerevenement')}"><a ng-href="#!/creerevenement/">Créer un événement</a></li>
-            <li ng-class="{ active: isActive('/mescreations')}"><a ng-href="#!/mescreations/">Mes créations</a></li>
-            <li ng-class="{ active: isActive('/mesparticipations')}"><a ng-href="#!/mesparticipations/">Mes participations</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li ng-class="{ active: isActive('/mesnotifications')}"><a ng-href="#!/mesnotifications/"><img src="/images/notification.png" alt="DoodleMe logo" height="30"></a></li>
-            <li ng-class="{ active: isActive('/moncompte')}"><a ng-href="#!/moncompte/"><img src="/images/user.png" alt="DoodleMe logo" height="30"></a></li>
-        </ul>
-    </div>
+<nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+             <a class="navbar-brand" ng-class="{ active: isActive('/accueil')}" ng-href="#!/accueil/"><img src="/images/logo.png" alt="DoodleMe logo" height="20"></a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li ng-class="{ active: isActive('/creerevenement')}"><a ng-href="#!/creerevenement/">Créer un événement</a></li>
+                <li ng-class="{ active: isActive('/mescreations')}"><a ng-href="#!/mescreations/">Mes créations</a></li>
+                <li ng-class="{ active: isActive('/mesparticipations')}"><a ng-href="#!/mesparticipations/">Mes participations</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-class="{ active: isActive('/mesnotifications')}"><a ng-href="#!/mesnotifications/"><img src="/images/notification.png" alt="DoodleMe logo" height="30"></a></li>
+                <li ng-class="{ active: isActive('/moncompte')}"><a ng-href="#!/moncompte/"><img src="/images/user.png" alt="DoodleMe logo" height="30"></a></li>
+            </ul>
+        </div>
 </nav>

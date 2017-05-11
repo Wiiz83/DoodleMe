@@ -1,29 +1,35 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2" id="page-content">
+	<div class="col-md-8 col-md-offset-2" id="page-content">
 
-            <nav-bar></nav-bar>
-            <h1 class="text-left">
-                Mon Compte
-            </h1>
-            <div class="text-center pagination-centered well">
-                <img src="/images/user.png" alt="DoodleMe logo" height="30">
-                <p>{{resultat | json}}</p>
-                <p>Resultat : {{resultat | json}}</p>
-                <p>Resultat : {{resultat | json}}</p>
-                <p>Resultat : {{resultat | json}}</p>
-                <div class="row">
+		<div class="row">
+			<nav-bar></nav-bar>
+		</div>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<h3>Mon Compte</h3>
+				<br>
+				<div class="text-center pagination-centered well">
+					<img src="/images/user.png" alt="DoodleMe logo" height="30">
+					<p>{{resultat | json}}</p>
+					<p>Resultat : {{resultat | json}}</p>
+					<p>Resultat : {{resultat | json}}</p>
+					<p>Resultat : {{resultat | json}}</p>
+					<div class="row">
 						<div class="col-md-4">
-                            <button type="button" class="btn btn-danger">Supprimer mon compte</button>
+							<button type="button" class="btn btn-danger">Supprimer mon compte</button>
 						</div>
 						<div class="col-md-4">
-                            <button type="button" class="btn btn-warning">Se déconnecter</button>
+							<button type="button" class="btn btn-warning">Se déconnecter</button>
 						</div>
 						<div class="col-md-4">
-					    	<button type="button" class="btn btn-info">Modifier mes informations</button>
-                        </div>
-				</div> 
-            </div>
-        </div>
-    </div>
+							<button type="button" class="btn btn-info">Modifier mes informations</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div footer></div>
+		</div>
+	</div>
 </div>

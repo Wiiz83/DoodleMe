@@ -4,6 +4,7 @@
  .controller('CreerEvenementCtrl', function ($scope, $window, $rootScope, $location, $routeParams, FactoryEvents, $cookies,$cookieStore) {
   
   $scope.eventValid = 0;
+  var eventID = "";
 
  	$scope.createEvent = function(){
         var objToSave = new FactoryEvents();
@@ -13,6 +14,7 @@
         objToSave.creatorID = $cookieStore.get('id');
 
         objToSave.$create(function(response) {
+            //eventID = response;
             $scope.eventValid = 1;
         }, function(response) {
           $scope.errorMessage = response.data.description;
@@ -33,11 +35,11 @@
 
     $scope.createSlot = function(){
         var objToSave = new FactoryEvents();
+        objToSave.eventID = eventID;
         objToSave.eventTime = $scope.eventTime;
         objToSave.eventDate = $scope.eventDate;
-        objToSave.eventComment = $scope.eventComment;
-        objToSave.creatorID = $cookieStore.get('id');
-        console.log("tg");
+        objToSave.comment = $scope.eventComment;
+
         objToSave.$create(function(response) {
             $scope.eventValid = 1;
         }, function(response) {

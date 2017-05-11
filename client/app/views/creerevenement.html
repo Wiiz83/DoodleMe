@@ -1,8 +1,10 @@
 <div class="container-fluid">
-    <div class="row">
         <div class="col-md-8 col-md-offset-2" id="page-content" ng-controller="CreerEvenementCtrl">
 
-            <nav-bar></nav-bar>
+		<div class="row">
+			<nav-bar></nav-bar>
+		</div>
+		<div class="row">
 
             <div ng-hide="eventValid == 1">
                 <div class="col-md-10 col-md-offset-1">
@@ -17,7 +19,7 @@
                             <div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
                         </fieldset>
                         <fieldset class="login-action">
-                            <input class="btn-login" style="cursor:pointer" type="submit"
+                            <input class="btn btn-success" style="cursor:pointer" type="submit"
                                 name="submit" value="Créer">
                         </fieldset>
                     </form>
@@ -31,8 +33,12 @@
                     <br>
                     <form ng-submit="createEvent()">
                         <fieldset class="login-data">
-                            <div class="col-md-9 sans-padding">
-                                <table class="table table-hover">
+                                <table class="table table-hover table-bordered fixed">
+                                    <col width="15%" />
+                                    <col width="15%" />
+                                    <col width="60%" />
+                                    <col width="5%" />
+                                    <col width="5%" />
                                     <thead>
                                         <tr>
                                             <th>
@@ -62,40 +68,49 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                            <div class="sans-padding right">
-                                <button type="button" id="myBtn" class="btn btn-primary">Ajouter créneau</button>
-                            </div>
+                   <div class="text-center pagination-centered ">
+                        <div class="row">
+                            <div ng-if="successMessage" class="alert alert-success succes">{{ successMessage }}</div>
                             <div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
-                        </fieldset>
-                        <fieldset class="login-action">
-                            <input class="btn-login" style="cursor:pointer" type="submit" name="submit" value="Créer">
-                        </fieldset>
+
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalSlot">Ajouter créneau</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" ng-click="createEvent()" class="btn btn-success">Créer</button>
+                            </div>
+                        </div>
+                    </div>
+
+
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
+		</div>
+		<div class="row">
+			<div footer></div>
+		</div>
+	</div>
 </div>
 
-<div id="myModal" class="modal login-data">
-    <!-- Modal content -->
-    <div class="modal-content">
-        <div class="modal-header">
-            <span ng-click="refreshSlots()" class="close">&times;</span>
-            <h2>Ajout d'un nouveau créneau</h2>
-        </div>
-        <div class="modal-body">
-            <form ng-submit="createSlot()">
-                <br> Date proposée : <br><input type="date" ng-model="eventDate" name="bday" max="1979-12-31"><br> Heure
-                proposée : <br><input type="time" ng-model="eventTime" name="usr_time"><br> Commentaire : <br><textarea rows="4"
-                    cols="30" ng-model="eventComment" id="max-height"></textarea>
-                <br>
-        </div>
-        <div class="modal-footer">
-            <input type="submit" class="btn btn-success">
-            </form>
-        </div>
-    </div>
+<div class="modal fade" id="myModalSlot" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" ng-click="refreshSlots()" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Ajout d'un nouveau créneau</h4>
+			</div>
+			<div class="modal-body">
+                <form ng-submit="createSlot()">
+                    <p>Date proposée</p><br><input type="date" ng-model="eventDate" name="title" ng-model="title" class="form-control" required><br>
+                    <p>Heure proposée</p><br><input type="time" name="address" ng-model="eventTime" class="form-control" required><br>
+                    <p>Commentaire</p><br><textarea class="form-control textarea" rows="4" cols="50" ng-model="eventComment" id="max-height"></textarea><br>
+			</div>
+			<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-success">
+                </form>
+			</div>
+		</div>
+	</div>
 </div>
-

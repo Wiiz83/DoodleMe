@@ -1,9 +1,10 @@
 <div class="container-fluid">
-	<div class="row">
 		<div class="col-md-8 col-md-offset-2" id="page-content">
 
+		<div class="row">
 			<nav-bar></nav-bar>
-
+		</div>
+		<div class="row">
 			<div class="col-md-10 col-md-offset-1" ng-if="eventEdit == 0">
 				<h3>Détails de l'événement</h3>
 				<br>
@@ -41,20 +42,17 @@
 							<td>{{slot.eventDate}}</td>
 							<td>{{slot.eventDate}}</td>
 							<td>{{slot.comment}}</td>
-							<td style="text-align:center">5&nbsp;<i class="fa fa-smile-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;
-								<i class="fa fa-frown-o" aria-hidden="true"></i>
+							<td style="text-align:center">5&nbsp;<i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;
+								<i class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></i>
 							</td>
 							<td align='center'>
 								<div class="btn-group" data-toggle="buttons">
 									<label id="1" class="btn btn-primary">
-								<input type="radio"><i class="fa fa-smile-o" aria-hidden="true"></i>
-							</label>
+										<input type="radio"><i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i>
+									</label>
 									<label id="2" class="btn btn-primary active" checked>
-								<input type="radio"><i class="fa fa-meh-o" aria-hidden="true"></i>
-							</label>
-									<label id="3" class="btn btn-primary">
-								<input type="radio"><i class="fa fa-frown-o" aria-hidden="true"></i>
-							</label>
+										<input type="radio"><i class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></i>
+									</label>
 								</div>
 							</td>
 
@@ -151,6 +149,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div footer></div>
+		</div>
 	</div>
 </div>
 
@@ -193,12 +194,10 @@
 					</div>
 			</div>
 			<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<input type="submit" class="btn btn-success">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<input type="submit" class="btn btn-success">
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
-
-
