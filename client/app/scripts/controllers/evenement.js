@@ -32,7 +32,12 @@
 
 
   $scope.delete = function(){
-     
+    FactoryEvent.deleteEvent({id: eventID}, function(response) {
+        $scope.myDisplay = 'none';
+        $scope.successMessage = response.statut;
+    }, function(error) {
+        $scope.errorMessage = response.data.description;
+    });
   }
 
   $scope.close = function(){
