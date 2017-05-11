@@ -48,11 +48,12 @@ router.get('/eventSlots/', function (req, res) {
 
 router.post('/eventSlots/', function (req, res) {
 	var eventSlot = req.body;
-	var data = [eventSlot.eventID, eventSlot.eventDate, eventSlot.comment];
+	var data = [eventSlot.eventID, eventSlot.day, eventSlot.time, eventSlot.comment];
 	for (var i = 0; i < data.length; i++)
 		if (data[i] == undefined) {
 			return res.status(400).send({ status: "Erreur", description: "Requete mal formattée" });
 		}
+	slot = [eventSlot.eventID,eventSlot.day+" "+eventSlot.time,eventSlot.comment]
 	req.getConnection(function (err, conn) {
 		if (err)
 			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
