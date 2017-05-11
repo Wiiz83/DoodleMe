@@ -45,9 +45,8 @@ router.get('/eventSlots/:id', function (req, res) {
 });
 
 
-router.get('/eventSlots/', function (req, res) {
-	var eventID = req.query.EventID;
-	if (eventID==undefined)
+router.get('/eventSlots/:eventID', function (req, res) {
+	if (req.params.eventID==undefined)
 		return res.status(400).send({ status: "Erreur", description: "EventID non spécifié" });
 	req.getConnection(function (err, conn) {
 		if (err) {
