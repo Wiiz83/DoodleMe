@@ -53,13 +53,13 @@ router.post('/eventSlots/', function (req, res) {
 		if (data[i] == undefined) {
 			return res.status(400).send({ status: "Erreur", description: "Requete mal formattée" });
 		}
-	slot = [eventSlot.eventID,eventSlot.day+" "+eventSlot.time,eventSlot.comment]
+	slot = [eventSlot.eventID,eventSlot.day+" "+eventSlot.time+":00",eventSlot.comment]
 	req.getConnection(function (err, conn) {
 		if (err)
 			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
 		else {
 			var query = conn.query("INSERT INTO eventSlots (eventID, eventDate, comment)  VALUES (?,?,?)",
-				data, function (err, result) {
+				slot, function (err, result) {
 					if (err) {
 						console.log(query.sql);
 						console.log(err);
