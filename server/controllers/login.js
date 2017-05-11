@@ -18,7 +18,6 @@ auth_route.post(function (req, res) {
         return res.status(500).send({ status: "Erreur", description: err.message });
         var query = conn.query("SELECT * FROM USERS WHERE pseudo=? AND passHash=?",
             data, function (err, result) {
-                 console.log(query.sql);
                 if (err) {                   
                     console.log(err);
                     return res.status(500).send({ status: "Erreur", description: err.message });

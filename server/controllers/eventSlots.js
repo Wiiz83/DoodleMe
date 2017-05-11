@@ -2,37 +2,18 @@
 var express = require('express');
 var router = express.Router();
 
- 
 
 
-function eventSlots(idSlots, eventId, eventDate){
-	this.idSlots = idSlots;
-	this.eventId = eventId;
-	this.eventDate = eventDate;
-}
-
-var getId = function(){
-	return this.idSlots;
-}
-
-var getEventId = function(){
-	return this.eventId;
-}
-
-var getEventDate = function(){
-	return this.eventDate;
-}
-
-router.get('/eventSlot/:id', function (req, res) {
+router.get('/eventSlots/:id', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
-			return res.sendStatus(500);
+			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('SELECT * FROM eventSlots WHERE ID=? ;', req.params.id, function (err, rows) {
+		var query = conn.query("SELECT ID, eventID, comment, DATE_FORMAT(eventDate,'%m-%d-%Y') as day,DATE_FORMAT(eventDate,'%h:%i') as time FROM eventSlots WHERE ID=? ;", req.params.id, function (err, rows) {
 			if (err) {
 				console.log(err);
-				res.sendStatus(500);
+				return res.status(500).send({ status: "Erreur", description: err.message });
 			}
 			else {
 				if (rows.length == 0)
@@ -45,22 +26,21 @@ router.get('/eventSlot/:id', function (req, res) {
 });
 
 
-router.get('/eventSlots/:eventID', function (req, res) {
-	if (req.params.eventID==undefined)
+router.get('/eventSlots/', function (req, res) {
+	var eventID = req.query.EventID;
+	if (eventID == undefined)
 		return res.status(400).send({ status: "Erreur", description: "EventID non spécifié" });
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
 			return res.sendStatus(500);
 		}
-		var query = conn.query('SELECT * FROM eventSlots WHERE eventID=?;', req.params.eventID, function (err, rows) {
-			console.log(query);
+		var query = conn.query("SELECT ID, eventID, comment, DATE_FORMAT(eventDate,'%m-%d-%Y') as day,DATE_FORMAT(eventDate,'%h:%i') as time FROM eventSlots WHERE eventID=?;", eventID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				res.sendStatus(500);
 			}
 			else
-				console.log(rows);
 				res.json(rows);
 		});
 	});
@@ -93,10 +73,10 @@ router.post('/eventSlots/', function (req, res) {
 });
 
 
- router.put('/eventSlots/:id', function (req, res) {
+router.put('/eventSlots/:id', function (req, res) {
 	console.log(req.query);
-	var event = req.body;
- 	var data = [eventSlot.eventDate, eventSlot.comment];
+	var eventSlot = req.body;
+	var data = [eventSlot.eventDate, eventSlot.comment, req.params.id];
 
 	for (var i = 0; i < data.length; i++)
 		if (data[i] == undefined) {
@@ -107,22 +87,63 @@ router.post('/eventSlots/', function (req, res) {
 		if (err)
 			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
 		else {
-			var query = conn.query("UPDATE TABLE eventSlots SET eventDate = ?, comment = ? WHERE ID = ?; ",req.body.eventDate, req.body.coment,req.body.ID, function(err, result){
-				data, function (err, result) {
-					if (err) {
-						console.log(query.sql);
-						console.log(err);
-						return res.status(500).send({ status: "Erreur", description: err.message });
-					}
-					else {
-						return res.send({ status: "Succès" });
-					}
+			var query = conn.query('UPDATE eventSlots SET eventDate = ?, comment = ? WHERE ID = ?;', data, function (err, rows) {
+				console.log(query.sql);
+				if (err) {
+					console.log(err);
+					
+					return res.status(500).send({ status: "Erreur", description: err.message });
 				}
+				else {
+					if (rows.affectedRows == 0)
+						return res.status(404).send({ status: "Erreur", description: "Elément non trouvé." });
+					else
+						return res.send({ status: "Succès" });
+				}
+
 			});
 		}
 	});
 });
 
+router.delete('/eventSlots/:id', function (req, res) {
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.sendStatus(500);
+		}
+		var query = conn.query('DELETE FROM eventSlots WHERE ID=? ;', req.params.id, function (err, rows) {
+			if (err) {
+				console.log(err);
+				res.sendStatus(500);
+			}
+			else {
+				if (rows.affectedRows == 0)
+					return res.status(404).send({ status: "Erreur", description: "Elément non trouvé." });
+				else
+					return res.send({ status: "Succès" });
+			}
 
+		});
+	});
+});
+
+
+router.get('/eventSlots/recommanded/:eventID', function (req, res) {
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.status(500).send({ status: "Erreur", description: err.message });
+		}
+		var query = conn.query("Select slot.ID, DATE_FORMAT(eventDate,'%m-%d-%Y') as day,DATE_FORMAT(eventDate,'%h:%i') as time,comment, COUNT(answer.EventSlotID) as positiveAnswers FROM eventslots slot, eventanswers answer WHERE slot.eventID=? AND answer.EventSlotID=slot.ID AND answer.isAvailable=1 GROUP BY answer.EventSlotID ORDER BY positiveAnswers DESC LIMIT 3;",req.params.eventID, function (err, rows) {
+			if (err) {
+				console.log(err);
+				return res.status(500).send({ status: "Erreur", description: err.message });
+			}
+			else
+				res.json(rows);
+		});
+	});
+});
 
 module.exports = router;

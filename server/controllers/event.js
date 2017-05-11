@@ -1,20 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
-var getDate = function () {
-	return this.date;
-}
-
 router.get('/events/:id', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
-			return res.sendStatus(500);
+			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
 		var query = conn.query('SELECT * FROM events WHERE ID=? ;', req.params.id, function (err, rows) {
 			if (err) {
 				console.log(err);
-				res.sendStatus(500);
+				return res.status(500).send({ status: "Erreur", description: err.message });
 			}
 			else {
 				if (rows.length == 0)
@@ -32,7 +28,7 @@ router.get('/events/', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
-			return res.sendStatus(500);
+			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
 		var query = conn.query('SELECT * FROM events', function (err, rows) {
 			if (err) {
@@ -72,10 +68,10 @@ router.post('/events/', function (req, res) {
 });
 
 
- router.put('/events/:id', function (req, res) {
+router.put('/events/:id', function (req, res) {
 	console.log(req.query);
 	var event = req.body;
- 	var data = [event.title, event.description, event.address];
+	var data = [event.title, event.description, event.address, req.params.id];
 
 	for (var i = 0; i < data.length; i++)
 		if (data[i] == undefined) {
@@ -86,7 +82,7 @@ router.post('/events/', function (req, res) {
 		if (err)
 			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
 		else {
-			var query = conn.query("UPDATE TABLE events SET title = ?, description = ?, address= ?; ",
+			var query = conn.query("UPDATE TABLE events SET title = ?, description = ?, address= ? WHERE ID=?; ",
 				data, function (err, result) {
 					if (err) {
 						console.log(query.sql);
@@ -105,20 +101,40 @@ router.delete('/events/:id', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
-			return res.sendStatus(500);
+			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
 		var query = conn.query('DELETE FROM events WHERE ID=? ;', req.params.id, function (err, rows) {
 			if (err) {
 				console.log(err);
-				res.sendStatus(500);
+				return res.status(500).send({ status: "Erreur", description: err.message });
 			}
 			else {
 				if (rows.affectedRows == 0)
 					return res.status(404).send({ status: "Erreur", description: "Evenement à supprimer non trouvé." });
 				else
-					return res.send({ status: "Succès"});
+					return res.send({ status: "Succès" });
 			}
+		});
+	});
+});
 
+router.put('/events/:id/close/:slotID', function (req, res) {
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.status(500).send({ status: "Erreur", description: err.message });
+		}
+		var query = conn.query('UPDATE TABLE events SET closedSlotID = ? WHERE ID=?;  ', req.params.slotID, req.params.id, function (err, rows) {
+			if (err) {
+				console.log(err);
+				res.status(500).send({ status: "Erreur", description: err.message });
+			}
+			else {
+				if (rows.affectedRows == 0)
+					return res.status(404).send({ status: "Erreur", description: "Evenement à supprimer non trouvé." });
+				else
+					return res.send({ status: "Succès" });
+			}
 		});
 	});
 });
@@ -127,66 +143,38 @@ router.get('/events/createdBy/:userID', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
-			return res.sendStatus(500);
+			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('SELECT * FROM events WHERE creatorID=? ;', req.params.userID, function (err, rows) {
+		var query = conn.query('SELECT * FROM events where creatorID=?;',req.params.userID, function (err, rows) {
 			if (err) {
 				console.log(err);
-				res.sendStatus(500);
+				return res.status(500).send({ status: "Erreur", description: err.message });
 			}
-			else {
-				if (rows.length == 0)
-					return res.status(404).send({ status: "Erreur", description: "Evenements non trouvé." });
-				else
-					return res.json(rows);
-			}
-
+			else
+				res.json(rows);
 		});
 	});
 });
 
-router.get('/events/answeredBy/:userID', function (req, res) {
+router.get('/events/anweredBy/:userID', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
-			return res.sendStatus(500);
+			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('SELECT * FROM events WHERE ID in (SELECT eventID FROM eventSlots WHERE ID in (SELECT eventSlotID from eventAnswer where isAvailable = 1 AND userID = ?));', req.params.userID, function (err, rows) {
+		var query = conn.query('SELECT E.* FROM events as E WHERE EXISTS( SELECT * FROM eventslots as S WHERE S.eventID=E.ID AND EXISTS( SELECT * FROM eventanswers as A WHERE A.EventSlotID=S.ID AND A.userID=?) );',req.params.userID, function (err, rows) {
+			
 			if (err) {
 				console.log(err);
-				res.sendStatus(500);
+				return res.status(500).send({ status: "Erreur", description: err.message });
 			}
-			else {
-				if (rows.length == 0)
-					return res.status(404).send({ status: "Erreur", description: "Evenements non trouvé." });
-				else
-					return res.json(rows);
-			}
-
+			else
+				res.json(rows);
 		});
 	});
 });
 
-router.put('/events/:eventID/close/:slotID', function (req, res) {
-	req.getConnection(function (err, conn) {
-		if (err) {
-			console.log(err);
-			return res.sendStatus(500);
-		}
-		var query = conn.query('UPDATE table events SET closedSlotID = ? WHERE ID = ?', req.params.slotID, req.params.eventID, function (err, rows) {
-			if (err) {
-				console.log(err);
-				res.sendStatus(500);
-			}
-			else {
-				if (rows.length == 0)
-					return res.status(404).send({ status: "Erreur", description: "Evenements non trouvé." });
-				else
-					return res.json({ status: "Succès"});
-			}
 
-		});
-	});
-});
+ 
 
 module.exports = router;
