@@ -6,7 +6,7 @@
 		<nav-bar></nav-bar>
 
 		<div class="col-md-10 col-md-offset-1" id="page-content">
-		<h3>Détails de l'événement {{event.title}}</h3>
+		<h3>Détails de l'événement</h3>
 		<br>
         <p>Titre : {{event.title}}</p>
         <p>Description : {{event.description}}</p>
@@ -31,9 +31,8 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="slot in slots">
-					<td>{{event.title}}</td>
-					<td>{{event.description}}</td>
-					<td>{{event.address}}</td>
+					<td>{{slot.eventDate}}</td>
+					<td>{{slot.comment}}</td>
 					<td align='center'><img src="/images/eye.png" alt="DoodleMe logo" height="20"></td>
 				</tr>
 			</tbody>
