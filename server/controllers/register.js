@@ -36,7 +36,7 @@ router.post('/register',function (req, res) {
                                 }
                                 else{
                                     res.cookie("pseudo", user.pseudo);
-                                    return res.send({ status: "Succès"}); 
+                                    return res.send({ status: "Succès", description:result.insertId}); 
                                     }
                             });
                     }

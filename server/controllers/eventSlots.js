@@ -66,7 +66,7 @@ router.post('/eventSlots/', function (req, res) {
 						return res.status(500).send({ status: "Erreur", description: err.message });
 					}
 					else {
-						return res.send({ status: "Succès" });
+						return res.send({ status: "Succès", description:result.insertId}); 
 					}
 				});
 		}
