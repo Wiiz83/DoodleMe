@@ -20,7 +20,7 @@
             $scope.isAdmin = true;
         }
         
-        FactorySlot.getAll({id: eventID}, function(dataslots) {
+        FactorySlot.getAll({EventID: eventID}, function(dataslots) {
              $scope.slots = dataslots;
               console.log(dataslots);
         }, function(error) {
