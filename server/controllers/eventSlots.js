@@ -26,10 +26,10 @@ router.get('/eventSlots/:id', function (req, res) {
 });
 
 
-router.get('/eventSlots/', function (req, res) {
-	var eventID = req.query.EventID;
-	if (eventID == undefined)
-		return res.status(400).send({ status: "Erreur", description: "EventID non spécifié" });
+router.get('/eventSlots/byEvent/:EventID', function (req, res) {
+	var eventID = req.params.EventID;
+//	if (eventID == undefined)
+//		return res.status(400).send({ status: "Erreur", description: "EventID non spécifié" });
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
