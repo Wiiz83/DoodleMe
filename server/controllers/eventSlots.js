@@ -19,7 +19,7 @@ router.get('/eventSlots/:id', function (req, res) {
 				if (rows.length == 0)
 					return res.status(404).send({ status: "Erreur", description: "Element non trouvé." });
 				else
-					return res.json(rows);
+					return res.json(rows[0]);
 			}
 		});
 	});
