@@ -180,7 +180,7 @@ router.get('/events/closed/createdBy/:userID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('SELECT * FROM events where creatorID=? AND closedSlotID != null;',req.params.userID, function (err, rows) {
+		var query = conn.query('SELECT * FROM events where creatorID=? AND closedSlotID IS NOT NULL;',req.params.userID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				return res.status(500).send({ status: "Erreur", description: err.message });
