@@ -174,6 +174,40 @@ router.get('/events/answeredBy/:userID', function (req, res) {
 	});
 });
 
+router.get('/events/closed/createdBy/:userID', function (req, res) {
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.status(500).send({ status: "Erreur", description: err.message });
+		}
+		var query = conn.query('SELECT * FROM events where creatorID=? AND closedSlotID != null;',req.params.userID, function (err, rows) {
+			if (err) {
+				console.log(err);
+				return res.status(500).send({ status: "Erreur", description: err.message });
+			}
+			else
+				res.json(rows);
+		});
+	});
+});
+
+router.get('/events/open/createdBy/:userID', function (req, res) {
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.status(500).send({ status: "Erreur", description: err.message });
+		}
+		var query = conn.query('SELECT * FROM events where creatorID=? AND closedSlotID == null;',req.params.userID, function (err, rows) {
+			if (err) {
+				console.log(err);
+				return res.status(500).send({ status: "Erreur", description: err.message });
+			}
+			else
+				res.json(rows);
+		});
+	});
+});
+
 
  
 
