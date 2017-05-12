@@ -22,7 +22,6 @@
         
         FactorySlot.getAll({EventID: eventID}, function(dataslots) {
              $scope.slots = dataslots;
-              console.log(dataslots);
         }, function(error) {
             $scope.errorMessage = response.data.description;
         });
@@ -52,10 +51,34 @@
       $scope.description = eventEnCours.description;
   }
 
-
-  $scope.saveSlots = function(){
-
+  
+  $scope.editSlot = function(slotID){
+    FactorySlot.get({id: slotID}, function(data) {
+        var date = new Date(data[0].day);
+        var heure = new Date(data[0].time);
+        $scope.slotDate = date;
+        $scope.slotTime = heure;
+        $scope.slotComment = data[0].comment;
+        angular.element('#myModalSlotEdit').modal('show');
+    }, function(error) {
+        $scope.errorMessage = error.data.description;
+    });
   }
+
+
+  $scope.deleteSlot = function(slotID){
+    FactorySlot.delete({id: slotID}, function(response) {
+        $scope.successMessage = response.statut;
+        FactorySlot.getAll({EventID: eventID}, function(dataslots) {
+             $scope.slots = dataslots;
+        }, function(error) {
+            $scope.errorMessage = error.data.description;
+        });
+    }, function(error) {
+        $scope.errorMessage = error.data.description;
+    });
+  }
+
 
    $scope.createSlot = function(){
     var objToSave = new FactorySlot();
@@ -66,11 +89,8 @@
     objToSave.$create(function(response) {
         angular.element('#myModalSlot').modal('hide');
         $scope.successMessage = "Création du créneau effectuée.";
-
-        FactorySlot.getAll({id: eventID}, function(dataslots) {
+        FactorySlot.getAll({EventID: eventID}, function(dataslots) {
              $scope.slots = dataslots;
-        
-
         }, function(error) {
             $scope.errorMessage = response.data.description;
         });
@@ -89,9 +109,6 @@
     });
   }
 
-  $scope.undoEdit = function(){
-    $scope.eventEdit = 0;
-  }
 
 });
 
