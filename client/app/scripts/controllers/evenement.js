@@ -6,6 +6,7 @@
     var eventID = $routeParams.eventID;
     var isCreator = false;
     var eventEnCours = {};
+    var slotEnCours = {};
     $scope.eventEdit = 0;
 
     FactoryEvent.getEvent({id: eventID}, function(dataevent) {
@@ -40,8 +41,16 @@
     });
   }
 
-  $scope.close = function(){
-      
+  $scope.closeEvent = function(){
+    var slotChoisi = $scope.slotListe;
+    FactoryEvents.close({id: eventID, slotID: slotChoisi}, function(response) {
+        angular.element('#myModalCloture').modal('hide');
+        $scope.successMessage = "Clôture de l'événement effectuée.";
+    }, function(response) {
+        console.log(response);
+        console.log(response.data.description);
+        $scope.errorMessage = response.data.description;
+    });
   }
 
   $scope.edit = function(){
@@ -51,14 +60,35 @@
       $scope.description = eventEnCours.description;
   }
 
+  $scope.updateSlot = function(){
+    var eventSlot = {day: angular.element('#slotDate').val(), time : angular.element('#slotTime').val(), comment : $scope.slotComment};
+
+    FactorySlot.update({id: slotEnCours}, eventSlot,  function(response) {
+        angular.element('#myModalSlotEdit').modal('hide');
+        $scope.successMessage = "Modification du créneau effectuée.";
+        FactorySlot.getAll({EventID: eventID}, function(dataslots) {
+             $scope.slots = dataslots;
+        }, function(error) {
+            $scope.errorMessage = response.data.description;
+        });
+    }, function(response) {
+        $scope.errorMessage = response.data.description;
+    });
+  }
+
+  $scope.undoEdit = function(){
+     $scope.eventEdit = 0;
+   }
+
   
   $scope.editSlot = function(slotID){
+    slotEnCours = slotID;
     FactorySlot.get({id: slotID}, function(data) {
-        var date = new Date(data[0].day);
-        var heure = new Date(data[0].time);
+        var date = new Date(data.day);
+        var heure = new Date(data.time);
+        $scope.timeSlot = data.time;
         $scope.slotDate = date;
-        $scope.slotTime = heure;
-        $scope.slotComment = data[0].comment;
+        $scope.slotComment = data.comment;
         angular.element('#myModalSlotEdit').modal('show');
     }, function(error) {
         $scope.errorMessage = error.data.description;
