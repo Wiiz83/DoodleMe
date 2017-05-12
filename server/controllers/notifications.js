@@ -10,7 +10,7 @@ router.get('/notifications/user/:userID', function (req, res) {
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
 		var query = conn.query('SELECT E.* FROM events as E WHERE EXISTS ( SELECT * FROM eventslots as S WHERE S.eventID=E.ID AND EXISTS ( SELECT * FROM eventAnswers as A WHERE A.EventSlotID=S.ID AND A.userID=?)) AND NOT EXISTS ( SELECT * FROM readnotifications as N WHERE N.userID=? AND N.eventID=E.ID) ;', 
-            userID,userID, function (err, rows) {
+            [userID,userID], function (err, rows) {
 			if (err) {
 				console.log(err);
 				return res.status(500).send({ status: "Erreur", description: err.message });
@@ -22,6 +22,29 @@ router.get('/notifications/user/:userID', function (req, res) {
 		});
 	});
 });
+
+
+router.get('/notifications/user/:userID/count', function (req, res) {
+    var userID = req.params.userID; 
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.status(500).send({ status: "Erreur", description: err.message });
+		}
+		var query = conn.query('SELECT COUNT(*) as nb_notifications FROM events as E WHERE EXISTS ( SELECT * FROM eventslots as S WHERE S.eventID=E.ID AND EXISTS ( SELECT * FROM eventAnswers as A WHERE A.EventSlotID=S.ID AND A.userID=?)) AND NOT EXISTS ( SELECT * FROM readnotifications as N WHERE N.userID=? AND N.eventID=E.ID) ;', 
+           [userID,userID], function (err, rows) {
+			if (err) {
+				console.log(err);
+				return res.status(500).send({ status: "Erreur", description: err.message });
+			}
+			else {				 
+					return res.json(rows[0]);
+			}
+
+		});
+	});
+});
+
 
 router.post('api/notifications/markasread/ ', function (req, res) {
 		var read = req.body;
