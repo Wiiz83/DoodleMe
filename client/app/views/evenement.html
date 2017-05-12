@@ -1,5 +1,5 @@
 <div class="container-fluid">
-		<div class="col-md-8 col-md-offset-2" id="page-content">
+	<div class="col-md-8 col-md-offset-2" id="page-content">
 
 		<div class="row">
 			<nav-bar></nav-bar>
@@ -39,8 +39,8 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="slot in slots">
-							<td>{{slot.eventDate}}</td>
-							<td>{{slot.eventDate}}</td>
+							<td>{{slot.day}}</td>
+							<td>{{slot.time}}</td>
 							<td>{{slot.comment}}</td>
 							<td style="text-align:center">5&nbsp;<i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;
 								<i class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></i>
@@ -97,9 +97,10 @@
 				<table class="table table-hover table-bordered fixed">
 					<col width="15%" />
 					<col width="15%" />
-					<col width="35%" />
+					<col width="45%" />
 					<col width="15%" />
-					<col width="20%" />
+					<col width="5%" />
+					<col width="5%" />
 					<thead>
 						<tr>
 							<th>
@@ -117,19 +118,25 @@
 							<th>
 
 							</th>
+							<th>
+
+							</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="slot in slots">
-							<td>{{slot.eventDate}}</td>
-							<td>{{slot.eventDate}}</td>
+							<td>{{slot.day}}</td>
+							<td>{{slot.time}}</td>
 							<td>{{slot.comment}}</td>
 							<td style="text-align:center">5&nbsp;<i class="fa fa-smile-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;
 								<i class="fa fa-frown-o" aria-hidden="true"></i>
 							</td>
 							<td align='center'>
-
-
+								<input type="hidden" ng-model="slotID[$index]" value="{{slot.ID}}" ng-init="slotID=slot.ID">
+								<img src="/images/edit.png" ng-click="editSlot(slotID)" style="cursor:pointer;" height="20"  data-toggle="modal">							
+							</td>
+							<td align='center'>
+								<img src="/images/delete.png" ng-click="deleteSlot(slotID)" style="cursor:pointer;" height="20">
 							</td>
 						</tr>
 					</tbody>
@@ -138,14 +145,10 @@
 					<div class="row">
 						<div ng-if="successMessage" class="alert alert-success succes">{{ successMessage }}</div>
 						<div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
-
-						<div class="col-md-3">
-							<button type="button" ng-click="undoEdit()" class="btn btn-info">Annuler</button>
+						<div class="col-md-6">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalSlot">Ajouter créneau</button>
 						</div>
-						<div class="col-md-3">
- 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalSlot">Ajouter créneau</button>
- 						</div>
-						<div class="col-md-3">
+						<div class="col-md-6">
 							<button type="button" ng-click="saveEvent()" class="btn btn-success">Enregistrer</button>
 						</div>
 					</div>
@@ -213,17 +216,40 @@
 				<h4 class="modal-title">Ajout d'un nouveau créneau</h4>
 			</div>
 			<form ng-submit="createSlot()">
-			<div class="modal-body">
-                    <p>Date proposée</p><br><input type="date" id="eventDate" ng-model="eventDate" name="title" class="form-control" required><br>
-                    <p>Heure proposée</p><br><input class="form-control" type="time" id="eventTime" name="input" ng-model="eventTime" placeholder="HH:mm" required /><br>
-                    <p>Commentaire</p><br><textarea class="form-control textarea" rows="4" cols="50" ng-model="eventComment" id="max-height"></textarea><br>
-			</div>
-			<div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <input type="submit" class="btn btn-success">
-			</div>
+				<div class="modal-body">
+					<p>Date proposée</p><br><input type="date" id="eventDate" ng-model="eventDate" name="title" class="form-control" required><br>
+					<p>Heure proposée</p><br><input class="form-control" type="time" id="eventTime" name="input" ng-model="eventTime" placeholder="HH:mm"
+					 required /><br>
+					<p>Commentaire</p><br><textarea class="form-control textarea" rows="4" cols="50" ng-model="eventComment" id="max-height"></textarea><br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-success">
+				</div>
 			</form>
 		</div>
 	</div>
 </div>
 
+<div class="modal fade" id="myModalSlotEdit" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Modification d'un créneau</h4>
+			</div>
+			<form ng-submit="editSlot()">
+				<div class="modal-body">
+					<p>Date proposée</p><br><input type="date" id="slotDate" ng-model="slotDate" name="title" class="form-control" required><br>
+					<p>Heure proposée</p><br><input class="form-control" type="time" id="slotTime" name="input" ng-model="slotTime" placeholder="HH:mm"
+					 required /><br>
+					<p>Commentaire</p><br><textarea class="form-control textarea" rows="4" cols="50" ng-model="slotComment" id="max-height"></textarea><br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-success">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -13,14 +13,16 @@ angular.module('clientApp')
 		get: { 
 			url:'http://localhost:3000/api/eventSlots/:id',
 			method: 'GET', 
+			isArray: true, 
 			params:{idSlot:'@id'} 
 		},
 		delete: { 
+			url:'http://localhost:3000/api/eventSlots/:id',
 			method: 'DELETE', 
 			params:{idSlot:'@id'} 
 		},
 		getAll: { 
-			url:'http://localhost:3000/api/eventSlots/byEvent/:id',
+			url:'http://localhost:3000/api/eventSlots/byEvent/:EventID',
 			method: 'GET', 
 			params:{EventID:'@id'}, 
 			isArray: true, 
