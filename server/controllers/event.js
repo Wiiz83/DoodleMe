@@ -131,7 +131,7 @@ router.put('/events/:id/close/:slotID', function (req, res) {
 			}
 			else {
 				if (rows.affectedRows == 0)
-					return res.status(404).send({ status: "Erreur", description: "Evenement à supprimer non trouvé." });
+					return res.status(404).send({ status: "Erreur", description: "Evenement à metre à jour non trouvé." });
 				else
 					return res.send({ status: "Succès" });
 			}
