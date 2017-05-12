@@ -1,7 +1,7 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('EventDetailsCtrl', function ($routeParams,$scope, FactoryEvent, FactoryEvents, FactorySlot, $cookies,$cookieStore) {
+ .controller('EventDetailsCtrl', function ($routeParams, $scope, FactoryEvent, FactoryEvents, FactorySlot, $cookies,$cookieStore) {
 
     var eventID = $routeParams.eventID;
     var isCreator = false;
@@ -22,6 +22,7 @@
         
         FactorySlot.getAll({id: eventID}, function(dataslots) {
              $scope.slots = dataslots;
+              console.log(dataslots);
         }, function(error) {
             $scope.errorMessage = response.data.description;
         });
@@ -51,13 +52,32 @@
       $scope.description = eventEnCours.description;
   }
 
-  $scope.saveEvent = function(){
-
-  }
 
   $scope.saveSlots = function(){
 
   }
+
+   $scope.createSlot = function(){
+    var objToSave = new FactorySlot();
+    objToSave.eventID = eventID;
+    objToSave.time = angular.element('#eventTime').val();
+    objToSave.day = angular.element('#eventDate').val();
+    objToSave.comment = $scope.eventComment;
+    objToSave.$create(function(response) {
+        angular.element('#myModalSlot').modal('hide');
+        $scope.successMessage = "Création du créneau effectuée.";
+
+        FactorySlot.getAll({id: eventID}, function(dataslots) {
+             $scope.slots = dataslots;
+        
+
+        }, function(error) {
+            $scope.errorMessage = response.data.description;
+        });
+    }, function(response) {
+        $scope.errorMessage = response.data.description;
+    });
+  };
 
   $scope.saveEvent = function(){
     var event = {title: $scope.title, description : $scope.description, address : $scope.address};

@@ -139,10 +139,13 @@
 						<div ng-if="successMessage" class="alert alert-success succes">{{ successMessage }}</div>
 						<div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
 
-						<div class="col-md-6">
+						<div class="col-md-3">
 							<button type="button" ng-click="undoEdit()" class="btn btn-info">Annuler</button>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-3">
+ 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalSlot">Ajouter créneau</button>
+ 						</div>
+						<div class="col-md-3">
 							<button type="button" ng-click="saveEvent()" class="btn btn-success">Enregistrer</button>
 						</div>
 					</div>
@@ -201,3 +204,26 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="myModalSlot" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Ajout d'un nouveau créneau</h4>
+			</div>
+			<form ng-submit="createSlot()">
+			<div class="modal-body">
+                    <p>Date proposée</p><br><input type="date" id="eventDate" ng-model="eventDate" name="title" class="form-control" required><br>
+                    <p>Heure proposée</p><br><input class="form-control" type="time" id="eventTime" name="input" ng-model="eventTime" placeholder="HH:mm" required /><br>
+                    <p>Commentaire</p><br><textarea class="form-control textarea" rows="4" cols="50" ng-model="eventComment" id="max-height"></textarea><br>
+			</div>
+			<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-success">
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
