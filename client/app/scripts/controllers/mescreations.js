@@ -8,7 +8,6 @@
     var IDcreator = $cookieStore.get('id');
 
     FactoryMyEventsOpened.getAll({id: IDcreator}, function(data){
-        console.log(data);
         $scope.eventsOpened = data;
     });
 
@@ -19,6 +18,10 @@
     FactoryMyEventsArchived.getAll({id: IDcreator}, function(data){
         $scope.eventsArchived = data;
     });
+
+    $scope.viewEvent = function(eventID){
+        $location.path('/evenement/'+eventID);
+     };
 
 
 });
