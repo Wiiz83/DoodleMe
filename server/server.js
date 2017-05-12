@@ -40,6 +40,7 @@ app.use('/api', require('./controllers/eventAnswer.js'));
 app.use('/api', require('./controllers/eventSlots.js'));
 app.use('/api', require('./controllers/login.js'));
 app.use('/api', require('./controllers/users.js'));
+app.use('/api', require('./controllers/notifications.js'));
 
 
 // Démarage serveur
