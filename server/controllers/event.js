@@ -215,7 +215,7 @@ router.get('/events/archives/createdBy/:userID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('SELECT * FROM eventsArchives where creatorID=?;',req.params.userID, function (err, rows) {
+		var query = conn.query('SELECT * FROM eventsArchives where creatorID = ?;',req.params.userID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				return res.status(500).send({ status: "Erreur", description: err.message });
