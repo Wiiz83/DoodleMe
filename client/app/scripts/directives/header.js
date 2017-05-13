@@ -8,8 +8,13 @@
  		controller: function($scope, $location, $cookieStore, FactoryNotifications) {
 
  			var currentUser = $cookieStore.get('id');
+			 var notif = 0;
+
 			FactoryNotifications.getCompteur({userID: currentUser}, function(data){
-				$scope.eventsNotified = data;
+				if(data != null){
+					$scope.numberNotif = data;
+					notif = 1;
+				} 
 			});
 
  			$scope.isActive = function (viewLocation) { 

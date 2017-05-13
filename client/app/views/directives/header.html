@@ -18,11 +18,16 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ng-class="{ active: isActive('/mesnotifications')}">
                     <a class="fa fa-globe"  ng-href="#!/mesnotifications/">
-                        <span class="fa fa-comment"></span>
-                        <span class="num">2</span>
+                        <div ng-if="notif == 1">
+                            <span class="fa fa-circle"></span>
+                            <span class="num">{{numberNotif}}</span>
+                        </div>
                     </a>
                 </li>
-                <li ng-class="{ active: isActive('/moncompte')}"><a ng-href="#!/moncompte/"><img src="/images/user.png" alt="DoodleMe logo" height="30"></a></li>
+                <li ng-class="{ active: isActive('/moncompte')}">
+                 <a class="fa fa-user-circle"  ng-href="#!/moncompte/">
+                 </a>
+              </li>
             </ul>
         </div>
 </nav>
