@@ -1,4 +1,17 @@
-
+/*
+SELECT slots.*, A1.isAvailable
+FROM eventanswers A1 RIGHT JOIN 
+(
+SELECT S.ID as sid, S.comment, 
+DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day, 
+DATE_FORMAT(S.eventDate,'%h:%i') as time ,
+SUM(case when A.isAvailable=1 then 1 else 0 end) as positiveAnswers,
+SUM(case when A.isAvailable=0 then 1 else 0 end) as negativeAnswers 
+FROM eventSlots as S, eventanswers A 
+WHERE S.eventID=14 AND A.EventSlotID=S.ID 
+GROUP BY S.ID 
+    ) as slots ON slots.sid = A1.EventSlotID AND A1.userID =17 ;
+*/
 var express = require('express');
 var router = express.Router();
 
@@ -28,12 +41,13 @@ router.get('/eventSlots/:id', function (req, res) {
   router.get('/eventSlots/byEvent/:eventID/user/:userID', function (req, res) {
 	var eventID = req.params.eventID;
 	var userID = req.params.userID;
+	var data =[eventID,userID];
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
 			return res.sendStatus(500);
 		}
-		var query = conn.query("SELECT S.ID, S.comment, DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day,DATE_FORMAT(S.eventDate,'%h:%i') as time ,SUM(case when A.isAvailable=1 then 1 else 0 end) as positiveAnswers,SUM(case when A.isAvailable=0 then 1 else 0 end) as negativeAnswers FROM eventSlots as S, eventanswers A WHERE S.eventID=? AND A.EventSlotID=S.ID GROUP BY S.ID", eventID, function (err, rows) {
+		var query = conn.query("SELECT slots.*, A1.isAvailable FROM eventanswers A1 RIGHT JOIN ( SELECT S.ID as sid, S.comment, DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day, DATE_FORMAT(S.eventDate,'%h:%i') as time , SUM(case when A.isAvailable=1 then 1 else 0 end) as positiveAnswers, SUM(case when A.isAvailable=0 then 1 else 0 end) as negativeAnswers FROM eventSlots as S, eventanswers A WHERE S.eventID=? AND A.EventSlotID=S.ID GROUP BY S.ID ) as slots ON slots.sid = A1.EventSlotID AND A1.userID =?", data, function (err, rows) {
 			if (err) {
 								
 
