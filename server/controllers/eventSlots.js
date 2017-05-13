@@ -26,8 +26,7 @@ router.get('/eventSlots/:id', function (req, res) {
 });
 
  
-
-router.get('/eventSlots/byEvent/:EventID', function (req, res) {
+ router.get('/eventSlots/byEvent/:EventID', function (req, res) {
 	var eventID = req.params.EventID;
 	req.getConnection(function (err, conn) {
 		if (err) {
@@ -39,6 +38,25 @@ router.get('/eventSlots/byEvent/:EventID', function (req, res) {
 								
 
 				console.log(err);
+				res.sendStatus(500);
+				console.log(query.sql);
+			}
+			else
+				res.json(rows);
+		});
+	});
+});
+
+
+router.get('/eventSlots/byEvent/:EventID/user/:UserID', function (req, res) {
+	var eventID = req.params.EventID;
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.sendStatus(500);
+		}
+		var query = conn.query("SELECT ID, eventID, comment, DATE_FORMAT(eventDate,'%m-%d-%Y') as day,DATE_FORMAT(eventDate,'%h:%i') as time FROM eventSlots WHERE eventID=?;", eventID, function (err, rows) {
+			if (err) {					
 				res.sendStatus(500);
 				console.log(query.sql);
 			}
