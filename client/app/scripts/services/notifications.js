@@ -21,8 +21,6 @@ angular.module('clientApp')
             url:'http://localhost:3000/api/notifications/user/:userID/count',
 			method: 'GET', 
 			params:{userID:'@id'}, 
-			isArray: true, 
-			cancellable: true
         }
 	});
 });

@@ -222,23 +222,35 @@ table.fixed td {
     width: 100%;
 }
 
-a.fa-globe {
+a.fa-globe  {
   position: relative;
   font-size: 2em;
   color: grey;
   cursor: pointer;
 }
-span.fa-comment {
+
+a.fa-user-circle {
+  position: relative;
+  font-size: 1.8em;
+  color: grey;
+  cursor: pointer;
+}
+
+span.fa-circle {
   position: absolute;
-  font-size: 0.6em;
-  top: -4px;
+  font-size: 0.8em;
+  top: 28px;
   color: red;
-  right: -4px;
+  right: 5px;
 }
 span.num {
+    font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif; 
   position: absolute;
-  font-size: 0.3em;
-  top: 1px;
+  font-size: 0.4em;
+  font-weight: 900;
+  top: 30px;
   color: #fff;
-  right: 2px;
+  right: 13px;
+  text-align: center;
 }
+
