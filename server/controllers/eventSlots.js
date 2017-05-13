@@ -33,7 +33,7 @@ router.get('/eventSlots/:id', function (req, res) {
 			console.log(err);
 			return res.sendStatus(500);
 		}
-		var query = conn.query("SELECT S.ID, S.comment, DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day,DATE_FORMAT(S.eventDate,'%h:%i') as time ,SUM(case when A.isAvailable=1 then 1 else 0 end) as positiveAnswers,SUM(case when A.isAvailable=0 then 1 else 0 end) as negativeAnswers FROM eventSlots as S, eventanswers A WHERE S.eventID=? AND A.EventSlotID=S.ID GROUP BY S.ID", eventID, function (err, rows) {
+		var query = conn.query("SELECT ID, eventID, comment, DATE_FORMAT(eventDate,'%m-%d-%Y') as day,DATE_FORMAT(eventDate,'%h:%i') as time FROM eventSlots WHERE eventID=?;", eventID, function (err, rows) {
 			if (err) {
 								
 
