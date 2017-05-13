@@ -2,7 +2,7 @@
 
 angular.module('clientApp')
 .factory('FactorySlot', function ($resource) {
-	return $resource('http://localhost:3000/api/eventSlots/', {}, {
+	return $resource('http://localhost:3000/api/eventAnswers/', {}, {
 		create: { 
 			method: 'POST'
 		},
@@ -27,12 +27,6 @@ angular.module('clientApp')
 			params:{EventID:'@id'}, 
 			isArray: true, 
 			cancellable: true
-		},
-		getFull: {
-			url:'http://localhost:3000/api/eventSlots/byEvent/:EventID/user/:UserID',
-			method: 'GET', 
-			params:{EventID:'@id', UserID:'@id'},
-			cancellable: true 
 		}
 	});
 });
