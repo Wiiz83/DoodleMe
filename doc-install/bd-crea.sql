@@ -21,7 +21,6 @@ CREATE TABLE Events (
 	address varchar(250),
 	creatorID int(11) NOT NULL,
 	closedSlotID int(11),
-	archived boolean NOT NULL,
 	PRIMARY KEY (ID)
 	)  ENGINE=INNODB;
 
