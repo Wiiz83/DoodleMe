@@ -25,8 +25,9 @@ router.get('/eventSlots/:id', function (req, res) {
 	});
 });
 
-  router.get('eventSlots/byEvent/:EventID/user/:UserID', function (req, res) {
-	var eventID = req.params.EventID;
+  router.get('/eventSlots/byEvent/:eventID/user/:userID', function (req, res) {
+	var eventID = req.params.eventID;
+	var userID = req.params.userID;
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
@@ -67,6 +68,8 @@ router.get('/eventSlots/byEvent/:EventID/', function (req, res) {
 
 router.post('/eventSlots/', function (req, res) {
 	var eventSlot = req.body;
+	if (eventSlot.comment==undefined)
+	eventSlot.comment="";
 	var data = [eventSlot.eventID, eventSlot.day, eventSlot.time, eventSlot.comment];
 	for (var i = 0; i < data.length; i++)
 		if (data[i] == undefined) {
@@ -154,7 +157,7 @@ router.get('/eventSlots/recommanded/:eventID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("Select slot.ID, DATE_FORMAT(eventDate,'%m-%d-%Y') as day,DATE_FORMAT(eventDate,'%h:%i') as time,comment, COUNT(answer.EventSlotID) as positiveAnswers FROM eventslots slot, eventanswers answer WHERE slot.eventID=? AND answer.EventSlotID=slot.ID AND answer.isAvailable=1 GROUP BY answer.EventSlotID ORDER BY positiveAnswers DESC LIMIT 3;",req.params.eventID, function (err, rows) {
+		var query = conn.query("Select slot.ID, DATE_FORMAT(eventDate,'%m-%d-%Y') as day,DATE_FORMAT(eventDate,'%h:%i') as time,comment, COUNT(answer.EventSlotID) as positiveAnswers FROM eventslots slot, eventanswers answer WHERE slot.eventID=? AND answer.EventSlotID=slot.ID AND answer.isAvailable=1 GROUP BY answer.EventSlotID ORDER BY positiveAnswers DESC;",req.params.eventID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				return res.status(500).send({ status: "Erreur", description: err.message });
