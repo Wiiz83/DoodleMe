@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+
+////CRUD
 router.get('/events/:id', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
@@ -67,7 +69,6 @@ router.post('/events/', function (req, res) {
 	});
 });
 
-
 router.put('/events/:id', function (req, res) {
 	console.log(req.query);
 	var event = req.body;
@@ -117,14 +118,14 @@ router.delete('/events/:id', function (req, res) {
 		});
 	});
 });
-
+//////////////////////ACTIONS
 router.put('/events/:id/close/:slotID', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('UPDATE events SET closedSlotID = ? WHERE ID=?;  ', req.params.slotID, req.params.id, function (err, rows) {
+		var query = conn.query('UPDATE events SET closedSlotID = ? WHERE ID=?;  ', [req.params.slotID, req.params.id], function (err, rows) {
 			if (err) {
 				console.log(err);
 				res.status(500).send({ status: "Erreur", description: err.message });
@@ -139,40 +140,8 @@ router.put('/events/:id/close/:slotID', function (req, res) {
 	});
 });
 
-router.get('/events/createdBy/:userID', function (req, res) {
-	req.getConnection(function (err, conn) {
-		if (err) {
-			console.log(err);
-			return res.status(500).send({ status: "Erreur", description: err.message });
-		}
-		var query = conn.query('SELECT * FROM events where creatorID=?;',req.params.userID, function (err, rows) {
-			if (err) {
-				console.log(err);
-				return res.status(500).send({ status: "Erreur", description: err.message });
-			}
-			else
-				res.json(rows);
-		});
-	});
-});
-
-router.get('/events/answeredBy/:userID', function (req, res) {
-	req.getConnection(function (err, conn) {
-		if (err) {
-			console.log(err);
-			return res.status(500).send({ status: "Erreur", description: err.message });
-		}
-		var query = conn.query('SELECT E.* FROM events as E WHERE EXISTS( SELECT * FROM eventslots as S WHERE S.eventID=E.ID AND EXISTS( SELECT * FROM eventAnswers as A WHERE A.EventSlotID=S.ID AND A.userID=?) ORDER BY S.eventDate);',req.params.userID, function (err, rows) {
-			
-			if (err) {
-				console.log(err);
-				return res.status(500).send({ status: "Erreur", description: err.message });
-			}
-			else
-				res.json(rows);
-		});
-	});
-});
+/////////////FILTRES
+////////////////////CREATIONS
 
 router.get('/events/closed/createdBy/:userID', function (req, res) {
 	req.getConnection(function (err, conn) {
@@ -180,7 +149,7 @@ router.get('/events/closed/createdBy/:userID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('SELECT * FROM events where creatorID=? AND closedSlotID IS NOT NULL;',req.params.userID, function (err, rows) {
+		var query = conn.query('SELECT * FROM events where creatorID=? AND closedSlotID IS NOT NULL AND ;',req.params.userID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				return res.status(500).send({ status: "Erreur", description: err.message });
@@ -209,30 +178,16 @@ router.get('/events/open/createdBy/:userID', function (req, res) {
 	});
 });
 
-router.get('/events/archives/createdBy/:userID', function (req, res) {
-	req.getConnection(function (err, conn) {
-		if (err) {
-			console.log(err);
-			return res.status(500).send({ status: "Erreur", description: err.message });
-		}
-		var query = conn.query('SELECT * FROM eventsArchives where creatorID = ?;',req.params.userID, function (err, rows) {
-			if (err) {
-				console.log(err);
-				return res.status(500).send({ status: "Erreur", description: err.message });
-			}
-			else
-				res.json(rows);
-		});
-	});
-});
+//////////////////////REPONSES
 
-router.get('/events/upcoming/answeredBy/:userID', function (req, res) {
+router.get('/events/upcoming/closed/answeredBy/:userID', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('SELECT E.* FROM events as E WHERE EXISTS( SELECT * FROM eventslots as S WHERE S.eventID=E.ID AND closedSlotID IS NOT NULL AND EXISTS( SELECT * FROM eventAnswers as A WHERE A.EventSlotID=S.ID AND A.userID=? AND isAvailable = true) ORDER BY S.eventDate);',req.params.userID, function (err, rows) {
+		var query = conn.query("SELECT E.*, DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day,DATE_FORMAT(S.eventDate,'%h:%i') as time , A.isAvailable FROM events as E, eventslots as S, eventanswers as A WHERE E.closedSlotID IS NOT NULL AND S.ID=E.closedSlotID AND A.EventSlotID=E.closedSlotID AND A.userID=17;"
+		,req.params.userID, function (err, rows) {
 			
 			if (err) {
 				console.log(err);
@@ -244,13 +199,15 @@ router.get('/events/upcoming/answeredBy/:userID', function (req, res) {
 	});
 });
 
-router.get('/events/archives/answeredBy/:userID', function (req, res) {
+
+router.get('/events/upcoming/open/answeredBy/:userID', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('SELECT E.* FROM eventsArchives as E WHERE EXISTS( SELECT * FROM eventSlotsArchives as S WHERE S.eventID=E.ID AND EXISTS( SELECT * FROM eventAnswersArchives as A WHERE A.EventSlotID=S.ID AND A.userID=? AND isAvailable = true) ORDER BY S.eventDate);',req.params.userID, function (err, rows) {
+		var query = conn.query("SELECT E.* FROM events as E WHERE events.closedSlotID IS NULL AND EXISTS( SELECT * FROM eventslots as S WHERE S.eventID=E.ID AND closedSlotID IS NOT NULL AND EXISTS( SELECT * FROM eventAnswers as A WHERE A.EventSlotID=S.ID AND A.userID=? AND isAvailable = true) ORDER BY S.eventDate"
+		,req.params.userID, function (err, rows) {
 			
 			if (err) {
 				console.log(err);
@@ -261,6 +218,9 @@ router.get('/events/archives/answeredBy/:userID', function (req, res) {
 		});
 	});
 });
+
+
+ 
  
 
 module.exports = router;
