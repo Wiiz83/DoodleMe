@@ -32,7 +32,14 @@ angular.module('clientApp')
 			url:'http://localhost:3000/api/eventSlots/byEvent/:EventID/user/:UserID',
 			method: 'GET', 
 			params:{EventID:'@id', UserID:'@id'},
+			isArray: true, 
 			cancellable: true 
+		},
+		getRecommandedSlots: { 
+			url:'http://localhost:3000/api/eventSlots/recommanded/:EventID',
+			method: 'GET', 
+			isArray: true, 
+			params:{EventID:'@id'}
 		}
 	});
 });
