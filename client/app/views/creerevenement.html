@@ -39,8 +39,7 @@
 				<table class="table table-hover table-bordered fixed">
 					<col width="15%" />
 					<col width="15%" />
-					<col width="45%" />
-					<col width="15%" />
+					<col width="60%" />
 					<col width="5%" />
 					<col width="5%" />
 					<thead>
@@ -55,9 +54,6 @@
 								Description
 							</th>
 							<th>
-								Participants
-							</th>
-							<th>
 
 							</th>
 							<th>
@@ -70,9 +66,6 @@
 							<td>{{slot.day}}</td>
 							<td>{{slot.time}}</td>
 							<td>{{slot.comment}}</td>
-							<td style="text-align:center">5&nbsp;<i class="fa fa-smile-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;
-								<i class="fa fa-frown-o" aria-hidden="true"></i>
-							</td>
 							<td align='center'>
 								<input type="hidden" ng-model="slotID[$index]" value="{{slot.ID}}" ng-init="slotID=slot.ID">
 								<img src="/images/edit.png" ng-click="editSlot(slotID)" style="cursor:pointer;" height="20" data-toggle="modal">
@@ -88,13 +81,13 @@
 						<div ng-if="successMessage" class="alert alert-success succes">{{ successMessage }}</div>
 						<div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
 						<div class="col-md-4">
-							<button type="button" ng-click="saveEvent()" class="btn btn-warning">Annuler</button>
+							<button type="button" ng-click="delete()" class="btn btn-warning">Annuler</button>
 						</div>
 						<div class="col-md-4">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalSlot">Ajouter un créneau</button>
 						</div>
 						<div class="col-md-4">
-							<button type="button" ng-click="saveEvent()" class="btn btn-success">Terminer</button>
+							<button type="button" ng-click="finishEvent()" class="btn btn-success">Terminer</button>
 						</div>
 					</div>
 				</div>

@@ -1,7 +1,7 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('CreerEvenementCtrl', function ($scope, $window, $rootScope, $location, $routeParams, FactoryEvents, FactorySlot, $cookies,$cookieStore) {
+ .controller('CreerEvenementCtrl', function ($scope, $window, $rootScope, $location, $routeParams, FactoryEvents, FactoryEvent, FactorySlot, $cookies,$cookieStore) {
   
     $scope.eventValid = 0;
     var eventEnCours = "";
@@ -22,14 +22,13 @@
         });
      };
 
-/*
+
     $scope.updateSlot = function(){
         var eventSlot = {day: angular.element('#slotDate').val(), time : angular.element('#slotTime').val(), comment : $scope.slotComment};
-
         FactorySlot.update({id: slotEnCours}, eventSlot,  function(response) {
             angular.element('#myModalSlotEdit').modal('hide');
             $scope.successMessage = "Modification du créneau effectuée.";
-            FactorySlot.getAll({EventID: eventID}, function(dataslots) {
+            FactorySlot.getAll({EventID: eventEnCours}, function(dataslots) {
                 $scope.slots = dataslots;
             }, function(error) {
                 $scope.errorMessage = response.data.description;
@@ -37,12 +36,12 @@
         }, function(response) {
             $scope.errorMessage = response.data.description;
         });
-    }*/
+    }
 
-      /*
+      
   $scope.editSlot = function(slotID){
     slotEnCours = slotID;
-    FactorySlot.get({id: slotID}, function(data) {
+    FactorySlot.get({id: slotEnCours}, function(data) {
         var date = new Date(data.day);
         var heure = new Date(data.time);
         $scope.timeSlot = data.time;
@@ -55,10 +54,22 @@
   }
 
 
+  $scope.finishEvent = function(){
+      $location.path('/evenement/'+eventEnCours);
+  }
+
+  $scope.delete = function(){
+    FactoryEvent.deleteEvent({id: eventEnCours}, function(response) {
+        $location.path('accueil');
+    }, function(error) {
+        $scope.errorMessage = response.data.description;
+    });
+  }
+
   $scope.deleteSlot = function(slotID){
     FactorySlot.delete({id: slotID}, function(response) {
         $scope.successMessage = response.statut;
-        FactorySlot.getAll({EventID: eventID}, function(dataslots) {
+        FactorySlot.getAll({EventID: eventEnCours}, function(dataslots) {
              $scope.slots = dataslots;
         }, function(error) {
             $scope.errorMessage = error.data.description;
@@ -66,7 +77,7 @@
     }, function(error) {
         $scope.errorMessage = error.data.description;
     });
-  }*/
+  }
 
    $scope.createSlot = function(){
     var objToSave = new FactorySlot();
@@ -80,10 +91,7 @@
         $scope.successMessage = "Création du créneau effectuée.";
 
         FactorySlot.getAll({EventID: eventEnCours}, function(dataslots) {
-           
               $scope.slots = dataslots;
-               console.log(dataslots);
-                console.log($scope.slots);
         }, function(error) {
             $scope.errorMessage = response.data.description;
         });
