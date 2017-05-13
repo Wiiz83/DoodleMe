@@ -16,7 +16,12 @@
                 <li ng-class="{ active: isActive('/mesparticipations')}"><a ng-href="#!/mesparticipations/">Mes participations</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li ng-class="{ active: isActive('/mesnotifications')}"><a ng-href="#!/mesnotifications/"><img src="/images/notification.png" alt="DoodleMe logo" height="30"></a></li>
+                <li ng-class="{ active: isActive('/mesnotifications')}">
+                    <a class="fa fa-globe"  ng-href="#!/mesnotifications/">
+                        <span class="fa fa-comment"></span>
+                        <span class="num">2</span>
+                    </a>
+                </li>
                 <li ng-class="{ active: isActive('/moncompte')}"><a ng-href="#!/moncompte/"><img src="/images/user.png" alt="DoodleMe logo" height="30"></a></li>
             </ul>
         </div>
