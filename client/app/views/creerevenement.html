@@ -1,30 +1,36 @@
 <div class="container-fluid">
-        <div class="col-md-8 col-md-offset-2" id="page-content">
+	<div class="col-md-8 col-md-offset-2" id="page-content">
 
 		<div class="row">
 			<nav-bar></nav-bar>
 		</div>
 		<div class="row">
 
-            <div ng-hide="eventValid == 1">
-                <div class="col-md-10 col-md-offset-1">
-                    <h3>Création d'un événement</h3>
-                    <br>
-                    <form ng-submit="createEvent()">
-                        <fieldset class="login-data">
-                            <input type="text" name="title" autocomplete="off" ng-model="title" placeholder="Titre de l'événement" required>
-                            <input type="text" name="address" autocomplete="off" ng-model="address" placeholder="Lieu de l'événement" required>
-                            <textarea rows="4" cols="50" ng-model="description" placeholder="Description de l'événement"></textarea>
+			<div ng-hide="eventValid == 1">
+				<div class="col-md-10 col-md-offset-1">
+					<h3>Création d'un événement</h3>
+					<br>
+					<form ng-submit="createEvent()">
+						<fieldset class="login-data">
+							<input type="text" name="title" autocomplete="off" ng-model="title" placeholder="Titre de l'événement" required>
+							<input type="text" name="address" autocomplete="off" ng-model="address" placeholder="Lieu de l'événement" required>
+							<textarea rows="4" cols="50" ng-model="description" placeholder="Description de l'événement"></textarea>
 
-                            <div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
-                        </fieldset>
-                        <fieldset class="login-action">
-                            <input class="btn btn-success" style="cursor:pointer" type="submit"
-                                name="submit" value="Créer">
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
+							<div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
+						</fieldset>
+						<div class="text-center pagination-centered ">
+							<div class="row">
+								<div class="col-md-6">
+									<a ng-href="#!/accueil/"><button type="button" class="btn btn-warning" >Annuler</button></a>
+								</div>
+								<div class="col-md-6">
+									<input class="btn btn-success" style="cursor:pointer" type="submit" name="submit" value="Suivant">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 
 
 			<div class="col-md-10 col-md-offset-1" ng-show="eventValid == 1">
@@ -81,11 +87,14 @@
 					<div class="row">
 						<div ng-if="successMessage" class="alert alert-success succes">{{ successMessage }}</div>
 						<div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
-						<div class="col-md-6">
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalSlot">Ajouter créneau</button>
+						<div class="col-md-4">
+							<button type="button" ng-click="saveEvent()" class="btn btn-warning">Annuler</button>
 						</div>
-						<div class="col-md-6">
-							<button type="button" ng-click="saveEvent()" class="btn btn-success">Enregistrer</button>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalSlot">Ajouter un créneau</button>
+						</div>
+						<div class="col-md-4">
+							<button type="button" ng-click="saveEvent()" class="btn btn-success">Terminer</button>
 						</div>
 					</div>
 				</div>
