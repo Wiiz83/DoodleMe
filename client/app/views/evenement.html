@@ -49,10 +49,11 @@
 							</td>
 							<td align='center'>
 								<div class="btn-group" data-toggle="buttons">
-									<label id="1" class="btn btn-primary" ng-click="Participate(slotID)" ng-class="{active: slot.ID == 1}">
+									<label id="1" class="btn btn-primary" ng-click="Participate(slotID)" ng-class="{active: slot.isAvailable == 1}">
 										<input type="radio" value="{{slot.ID}}" ng-init="slotID=slot.ID"><i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i>
 									</label>
-									<label id="2" class="btn btn-primary" ng-click="notParticipate(slotID)" ng-class="{active: slot.ID == 0}">
+								
+									<label id="2" class="btn btn-primary" ng-click="notParticipate(slotID)" ng-class="{active: slot.isAvailable == 0}">
 										<input type="radio" value="{{slot.ID}}" ng-init="slotID=slot.ID"><i class="glyphicon glyphicon-thumbs-down"  aria-hidden="true"></i>
 									</label>
 								</div>

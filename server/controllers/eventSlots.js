@@ -47,7 +47,7 @@ router.get('/eventSlots/:id', function (req, res) {
 			console.log(err);
 			return res.sendStatus(500);
 		}
-		var query = conn.query("SELECT slots.*, A1.isAvailable FROM eventanswers A1 RIGHT JOIN ( SELECT S.ID as sid, S.comment, DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day, DATE_FORMAT(S.eventDate,'%h:%i') as time , SUM(case when A.isAvailable=1 then 1 else 0 end) as positiveAnswers, SUM(case when A.isAvailable=0 then 1 else 0 end) as negativeAnswers FROM eventSlots as S, eventanswers A WHERE S.eventID=? AND A.EventSlotID=S.ID GROUP BY S.ID ) as slots ON slots.sid = A1.EventSlotID AND A1.userID =?", data, function (err, rows) {
+		var query = conn.query("SELECT slots.*, A1.isAvailable AS isAvailable FROM eventanswers A1 RIGHT JOIN ( SELECT S.ID as sid, S.comment, DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day, DATE_FORMAT(S.eventDate,'%h:%i') as time , SUM(case when A.isAvailable=1 then 1 else 0 end) as positiveAnswers, SUM(case when A.isAvailable=0 then 1 else 0 end) as negativeAnswers FROM eventSlots as S, eventanswers A WHERE S.eventID=? AND A.EventSlotID=S.ID GROUP BY S.ID ) as slots ON slots.sid = A1.EventSlotID AND A1.userID =?", data, function (err, rows) {
 			if (err) {
 								
 

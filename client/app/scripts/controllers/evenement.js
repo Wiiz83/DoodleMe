@@ -11,7 +11,6 @@ angular.module('clientApp')
         $scope.eventEdit = 0;
 
 
-console.log(eventID);
         FactoryEvent.getEvent({ id: eventID }, function (dataevent) {
             $scope.event = dataevent;
             eventEnCours = dataevent;
@@ -26,19 +25,20 @@ console.log(eventID);
 
             FactorySlot.getFull({EventID: eventID, UserID: userEnCours}, function (dataslots) {
                 console.log("résultat getFull :" +dataslots );
+                console.log(dataslots);
                 $scope.slots = dataslots;
             }, function (response) {
                 console.log(response);
                 $scope.errorMessage = response.data.description;
             });
             
-            FactorySlot.getRecommandedSlots({EventID: eventID}, function (dataslots) {
+          /*  FactorySlot.getRecommandedSlots({EventID: eventID}, function (dataslots) {
                  console.log("résultat getRecommandedSlots :" +dataslots );
                 $scope.slotCloture = dataslots;
             }, function (response) {
                 console.log(response);
                 $scope.errorMessage = response.data.description;
-            });
+            });*/
 
         }, function (response) {
             console.log(response);
@@ -74,8 +74,9 @@ console.log(eventID);
         $scope.notParticipate = function (slotID) {
             var slotAnswer = { userID: userEnCours, EventSlotID: slotID, isAvailable: 0 };
             FactoryAnswer.update(slotAnswer, function (response) {
+                
                  FactorySlot.getFull({EventID: eventID, UserID: userEnCours}, function (dataslots) {
-                $scope.slots = dataslots;
+                    $scope.slots = dataslots;
                 }, function (response) {
                     $scope.errorMessage = response.data.description;
                 });
