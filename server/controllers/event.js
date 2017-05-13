@@ -149,7 +149,7 @@ router.get('/events/closed/createdBy/:userID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('SELECT * FROM events where creatorID=? AND closedSlotID IS NOT NULL AND ;',req.params.userID, function (err, rows) {
+		var query = conn.query('SELECT * FROM events where creatorID=? AND closedSlotID IS NOT NULL ;',req.params.userID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				return res.status(500).send({ status: "Erreur", description: err.message });
@@ -186,7 +186,7 @@ router.get('/events/upcoming/closed/answeredBy/:userID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("SELECT E.*, DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day,DATE_FORMAT(S.eventDate,'%h:%i') as time , A.isAvailable FROM events as E, eventslots as S, eventanswers as A WHERE E.closedSlotID IS NOT NULL AND S.ID=E.closedSlotID AND A.EventSlotID=E.closedSlotID AND A.userID=17;"
+		var query = conn.query("SELECT E.*, DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day,DATE_FORMAT(S.eventDate,'%h:%i') as time , A.isAvailable FROM events as E, eventslots as S, eventanswers as A WHERE E.closedSlotID IS NOT NULL AND S.ID=E.closedSlotID AND A.EventSlotID=E.closedSlotID AND A.userID=?;"
 		,req.params.userID, function (err, rows) {
 			
 			if (err) {
