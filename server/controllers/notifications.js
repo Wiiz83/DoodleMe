@@ -45,7 +45,7 @@ router.get('/notifications/user/:userID/count', function (req, res) {
 });
 
 
-router.post('api/notifications/markasread/', function (req, res) {
+router.post('/notifications/markasread/', function (req, res) {
 	var notif = req.body;
 	var data = [notif.userID, notif.eventID];
 	for (var i = 0; i < data.length; i++)
@@ -72,7 +72,7 @@ router.post('api/notifications/markasread/', function (req, res) {
 	});
 });
 
-router.post('api/notifications/markallasread/:userID ', function (req, res) {
+router.post('/notifications/markallasread/:userID ', function (req, res) {
     var userID = req.params.userID; 
 	req.getConnection(function (err, conn) {
 		if (err) {
