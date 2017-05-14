@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clientApp')
-    .controller('EventDetailsCtrl', function ($routeParams, $scope, $location, $route, FactoryEvent, FactoryEvents, FactorySlot, FactoryNotifications, FactoryAnswer, $cookies, $cookieStore, dataService) {
+    .controller('EventDetailsCtrl', function ($routeParams, $scope, $location, $route, FactoryEvent, FactorySlot, FactoryNotifications, FactoryAnswer, $cookies, $cookieStore, dataService) {
 
         var eventID = $routeParams.eventID;
         var userEnCours = $cookieStore.get('id');
@@ -11,7 +11,7 @@ angular.module('clientApp')
         var slotEnCours = {};
         $scope.eventEdit = 0;
 
-        FactoryEvent.getEvent({ id: eventID }, function (dataevent) {
+        FactoryEvent.get({ id: eventID }, function (dataevent) {
             $scope.event = dataevent;
             eventEnCours = dataevent;
 
@@ -42,7 +42,7 @@ angular.module('clientApp')
 
 
         $scope.delete = function () {
-            FactoryEvent.deleteEvent({ id: eventID }, function (response) {
+            FactoryEvent.delete({ id: eventID }, function (response) {
                 angular.element('#myModalDelete').modal('hide');
                 angular.element('body').removeClass('modal-open');
                 angular.element('.modal-backdrop').remove();
@@ -111,7 +111,7 @@ angular.module('clientApp')
 
         $scope.closeEvent = function () {
             var slotChoisi = $scope.slotListe;
-            FactoryEvents.close({ id: eventID, slotID: slotChoisi }, function (response) {
+            FactoryEvent.close({ id: eventID, slotID: slotChoisi }, function (response) {
                 angular.element('#myModalCloture').modal('hide');
                 angular.element('body').removeClass('modal-open');
                 angular.element('.modal-backdrop').remove();
@@ -185,7 +185,7 @@ angular.module('clientApp')
         $scope.saveEvent = function () {
             var event = { title: $scope.title, description: $scope.description, address: $scope.address };
 
-            FactoryEvent.updateEvent({ id: eventID }, event, function (response) {
+            FactoryEvent.update({ id: eventID }, event, function (response) {
                 $scope.eventEdit = 0;
             }, function (response) {
                 $scope.errorMessage = response.data.description;

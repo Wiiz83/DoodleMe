@@ -9,7 +9,8 @@
 
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" data-target="#home">A venir</a></li>
-                    <li><a data-toggle="tab" data-target="#menu1">Archivés</a></li>
+                     <li><a data-toggle="tab" data-target="#menu1">En attente</a></li>
+                    <li><a data-toggle="tab" data-target="#menu2">Archivés</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -46,7 +47,40 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="menu1" class="tab-pane fade">
+                      <div id="menu1" class="tab-pane fade">
+                        <h3>Mes participations en attente</h3>
+                        <br>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Titre
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        Lieu
+                                    </th>
+                                    <th>
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="event in eventsClosed track by $index">
+                                    <td>{{event.title}}</td>
+                                    <td>{{event.description}}</td>
+                                    <td>{{event.address}}</td>
+                                    <td align='center'>
+                                        <input type="hidden" ng-model="eventID[$index]" value="{{event.ID}}" ng-init="eventID=event.ID">
+                                        <input type="image" src="/images/eye.png" ng-click="viewEvent(eventID)" alt="Submit Form" height="20" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
                         <h3>Mes participations passées</h3>
                         <br>
                         <table class="table table-hover">

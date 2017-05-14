@@ -1,14 +1,14 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('CreerEvenementCtrl', function ($scope, $window, $rootScope, $location, $routeParams, FactoryEvents, FactoryEvent, FactorySlot, $cookies,$cookieStore) {
+ .controller('CreerEvenementCtrl', function ($scope, $window, $rootScope, $location, $routeParams, FactoryEvent, FactorySlot, $cookies,$cookieStore) {
   
     $scope.eventValid = 0;
     var eventEnCours = "";
     var slotEnCours = "";
 
  	$scope.createEvent = function(){
-        var objToSave = new FactoryEvents();
+        var objToSave = new FactoryEvent();
         objToSave.title = $scope.title;
         objToSave.address = $scope.address;
         objToSave.description = $scope.description;
@@ -59,7 +59,7 @@
   }
 
   $scope.delete = function(){
-    FactoryEvent.deleteEvent({id: eventEnCours}, function(response) {
+    FactoryEvent.delete({id: eventEnCours}, function(response) {
         $location.path('accueil');
     }, function(error) {
         $scope.errorMessage = response.data.description;

@@ -1,21 +1,21 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('MesCreationsCtrl', function ($location, $scope, $cookieStore, FactoryMyEventsOpened, FactoryMyEventsClosed, FactoryMyEventsArchived) {
+ .controller('MesCreationsCtrl', function ($location, $scope, $cookieStore, FactoryEvent) {
 	$scope.eventsOpened = {};
     $scope.eventsClosed = {};
     $scope.eventsArchived = {};
     var IDcreator = $cookieStore.get('id');
 
-    FactoryMyEventsOpened.getAll({id: IDcreator}, function(data){
+    FactoryEvent.getMyEventsOpened({id: IDcreator}, function(data){
         $scope.eventsOpened = data;
     });
 
-    FactoryMyEventsClosed.getAll({id: IDcreator}, function(data){
+    FactoryEvent.getMyEventsClosed({id: IDcreator}, function(data){
         $scope.eventsClosed = data;
     });
 
-    FactoryMyEventsArchived.getAll({id: IDcreator}, function(data){
+    FactoryEvent.getMyEventsArchived({id: IDcreator}, function(data){
         $scope.eventsArchived = data;
     });
 

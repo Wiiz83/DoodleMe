@@ -1,7 +1,7 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('AccueilCtrl', function ($location, $scope,FactoryEvents, dataService) {
+ .controller('AccueilCtrl', function ($location, $scope,FactoryEvent, dataService) {
 	$scope.events = {};
 
 	var globalData = dataService.getData();
@@ -16,7 +16,7 @@
         break;
     }
 
-    FactoryEvents.getAll(function(data){
+    FactoryEvent.getAll(function(data){
         $scope.events = data;
     });
     

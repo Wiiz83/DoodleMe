@@ -26,6 +26,10 @@
         });
     }
 
+    $scope.viewEvent = function(eventID){
+        $location.path('/evenement/'+eventID);
+     };
+
 
 });
 
