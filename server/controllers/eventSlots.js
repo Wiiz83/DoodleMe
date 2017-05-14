@@ -11,6 +11,8 @@ FROM eventSlots as S, eventanswers A
 WHERE S.eventID=14 AND A.EventSlotID=S.ID 
 GROUP BY S.ID 
     ) as slots ON slots.sid = A1.EventSlotID AND A1.userID =17 ;
+
+	
 */
 var express = require('express');
 var router = express.Router();
