@@ -174,13 +174,14 @@ router.get('/eventSlots/recommanded/:eventID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("Select slot.ID, DATE_FORMAT(eventDate,'%m-%d-%Y') as day,DATE_FORMAT(eventDate,'%h:%i') as time,comment, COUNT(answer.EventSlotID) as positiveAnswers FROM eventslots slot, eventanswers answer WHERE slot.eventID=? AND answer.EventSlotID=slot.ID AND answer.isAvailable=1 GROUP BY answer.EventSlotID ORDER BY positiveAnswers DESC;",req.params.eventID, function (err, rows) {
+		var query = conn.query("call GetEventSlots(?); Select * From eventSlotsDetails  ORDER BY positiveAnswers DESC, negativeAnswers ASC ;",req.params.eventID, function (err, rows) {
 			if (err) {
 				console.log(err);
+				console.log(query.sql);
 				return res.status(500).send({ status: "Erreur", description: err.message });
 			}
 			else
-				res.json(rows);
+				res.json(rows[1]);
 		});
 	});
 });
