@@ -1,7 +1,7 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('MesNotificationsCtrl', function ($scope, $cookieStore, FactoryNotifications) {
+ .controller('MesNotificationsCtrl', function ($scope, $cookieStore, $route, FactoryNotifications) {
 	$scope.eventsNotified = {};
     var currentUser = $cookieStore.get('id');
 
@@ -11,11 +11,9 @@
 
     $scope.markRead = function (eventID) {
         var read = {userID: currentUser, eventID: eventID};
-        console.log(read);
         FactoryNotifications.markAsRead(read, function(data){
-            console.log(data);
+              $route.reload();
         }, function (response) {
-            console.log(response);
             $scope.errorMessage = response.data.description;
         });
     }
