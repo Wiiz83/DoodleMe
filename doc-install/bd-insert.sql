@@ -1,17 +1,78 @@
 INSERT INTO `users` (`ID`, `firstName`, `lastName`, `pseudo`, `registrationDate`, `passHash`) VALUES
-(17, 'Mahdi', 'Hentati', 'mh', '2017-05-06 09:14:55', 'todo'),
-(18, 'Lucas', 'Uzan', 'luke', '2017-05-06 09:14:55', 'todo'),
-(19, 'David', 'Toutain', 'david', '2017-05-06 09:15:21', 'todo');
+(17, 'Mahdi', 'Hentati', 'Mh0', '2017-05-06 09:14:55', 'mahdi'),
+(18, 'Lucas', 'Uzan', 'Lulu', '2017-05-06 09:14:55', 'lucas'),
+(19, 'David', 'Toutain', 'Imaneet', '2017-05-06 09:15:21', 'david'),
+(20, 'Thomas', 'Roger', 'Toto', '2017-05-06 09:14:55', 'thomas'),
+(21, 'Elisa', 'Dupont', 'Eli83', '2017-05-06 09:14:55', 'elisa');
 
 INSERT INTO `events` (`ID`, `title`, `description`, `address`, `creatorID`, `closedSlotID`) VALUES
-(1, 'Travail en groupe', 'Ma description', 'BU', 17, NULL),
-(2, 'Tiser', 'à la mort', 'VNB', 19, NULL);
+(1, 'Travail en groupe', 'Faut finir se projet !!! On est en retard !!!!', 'BU', 17, NULL),
+(2, 'Réunion au bureau', 'Nous devons faire le point sur la mise en place du projet de conception.', 'Bureau', 18, NULL),
+(3, 'Anniversaire de David', 'Venez nombreux et pensez au cadeau !', 'Chez moi', 19, NULL),
+(4, 'Afterwork BDE MIAGE', 'Grosse soirée en compagnie du BDE INP ! Venez nombreux', 'Bar', 20, NULL),
+(5, 'Sortie vélo', 'Petite balade entre potes pour se changer les idées.', 'Toulouse', 21, NULL);
 
 INSERT INTO `eventslots` (`ID`, `eventID`, `eventDate`, `comment`) VALUES
-(1, 1, '2017-05-31 05:19:00', 'commentaire sur le créneau ... '),
-(2, 1, '2017-06-01 10:00:00', NULL);
+(1, 1, '2017-05-31 12:00:00', 'Il y a une salle dispo à la BU'),
+(2, 1, '2017-05-15 15:30:00', 'Pas de salle dispo mais on se débrouillera'),
+(3, 2, '2017-05-19 16:00:00', ''),
+(4, 2, '2017-05-20 19:15:00', ''),
+(5, 3, '2017-05-21 20:00:00', 'On se retrouve directement chez lui'),
+(6, 3, '2017-05-10 10:00:00', 'On se retrouve chez moi juste avant'),
+(7, 4, '2017-06-14 20:45:00', ''),
+(8, 4, '2017-06-05 22:15:00', ''),
+(9, 5, '2017-06-23 16:15:00', ''),
+(10, 5, '2017-06-09 21:00:00', 'Prévoir repas du soir');
 
 
 INSERT INTO `eventanswers` (`userID`, `EventSlotID`, `isAvailable`) VALUES
 (17, 1, 1),
-(18, 2, 0);
+(18, 1, 1),
+(19, 1, 0),
+(20, 1, 0),
+(21, 1, 0),
+(17, 2, 1),
+(18, 2, 1),
+(19, 2, 1),
+(20, 2, 0),
+(21, 2, 1),
+(17, 3, 0),
+(18, 3, 1),
+(19, 3, 0),
+(20, 3, 1),
+(21, 3, 1),
+(17, 4, 0),
+(18, 4, 1),
+(19, 4, 0),
+(20, 4, 0),
+(21, 4, 0),
+(17, 5, 0),
+(18, 5, 0),
+(19, 5, 1),
+(20, 5, 0),
+(21, 5, 0),
+(17, 6, 0),
+(18, 6, 1),
+(19, 6, 1),
+(20, 6, 1),
+(21, 6, 0),
+(17, 7, 1),
+(18, 7, 1),
+(19, 7, 1),
+(20, 7, 1),
+(21, 7, 1),
+(17, 8, 0),
+(18, 8, 1),
+(19, 8, 1),
+(20, 8, 0),
+(21, 8, 0),
+(17, 9, 1),
+(18, 9, 0),
+(19, 9, 0),
+(20, 9, 0),
+(21, 9, 1),
+(17, 10, 1),
+(18, 10, 1),
+(19, 10, 1),
+(20, 10, 1),
+(21, 10, 1);
