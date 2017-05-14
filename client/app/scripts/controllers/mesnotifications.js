@@ -18,6 +18,14 @@
         });
     }
 
+    $scope.markAllRead = function () {
+        FactoryNotifications.markAllAsRead({userID: currentUser}, function(data){
+              $route.reload();
+        }, function (response) {
+            $scope.errorMessage = response.data.description;
+        });
+    }
+
 
 });
 

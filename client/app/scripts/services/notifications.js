@@ -9,6 +9,12 @@ angular.module('clientApp')
 			method: 'POST'
 		},
 
+		markAllAsRead: { 
+            url:'http://localhost:3000/api/notifications/markallasread/:userID',
+			params:{userID:'@userID'}, 
+			method: 'POST'
+		},
+
         getAll : {
             url:'http://localhost:3000/api/notifications/user/:userID',
 			method: 'GET', 
