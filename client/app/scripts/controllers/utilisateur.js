@@ -42,8 +42,8 @@
     $scope.save = function () {
         var user = {userID: userEnCours, firstName: $scope.prenom, lastName: $scope.nom, pseudo: $scope.pseudo, password: $scope.password};
         FactoryUser.update({id: userEnCours}, user, function (response) {
-            $successMessageConsult = "Modifications enregistrées.";
             $scope.userEdit = 0;
+            $scope.successMessageConsult = "Modifications enregistrées.";
         }, function (response) {
             $scope.errorMessage = response.data.description;
         });
