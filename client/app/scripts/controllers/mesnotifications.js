@@ -9,6 +9,16 @@
         $scope.eventsNotified = data;
     });
 
+    var read = {userID: userEnCours};
+
+    FactoryNotifications.markAsRead(read, function(data){
+        console.log(data);
+    }, function (response) {
+        console.log(response);
+        $scope.errorMessage = response.data.description;
+    });
+
+
 });
 
 

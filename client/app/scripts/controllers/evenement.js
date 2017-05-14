@@ -5,7 +5,6 @@ angular.module('clientApp')
 
         var eventID = $routeParams.eventID;
         var userEnCours = $cookieStore.get('id');
-        var isClose = "";
         var isCreator = false;
         var isParticipant = "";
         var eventEnCours = {};
@@ -16,13 +15,12 @@ angular.module('clientApp')
             $scope.event = dataevent;
             eventEnCours = dataevent;
 
-            if (dataevent.closedSlotID == 1) {
-                isClose = true;
+            if (dataevent.closedSlotID != null) {
                 $scope.isClose = true;
                 $scope.isVisible = true;
                 $scope.eventStatut = "Cet événement est clôturé, il n'est donc plus modifiable."
             } else {
-                isClose = false;
+                $scope.isClose = false;
                 $scope.isVisible = false;
 
                 var IDcreator = dataevent.creatorID;
@@ -30,15 +28,6 @@ angular.module('clientApp')
                     $scope.isVisible = false;
                     isCreator = true;
                 } else {
-                    var read = { eventID: eventEnCours, userID: userEnCours};
-
-                    FactoryNotifications.markAsRead(read, function(data){
-                        console.log(data);
-                    }, function (response) {
-                        console.log(response);
-                        $scope.errorMessage = response.data.description;
-                    });
-
                     $scope.isVisible = true;
                 }
             }
