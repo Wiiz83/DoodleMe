@@ -102,7 +102,7 @@ router.post('/eventSlots/', function (req, res) {
 					if (err) {
 						console.log(query.sql);
 						console.log(err);
-						return res.status(500).send({ status: "Erreur", description: err.message });
+						return res.status(500).send({ status: "Erreur", description: "Ce créneau existe déjà !" });
 					}
 					else {
 						return res.send({ status: "Succès", description:result.insertId}); 

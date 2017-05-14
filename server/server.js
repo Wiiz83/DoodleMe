@@ -24,13 +24,12 @@ app.use(
         user: 'root',
         password: '',
         database: 'doodlme',
-        debug: true,
+        debug: false,
         multipleStatements : true
     }, 'request')
 );
 
 // interception de toutes les requetes /api et bloquage des requetes non autorisées
-
 if (!unsecure) //dev
     app.use('/api', require('./auth/filter.js'));
 
