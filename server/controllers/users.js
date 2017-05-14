@@ -65,7 +65,7 @@ router.delete('/users/:id', function (req, res) {
 });
 
 router.put('/users/:id', function (req, res) {
-     if (req.params.id!==req.cookies.id)
+     if (req.params.id!==req.cookies.id )
          return res.status(403).send({ status: "Erreur", description: "Accès refusé" });
     var user = req.body;
     var data = [user.firstName, user.lastName];

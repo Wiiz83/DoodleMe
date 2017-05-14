@@ -27,8 +27,6 @@ auth_route.post(function (req, res) {
                     console.log(user);
                     res.cookie("id", user.ID);
                     res.cookie("pseudo", user.pseudo );
-                    res.cookie("firstName", user.firstName);
-                    res.cookie("lastName", user.firstName);
                     res.cookie("token",getAuthToken(user));
                     return res.send({ status: "succès"});
                 }
