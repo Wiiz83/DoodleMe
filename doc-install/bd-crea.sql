@@ -83,7 +83,8 @@ BEGIN
   SUM(case when A.isAvailable=0 then 1 else 0 end) as negativeAnswers 
   
  FROM eventSlots as S LEFT JOIN eventanswers as A 
- ON S.eventID=iEventID AND A.EventSlotID=S.ID 
- GROUP BY S.ID ; 
+ ON  A.EventSlotID=S.ID 
+ WHERE S.eventID= iEventID
+ GROUP BY S.ID ;
 END //
 DELIMITER ;
