@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clientApp')
-    .controller('EventDetailsCtrl', function ($routeParams, $scope, $location, FactoryEvent, FactoryEvents, FactorySlot, FactoryNotifications, FactoryAnswer, $cookies, $cookieStore, dataService) {
+    .controller('EventDetailsCtrl', function ($routeParams, $scope, $location, $route, FactoryEvent, FactoryEvents, FactorySlot, FactoryNotifications, FactoryAnswer, $cookies, $cookieStore, dataService) {
 
         var eventID = $routeParams.eventID;
         var userEnCours = $cookieStore.get('id');
@@ -113,7 +113,9 @@ angular.module('clientApp')
             var slotChoisi = $scope.slotListe;
             FactoryEvents.close({ id: eventID, slotID: slotChoisi }, function (response) {
                 angular.element('#myModalCloture').modal('hide');
-                $scope.successMessage = "Clôture de l'événement effectuée.";
+                angular.element('body').removeClass('modal-open');
+                angular.element('.modal-backdrop').remove();
+                $route.reload();
             }, function (response) {
                 $scope.errorMessage = response.data.description;
             });

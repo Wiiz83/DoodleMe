@@ -6,7 +6,7 @@ angular.module('clientApp')
  		close: { 
 			 url:'http://localhost:3000/api/events/:id/close/:slotID',
 			 method: 'PUT', 
-			 params:{id:'@id', slotID:'@id'} 
+			 params:{id:'@id', slotID:'@slotID'} 
 		},
 		create: { 
 			method: 'POST' 
