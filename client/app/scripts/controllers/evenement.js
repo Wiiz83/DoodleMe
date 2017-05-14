@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clientApp')
-    .controller('EventDetailsCtrl', function ($routeParams, $scope, $location, FactoryEvent, FactoryEvents, FactorySlot, FactoryAnswer, $cookies, $cookieStore, dataService) {
+    .controller('EventDetailsCtrl', function ($routeParams, $scope, $location, FactoryEvent, FactoryEvents, FactorySlot, FactoryNotifications, FactoryAnswer, $cookies, $cookieStore, dataService) {
 
         var eventID = $routeParams.eventID;
         var userEnCours = $cookieStore.get('id');
@@ -30,6 +30,15 @@ angular.module('clientApp')
                     $scope.isVisible = false;
                     isCreator = true;
                 } else {
+                    var read = { eventID: eventEnCours, userID: userEnCours};
+
+                    FactoryNotifications.markAsRead(read, function(data){
+                        console.log(data);
+                    }, function (response) {
+                        console.log(response);
+                        $scope.errorMessage = response.data.description;
+                    });
+
                     $scope.isVisible = true;
                 }
             }
@@ -95,8 +104,6 @@ angular.module('clientApp')
         }
 
        $scope.clickUsers = function (slotChoisi) {
-            console.log(slotChoisi);
-
             FactorySlot.getNegatives({id: slotChoisi}, function (datanegative) {
                 $scope.NotParticipants = datanegative;
                 
@@ -170,6 +177,7 @@ angular.module('clientApp')
             objToSave.time = angular.element('#eventTime').val();
             objToSave.day = angular.element('#eventDate').val();
             objToSave.comment = $scope.eventComment;
+
             objToSave.$create(function (response) {
                 angular.element('#myModalSlot').modal('hide');
                 $scope.successMessage = "Création du créneau effectuée.";

@@ -17,9 +17,9 @@
 			 }
 
 			FactoryNotifications.getCompteur({userID: currentUser}, function(data){
-				if(data != null){
-					$scope.numberNotif = data;
-					notif = 1;
+				if(data.nb_notifications != 0){
+					$scope.numberNotif = data.nb_notifications;
+					$scope.notif = 1;
 				} 
 			});
 
