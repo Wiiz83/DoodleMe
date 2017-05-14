@@ -5,7 +5,7 @@ angular.module('clientApp')
 	return $resource('http://localhost:3000/api/notifications/', {}, {
 
 		markAsRead: { 
-            url:'http://localhost:3000/api/notifications/markasread/',  // POST: {eventID, userID}
+            url:'http://localhost:3000/api/notifications/markasread/',
 			method: 'POST'
 		},
 

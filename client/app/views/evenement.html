@@ -248,10 +248,10 @@
 					<br>
 					<div class="tab-content clearfix">
 						<div id="home" class="tab-pane fade in active">
-							<div class="row" ng-repeat="user in Participants">
-								<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-3" ng-repeat="user in Participants">
 									<div class="thumbnail">
-										<a href="/w3images/lights.jpg" target="_blank">
+										<a ng-href="#!/utilisateur/{{user.ID}}" target="_blank">
 										<img src="/images/avatar.jpg" alt="Lights" style="width:100%">
 										<div class="caption center">
 											<p>{{user.pseudo}}</p>
@@ -262,10 +262,10 @@
 							</div>
 						</div>
 						<div id="menu1" class="tab-pane fade">
-							<div class="row" ng-repeat="user in NotParticipants">
-								<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-3" ng-repeat="user in NotParticipants">
 									<div class="thumbnail">
-										<a href="/w3images/lights.jpg" target="_blank">
+										<a ng-href="#!/utilisateur/{{user.ID}}" target="_blank">
 										<img src="/images/avatar.jpg" alt="Lights" style="width:100%">
 										<div class="caption center">
 											<p>{{user.pseudo}}</p>
