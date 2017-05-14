@@ -25,6 +25,9 @@
 							<th>
 
 							</th>
+							<th>
+
+							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -36,6 +39,9 @@
 							<td align='center'>
 								<input type="hidden" ng-model="eventID[$index]" value="{{event.ID}}" ng-init="eventID=event.ID">
 								<input type="image" src="/images/eye.png" ng-click="viewEvent(eventID)" alt="Submit Form" height="20" />
+							</td>
+							<td align='center'>
+								<button type="button" value="{{event.ID}}" ng-init="eventID=event.ID" class="btn btn-outline-primary" ng-click="markRead(eventID)"><i class="glyphicon glyphicon-check" aria-hidden="true"></i></button>
 							</td>
 						</tr>
 					</tbody>

@@ -9,14 +9,16 @@
         $scope.eventsNotified = data;
     });
 
-    var read = {userID: currentUser};
-
-    FactoryNotifications.markAsRead(read, function(data){
-        console.log(data);
-    }, function (response) {
-        console.log(response);
-        $scope.errorMessage = response.data.description;
-    });
+    $scope.markRead = function (eventID) {
+        var read = {userID: currentUser, eventID: eventID};
+        console.log(read);
+        FactoryNotifications.markAsRead(read, function(data){
+            console.log(data);
+        }, function (response) {
+            console.log(response);
+            $scope.errorMessage = response.data.description;
+        });
+    }
 
 
 });
