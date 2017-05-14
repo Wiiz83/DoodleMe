@@ -5,7 +5,6 @@
 
     var userID = $routeParams.userID;
     var userEnCours = $cookieStore.get('id');
-
     
     if(userEnCours == userID){
         $scope.isVisible = true;
@@ -13,16 +12,11 @@
         $scope.isVisible = false;
     }
 
-    console.log(userID);
     FactoryUser.get({id: userID}, function (data) {
-          console.log(data);
         $scope.user = data;
     }, function (response) {
-          console.log(response);
         $scope.errorMessage = response.data.description;
     });
-
-
 
     $scope.deconnexion = function () {
         $cookieStore.remove("id");
@@ -42,12 +36,14 @@
 
     $scope.delete = function () {
         FactoryUser.delete({id: userID}, function (response) {
+            console.log(response);
             angular.element('#myModalDelete').modal('hide');
             angular.element('body').removeClass('modal-open');
             angular.element('.modal-backdrop').remove();
             dataService.setData("deleteSuccess");
             $location.path('');
         }, function (response) {
+            console.log(response);
             $scope.errorMessage = response.data.description;
         });
 

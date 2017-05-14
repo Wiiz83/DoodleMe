@@ -10,13 +10,12 @@
 				<br>
 				<div class="text-center pagination-centered">
 					<img src="/images/avatar.jpg">
-					<p>Nom : {{user.nom}}</p>
-					<p>Prénom : {{user.prenom}}</p>
+					<p>Nom : {{user.lastName}}</p>
+					<p>Prénom : {{user.firstName}}</p>
 				</div>
 			</div>
 		</div>
-
-		<br>
+		<br><br>
 		<div ng-if="successMessage" class="alert alert-success succes">{{ successMessage }}</div>
 		<div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
 		<div class="text-center pagination-centered" ng-if="isVisible == true">
