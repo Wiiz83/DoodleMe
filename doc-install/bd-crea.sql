@@ -82,9 +82,11 @@ BEGIN
   SUM(case when A.isAvailable=1 then 1 else 0 end) as positiveAnswers,
   SUM(case when A.isAvailable=0 then 1 else 0 end) as negativeAnswers 
   
- FROM eventSlots as S LEFT JOIN eventanswers as A 
+ FROM events as E, eventSlots as S LEFT JOIN eventanswers as A 
  ON  A.EventSlotID=S.ID 
  WHERE S.eventID= iEventID
+ AND S.eventID = E.ID
+ AND (E.closedSlotID IS NULL OR S.ID=E.closedSlotID)
  GROUP BY S.ID ;
 END //
 DELIMITER ;
