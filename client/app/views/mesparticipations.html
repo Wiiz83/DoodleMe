@@ -18,6 +18,10 @@
                         <h3>Mes participations à venir</h3>
                         <br>
                         <table class="table table-hover">
+                            <col width="25%" />
+                            <col width="50%" />
+                            <col width="15%" />
+                            <col width="10%" />
                             <thead>
                                 <tr>
                                     <th>
@@ -35,7 +39,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="event in eventsOpened track by $index">
+                                <tr ng-repeat="event in participationsOpened track by $index">
                                     <td>{{event.title}}</td>
                                     <td>{{event.description}}</td>
                                     <td>{{event.address}}</td>
@@ -51,6 +55,10 @@
                         <h3>Mes participations en attente</h3>
                         <br>
                         <table class="table table-hover">
+                            <col width="25%" />
+                            <col width="50%" />
+                            <col width="15%" />
+                            <col width="10%" />
                             <thead>
                                 <tr>
                                     <th>
@@ -68,7 +76,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="event in eventsClosed track by $index">
+                                <tr ng-repeat="event in participationsClosed track by $index">
                                     <td>{{event.title}}</td>
                                     <td>{{event.description}}</td>
                                     <td>{{event.address}}</td>
@@ -84,6 +92,10 @@
                         <h3>Mes participations passées</h3>
                         <br>
                         <table class="table table-hover">
+                            <col width="25%" />
+                            <col width="50%" />
+                            <col width="15%" />
+                            <col width="10%" />
                             <thead>
                                 <tr>
                                     <th>
@@ -101,7 +113,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="event in eventsClosed track by $index">
+                                <tr ng-repeat="event in participationsArchived track by $index">
                                     <td>{{event.title}}</td>
                                     <td>{{event.description}}</td>
                                     <td>{{event.address}}</td>

@@ -12,9 +12,9 @@
 					<br>
 					<form ng-submit="createEvent()">
 						<fieldset class="login-data">
-							<input type="text" name="title" autocomplete="off" ng-model="title" placeholder="Titre de l'événement" required>
-							<input type="text" name="address" autocomplete="off" ng-model="address" placeholder="Lieu de l'événement" required>
-							<textarea rows="4" cols="50" ng-model="description" placeholder="Description de l'événement"></textarea>
+							<input type="text" name="title" autocomplete="off" class="form-control" ng-model="title" placeholder="Titre de l'événement" required>
+							<input type="text" name="address" autocomplete="off" class="form-control" ng-model="address" placeholder="Lieu de l'événement" required>
+							<textarea rows="15" cols="50" ng-model="description" class="form-control" placeholder="Description de l'événement"></textarea>
 
 							<div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
 						</fieldset>

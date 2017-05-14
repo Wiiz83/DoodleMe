@@ -5,6 +5,8 @@
 
     var userID = $routeParams.userID;
     var userEnCours = $cookieStore.get('id');
+    var userEnCoursDetails = {};
+    $scope.userEdit = 0;
     
     if(userEnCours == userID){
         $scope.isVisible = true;
@@ -14,6 +16,7 @@
 
     FactoryUser.get({id: userID}, function (data) {
         $scope.user = data;
+        userEnCoursDetails = data;
     }, function (response) {
         $scope.errorMessage = response.data.description;
     });
@@ -30,8 +33,24 @@
     }
 
     $scope.edit = function () {
+        $scope.userEdit = 1;
+        $scope.prenom = userEnCoursDetails.firstName;
+        $scope.nom = userEnCoursDetails.lastName;
+        $scope.pseudo = userEnCoursDetails.pseudo;
+    }
 
+    $scope.save = function () {
+        var user = {userID: userEnCours, firstName: $scope.prenom, lastName: $scope.nom, pseudo: $scope.pseudo, password: $scope.password};
+        FactoryUser.update({id: userEnCours}, user, function (response) {
+            $successMessageConsult = "Modifications enregistrées.";
+            $scope.userEdit = 0;
+        }, function (response) {
+            $scope.errorMessage = response.data.description;
+        });
+    }
 
+    $scope.undo = function () {
+        $scope.userEdit = 0;
     }
 
     $scope.delete = function () {
@@ -48,9 +67,6 @@
         });
 
     }
-
-
-
 });
 
 

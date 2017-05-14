@@ -4,30 +4,59 @@
 		<div class="row">
 			<nav-bar></nav-bar>
 		</div>
+
 		<div class="row">
-			<div class="col-md-10 col-md-offset-1">
+			<div class="col-md-10 col-md-offset-1" ng-if="userEdit == 0">
 				<h3>Profil de {{user.pseudo}}</h3>
 				<br>
 				<div class="text-center pagination-centered">
 					<img src="/images/avatar.jpg">
-					<p>Nom : {{user.lastName}}</p>
-					<p>Prénom : {{user.firstName}}</p>
+					<br>
+					<p>{{user.firstName}} {{user.lastName}}</p>
+				</div>
+
+				<br><br>
+				<div ng-if="successMessageConsult" class="alert alert-success succes">{{ successMessageConsult }}</div>
+				<div ng-if="errorMessageConsult" class="alert alert-danger erreur">{{ errorMessageConsult }}</div>
+				<div class="text-center pagination-centered" ng-if="isVisible == true">
+					<div class="row">
+						<div class="col-md-4">
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDelete">Supprimer mon compte</button>
+						</div>
+						<div class="col-md-4">
+							<button type="button" class="btn btn-warning" ng-click="deconnexion()">Se déconnecter</button>
+						</div>
+						<div class="col-md-4">
+							<button type="button" ng-click="edit()" class="btn btn-info">Modifier mes informations</button>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<br><br>
-		<div ng-if="successMessage" class="alert alert-success succes">{{ successMessage }}</div>
-		<div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
-		<div class="text-center pagination-centered" ng-if="isVisible == true">
-			<div class="row">
-				<div class="col-md-4">
-					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDelete">Supprimer mon compte</button>
+
+			<div class="col-md-10 col-md-offset-1" ng-if="userEdit == 1">
+				<h3>Profil de {{user.pseudo}}</h3>
+				<br>
+				<div class="text-center pagination-centered">
+					<img src="/images/avatar.jpg">
+					<br>
+					<p>Prénom</p><br><input type="text" name="prenom" ng-model="prenom" class="form-control"  style="text-align:center;" required><br>
+					<p>Nom</p><br><input type="text" name="nom" ng-model="nom" class="form-control" style="text-align:center;" required><br>
+					<p>Pseudo</p><br><input type="text" name="pseudo" ng-model="pseudo" class="form-control" style="text-align:center;" required><br>
+					<p>Nouveau mot de passe</p><br><input type="password" name="password" ng-model="password" class="form-control" style="text-align:center;" required><br>
 				</div>
-				<div class="col-md-4">
-					<button type="button" class="btn btn-warning" ng-click="deconnexion()">Se déconnecter</button>
-				</div>
-				<div class="col-md-4">
-					<button type="button" ng-click="edit()" class="btn btn-info">Modifier mes informations</button>
+
+				<br><br>
+				<div ng-if="successMessageEdit" class="alert alert-success succes">{{ successMessageEdit }}</div>
+				<div ng-if="errorMessageEdit" class="alert alert-danger erreur">{{ errorMessageEdit }}</div>
+				<div class="text-center pagination-centered" ng-if="isVisible == true">
+					<div class="row">
+						<div class="col-md-6">
+							<button type="button" ng-click="undo()" class="btn btn-danger">Annuler</button>
+						</div>
+						<div class="col-md-6">
+							<button type="button" ng-click="save()" class="btn btn-success">Enregistrer</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
