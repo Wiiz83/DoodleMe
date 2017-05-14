@@ -190,7 +190,7 @@ router.get('/eventSlots/:slotID/usersAnswers/positive', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("Select users.ID, users.firstName, users.lastName, users.pseudo, users.registrationDate , eventanswers.isAvailable FROM users, eventanswers WHERE eventanswers.EventSlotID=? AND eventanswers.isAvailable=1 AND users.ID = eventanswers.userID ;",req.params.slotID, function (err, rows) {
+		var query = conn.query("Select users.ID, users.firstName, users.lastName, users.pseudo, users.registrationDate  FROM users, eventanswers WHERE eventanswers.EventSlotID=? AND eventanswers.isAvailable=1 AND users.ID = eventanswers.userID ;",req.params.slotID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				return res.status(500).send({ status: "Erreur", description: err.message });
@@ -207,7 +207,7 @@ router.get('/eventSlots/:slotID/usersAnswers/negative', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("Select users.ID, users.firstName, users.lastName, users.pseudo, users.registrationDate , eventanswers.isAvailable FROM users, eventanswers WHERE eventanswers.EventSlotID=? AND eventanswers.isAvailable=0 AND users.ID = eventanswers.userID ;",req.params.slotID, function (err, rows) {
+		var query = conn.query("Select users.ID, users.firstName, users.lastName, users.pseudo, users.registrationDate  FROM users, eventanswers WHERE eventanswers.EventSlotID=? AND eventanswers.isAvailable=0 AND users.ID = eventanswers.userID ;",req.params.slotID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				return res.status(500).send({ status: "Erreur", description: err.message });
