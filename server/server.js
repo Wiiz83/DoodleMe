@@ -24,7 +24,8 @@ app.use(
         user: 'root',
         password: '',
         database: 'doodlme',
-        debug: false
+        debug: true,
+        multipleStatements : true
     }, 'request')
 );
 

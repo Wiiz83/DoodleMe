@@ -47,16 +47,17 @@ router.get('/eventSlots/:id', function (req, res) {
 			console.log(err);
 			return res.sendStatus(500);
 		}
-		var query = conn.query("SELECT slots.*, A1.isAvailable AS isAvailable FROM eventanswers A1 RIGHT JOIN ( SELECT S.ID as sid, S.comment, DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day, DATE_FORMAT(S.eventDate,'%h:%i') as time , SUM(case when A.isAvailable=1 then 1 else 0 end) as positiveAnswers, SUM(case when A.isAvailable=0 then 1 else 0 end) as negativeAnswers FROM eventSlots as S, eventanswers A WHERE S.eventID=? AND A.EventSlotID=S.ID GROUP BY S.ID ) as slots ON slots.sid = A1.EventSlotID AND A1.userID =?", data, function (err, rows) {
-			if (err) {
-								
+		var query = conn.query("call doodlme.GetEventSlots(?); select * from eventSlotsDetails; SELECT eventSlotsDetails.*,eventanswers.isAvailable FROM eventanswers RIGHT JOIN eventSlotsDetails ON eventSlotsDetails.ID = eventanswers.EventSlotID AND eventanswers.userID = ?;", data, function (err, rows) {
+			if (err) {							
 
 				console.log(err);
 				res.sendStatus(500);
 				console.log(query.sql);
 			}
-			else
-				res.json(rows);
+			else{
+				console.log(query.sql);
+				res.json(rows[2]);
+				}
 		});
 	});
 });

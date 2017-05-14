@@ -68,4 +68,22 @@ ADD CONSTRAINT FOREIGN KEY (userID) REFERENCES Users(ID) ON DELETE CASCADE ;
 ALTER TABLE EventAnswers
 ADD CONSTRAINT FOREIGN KEY (EventSlotID) REFERENCES EventSlots(ID) ON DELETE CASCADE  ;
 
+DROP PROCEDURE IF EXISTS GetEventSlots;
 
+DELIMITER //
+CREATE PROCEDURE GetEventSlots
+(IN iEventID int(11))
+BEGIN
+	DROP TEMPORARY TABLE IF EXISTS eventSlotsDetails;
+	CREATE TEMPORARY TABLE eventSlotsDetails  
+  SELECT S.ID as ID, S.comment, 
+  DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day,
+  DATE_FORMAT(S.eventDate,'%h:%i') as time , 
+  SUM(case when A.isAvailable=1 then 1 else 0 end) as positiveAnswers,
+  SUM(case when A.isAvailable=0 then 1 else 0 end) as negativeAnswers 
+  
+ FROM eventSlots as S LEFT JOIN eventanswers as A 
+ ON S.eventID=iEventID AND A.EventSlotID=S.ID 
+ GROUP BY S.ID ; 
+END //
+DELIMITER ;
