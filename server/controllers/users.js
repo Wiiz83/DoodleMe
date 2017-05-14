@@ -27,7 +27,7 @@ router.get('/users/:id', function (req, res) {
             console.log(err);
             return res.status(500).send({ status: "Erreur", description: err.message });
         }
-        var query = conn.query('SELECT * FROM users WHERE ID=? ;', req.params.id, function (err, rows) {
+        var query = conn.query('SELECT ID, firstName,lastName,pseudo FROM users WHERE ID=? ;', req.params.id, function (err, rows) {
             if (err) {
                 console.log(query.sql);
                 return res.status(500).send({ status: "Erreur", description: err.message });

@@ -219,7 +219,7 @@ router.get('/events/upcoming/open/answeredBy/:userID', function (req, res) {
 	});
 });
 
-router.get('/events/passed/answeredBy/:userID', function (req, res) {
+router.get('/events/archived/answeredBy/:userID', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
