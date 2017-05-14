@@ -9,7 +9,7 @@ router.get('/events/:id', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('SELECT * FROM events WHERE ID=? ;', req.params.id, function (err, rows) {
+		var query = conn.query(' SELECT events.*,users.pseudo FROM events, users WHERE events.ID=? and users.ID=events.creatorID;', req.params.id, function (err, rows) {
 			if (err) {
 				console.log(err);
 				return res.status(500).send({ status: "Erreur", description: err.message });
