@@ -40,7 +40,22 @@ angular.module('clientApp')
 			method: 'GET', 
 			isArray: true, 
 			params:{EventID:'@id'}
+		},
+
+		getNegatives: { 
+			url:'http://localhost:3000/api/eventSlots/:id/usersAnswers/negative',
+			method: 'GET', 
+			isArray: true, 
+			params:{id:'@id'} 
+		},
+
+		getPositives: { 
+			url:'http://localhost:3000/api/eventSlots/:id/usersAnswers/positive',
+			method: 'GET', 
+			isArray: true, 
+			params:{id:'@id'} 
 		}
+
 	});
 });
 

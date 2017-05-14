@@ -1,7 +1,7 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('RegisterCtrl', function ($scope, FactoryRegister, $rootScope, $location, $window) {
+ .controller('RegisterCtrl', function ($scope, FactoryRegister, $rootScope, $location, $window, dataService) {
 
   $scope.changeView = function(view){
       $location.path(view); 
@@ -16,8 +16,9 @@
     objToSave.password = $scope.password;
 
     objToSave.$save(function(response) {
-     // $window.location.href = '/login.html?ready';
-       $location.path('').search({ready: 'yes'});
+       //$location.path('').search({ready: 'yes'});
+       dataService.setData("registerSuccess");
+       $location.path(''); 
     }, function(response) {
       $scope.errorMessage = response.data.description;
     });

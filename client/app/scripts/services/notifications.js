@@ -20,7 +20,7 @@ angular.module('clientApp')
         getCompteur : {
             url:'http://localhost:3000/api/notifications/user/:userID/count',
 			method: 'GET', 
-			params:{userID:'@id'}, 
+			params:{userID:'@id'}
         }
 	});
 });

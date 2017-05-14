@@ -11,6 +11,7 @@
 				<p>{{event.title}}</p><br>
 				<p>à {{event.address}}</p><br>
 				<p>{{event.description}}</p><br>
+				<div ng-if="eventStatut" class="alert alert-success succes">{{ eventStatut }}</div>
 				<table class="table table-hover table-bordered fixed">
 					<col width="15%" />
 					<col width="15%" />
@@ -29,7 +30,7 @@
 								Description
 							</th>
 							<th>
-								Participants
+								Invités
 							</th>
 							<th>
 								Réponse
@@ -42,20 +43,28 @@
 							<td>{{slot.time}}</td>
 							<td>{{slot.comment}}</td>
 							<td style="text-align:center">
-									<button type="button" class="btn btn-default btn-lg">
+								<button type="button" class="btn btn-default btn-lg" value="{{slot.ID}}" ng-init="slotID=slot.ID" ng-click="clickUsers(slotID)">
 										<span>{{slot.positiveAnswers}}</span> <span class="glyphicon glyphicon-thumbs-up" style="vertical-align: top;" aria-hidden="true"></span><br>
 										<span>{{slot.negativeAnswers}}</span> <span class="glyphicon glyphicon-thumbs-down" style="vertical-align: middle;" aria-hidden="true"></span>
 									</button>
 							</td>
-							<td align='center'>
-								<div class="btn-group" data-toggle="buttons">
+							<td align='center' valign="middle" style="vertical-align: middle;">
+								<div class="btn-group btn-lg" data-toggle="buttons" ng-if="isClose == false">
 									<label id="1" class="btn btn-primary" ng-click="Participate(slotID)" ng-class="{active: slot.isAvailable == 1}">
 										<input type="radio" value="{{slot.ID}}" ng-init="slotID=slot.ID"><i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i>
 									</label>
-								
+
 									<label id="2" class="btn btn-primary" ng-click="notParticipate(slotID)" ng-class="{active: slot.isAvailable == 0}">
 										<input type="radio" value="{{slot.ID}}" ng-init="slotID=slot.ID"><i class="glyphicon glyphicon-thumbs-down"  aria-hidden="true"></i>
 									</label>
+								</div>
+								<div ng-if="isClose == true" valign="middle" style="vertical-align: middle;">
+									<div ng-if="slot.isAvailable == 1" style="vertical-align:middle;">
+										<i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i><br> Let's do this !
+									</div>
+									<div ng-if="slot.isAvailable == 0" style="vertical-align:middle;">
+										<i class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></i> Without me !
+									</div>
 								</div>
 							</td>
 
@@ -67,13 +76,13 @@
 				<div ng-if="successMessage" class="alert alert-success succes">{{ successMessage }}</div>
 				<div ng-if="errorMessage" class="alert alert-danger erreur">{{ errorMessage }}</div>
 
-				<div class="text-center pagination-centered" ng-hide="isAdmin">
+				<div class="text-center pagination-centered" ng-hide="isVisible">
 					<div class="row">
 						<div class="col-md-4">
 							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModalDelete">Supprimer</button>
 						</div>
 						<div class="col-md-4">
-							<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModalCloture">Cloturer</button>
+							<button type="button" class="btn btn-warning" ng-click="clickCloture()">Cloturer</button>
 						</div>
 						<div class="col-md-4">
 							<button type="button" ng-click="edit()" class="btn btn-info">Modifier</button>
@@ -93,9 +102,8 @@
 				<table class="table table-hover table-bordered fixed">
 					<col width="15%" />
 					<col width="15%" />
-					<col width="45%" />
+					<col width="50%" />
 					<col width="15%" />
-					<col width="5%" />
 					<col width="5%" />
 					<thead>
 						<tr>
@@ -109,10 +117,7 @@
 								Description
 							</th>
 							<th>
-								Participants
-							</th>
-							<th>
-
+								Invités
 							</th>
 							<th>
 
@@ -124,12 +129,11 @@
 							<td>{{slot.day}}</td>
 							<td>{{slot.time}}</td>
 							<td>{{slot.comment}}</td>
-							<td style="text-align:center">5&nbsp;<i class="fa fa-smile-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;9&nbsp;
-								<i class="fa fa-frown-o" aria-hidden="true"></i>
-							</td>
-							<td align='center'>
-								<input type="hidden" ng-model="slotID[$index]" value="{{slot.ID}}" ng-init="slotID=slot.ID">
-								<img src="/images/edit.png" ng-click="editSlot(slotID)" style="cursor:pointer;" height="20" data-toggle="modal">
+							<td style="text-align:center">
+								<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModalUserList">
+										<span>{{slot.positiveAnswers}}</span> <span class="glyphicon glyphicon-thumbs-up" style="vertical-align: top;" aria-hidden="true"></span><br>
+										<span>{{slot.negativeAnswers}}</span> <span class="glyphicon glyphicon-thumbs-down" style="vertical-align: middle;" aria-hidden="true"></span>
+									</button>
 							</td>
 							<td align='center'>
 								<img src="/images/delete.png" ng-click="deleteSlot(slotID)" style="cursor:pointer;" height="20">
@@ -188,18 +192,18 @@
 				<h4 class="modal-title">Choix du créneau définitif</h4>
 			</div>
 			<form ng-submit="closeEvent()">
-			<div class="modal-body">
+				<div class="modal-body">
 					<div class="form-group">
 						<br>
 						<select class="form-control" id="exampleSelect1" ng-model="slotListe">
-							<option ng-model="slotChoix" value="{{slot.ID}}" ng-init="slotID=slot.ID" ng-repeat="slot in slotCloture">{{slot.positiveAnswers}} <i class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></i> le {{slot.day}} à {{slot.time}}</option>
+							<option ng-model="slotChoix" value="{{slot.ID}}" ng-init="slotID=slot.ID" ng-repeat="slot in slotCloture">{{slot.positiveAnswers}} participants - le {{slot.day}} à {{slot.time}}</option>
 						</select>
 					</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<input type="submit" class="btn btn-success">
-			</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-success">
+				</div>
 			</form>
 		</div>
 	</div>
@@ -228,50 +232,55 @@
 	</div>
 </div>
 
-<div class="modal fade" id="myModalSlotEdit" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Modification d'un créneau</h4>
-			</div>
-			<form ng-submit="updateSlot()">
-				<div class="modal-body">
-					<p>Date proposée</p><br><input type="date" id="slotDate" ng-model="slotDate" name="title" class="form-control" required><br>
-					<p>Heure proposée</p><br><input class="form-control" type="time" id="slotTime" name="input" ng-model="slotTime" placeholder="HH:mm"
-					 value="{{timeSlot}}" required /><br>
-					<p>Commentaire</p><br><textarea class="form-control textarea" rows="4" cols="50" ng-model="slotComment" id="max-height"></textarea><br>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<input type="submit" class="btn btn-success">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
 <div class="modal fade" id="myModalUserList" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Liste des participants</h4>
+				<h4 class="modal-title">Liste des invités</h4>
 			</div>
-			<form ng-submit="closeEvent()">
 			<div class="modal-body">
-					<div class="form-group">
-						<br>
-						<select class="form-control" id="exampleSelect1" ng-model="slotListe">
-							<option ng-model="slotChoix" value="{{slot.ID}}" ng-init="slotID=slot.ID" ng-repeat="slot in slots">Le {{slot.day}} à {{slot.time}}</option>
-						</select>
+				<div class="form-group">
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" data-target="#home">Participants</a></li>
+						<li><a data-toggle="tab" data-target="#menu1">Ne participe pas</a></li>
+					</ul>
+					<br>
+					<div class="tab-content clearfix">
+						<div id="home" class="tab-pane fade in active">
+							<div class="row" ng-repeat="user in Participants">
+								<div class="col-md-3">
+									<div class="thumbnail">
+										<a href="/w3images/lights.jpg" target="_blank">
+										<img src="/images/avatar.jpg" alt="Lights" style="width:100%">
+										<div class="caption center">
+											<p>{{user.pseudo}}</p>
+										</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="menu1" class="tab-pane fade">
+							<div class="row" ng-repeat="user in NotParticipants">
+								<div class="col-md-3">
+									<div class="thumbnail">
+										<a href="/w3images/lights.jpg" target="_blank">
+										<img src="/images/avatar.jpg" alt="Lights" style="width:100%">
+										<div class="caption center">
+											<p>{{user.pseudo}}</p>
+										</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<input type="submit" class="btn btn-success">
 			</div>
-			</form>
 		</div>
 	</div>
 </div>

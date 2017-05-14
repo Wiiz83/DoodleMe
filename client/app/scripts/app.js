@@ -55,6 +55,11 @@ angular
         controller: 'MonCompteCtrl',
         controllerAs: 'MonCompte'
       })
+      .when('/utilisateur/:userID', {
+        templateUrl: '/views/utilisateur.html',
+        controller: 'UserCtrl',
+        controllerAs: 'UserCtrl'
+    })
       .otherwise({
         redirectTo: '/'
       });

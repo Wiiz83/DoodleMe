@@ -1,13 +1,25 @@
 'use strict';
 
  angular.module('clientApp')
- .controller('LoginCtrl', function ($scope, $window, $rootScope, $location, $routeParams, FactoryLogin) {
+ .controller('LoginCtrl', function ($scope, $window, $rootScope, $location, $routeParams, FactoryLogin, dataService) {
 
- // var readyToLogin = $location.search();
-  var readyToLogin = $routeParams.ready;
-  if (readyToLogin === "yes"){
-     $scope.successMessage = "Inscription réussi, vous pouvez vous connecter.";
-  } 
+	var globalData = dataService.getData();
+  
+  switch (globalData) {
+    case "notConnected":
+      $scope.successMessage = "Merci de vous reconnecter pour continuer.";
+      dataService.setData("");
+      break;
+
+    case "registerSuccess":
+      $scope.successMessage = "Inscription réussi, vous pouvez vous connecter.";
+      dataService.setData("");
+      break;
+  
+    default:
+      break;
+  }
+
 
   $scope.changeView = function(view){
       $location.path(view); 

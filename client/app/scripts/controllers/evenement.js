@@ -1,56 +1,54 @@
 'use strict';
 
 angular.module('clientApp')
-    .controller('EventDetailsCtrl', function ($routeParams, $scope, $location, FactoryEvent, FactoryEvents, FactorySlot, FactoryAnswer, $cookies, $cookieStore) {
+    .controller('EventDetailsCtrl', function ($routeParams, $scope, $location, FactoryEvent, FactoryEvents, FactorySlot, FactoryAnswer, $cookies, $cookieStore, dataService) {
 
         var eventID = $routeParams.eventID;
         var userEnCours = $cookieStore.get('id');
+        var isClose = "";
         var isCreator = false;
+        var isParticipant = "";
         var eventEnCours = {};
         var slotEnCours = {};
         $scope.eventEdit = 0;
-
 
         FactoryEvent.getEvent({ id: eventID }, function (dataevent) {
             $scope.event = dataevent;
             eventEnCours = dataevent;
 
-            var IDcreator = dataevent.creatorID;
-            if (IDcreator === userEnCours) {
-                $scope.isAdmin = false;
-                isCreator = true;
+            if (dataevent.closedSlotID == 1) {
+                isClose = true;
+                $scope.isClose = true;
+                $scope.isVisible = true;
+                $scope.eventStatut = "Cet événement est clôturé, il n'est donc plus modifiable."
             } else {
-                $scope.isAdmin = true;
-            }
+                isClose = false;
+                $scope.isVisible = false;
 
-            FactorySlot.getFull({EventID: eventID, UserID: userEnCours}, function (dataslots) {
-                console.log("résultat getFull :" +dataslots );
-                console.log(dataslots);
+                var IDcreator = dataevent.creatorID;
+                if (IDcreator === userEnCours) {
+                    $scope.isVisible = false;
+                    isCreator = true;
+                } else {
+                    $scope.isVisible = true;
+                }
+            }
+            FactorySlot.getFull({ EventID: eventID, UserID: userEnCours }, function (dataslots) {
                 $scope.slots = dataslots;
             }, function (response) {
-                console.log(response);
                 $scope.errorMessage = response.data.description;
             });
-            
-          /*  FactorySlot.getRecommandedSlots({EventID: eventID}, function (dataslots) {
-                 console.log("résultat getRecommandedSlots :" +dataslots );
-                $scope.slotCloture = dataslots;
-            }, function (response) {
-                console.log(response);
-                $scope.errorMessage = response.data.description;
-            });*/
-
         }, function (response) {
-            console.log(response);
             $scope.errorMessage = response.data.description;
         });
 
 
         $scope.delete = function () {
-            FactoryEvent.deleteEvent({id: eventID}, function (response) {
+            FactoryEvent.deleteEvent({ id: eventID }, function (response) {
                 angular.element('#myModalDelete').modal('hide');
                 angular.element('body').removeClass('modal-open');
                 angular.element('.modal-backdrop').remove();
+                dataService.setData("deleteSuccess");
                 $location.path('accueil');
             }, function (response) {
                 $scope.errorMessage = response.data.description;
@@ -60,11 +58,11 @@ angular.module('clientApp')
         $scope.Participate = function (slotID) {
             var slotAnswer = { userID: userEnCours, EventSlotID: slotID, isAvailable: 1 };
             FactoryAnswer.update(slotAnswer, function (response) {
-                FactorySlot.getFull({EventID: eventID, UserID: userEnCours}, function (dataslots) {
-                $scope.slots = dataslots;
-            }, function (response) {
-                $scope.errorMessage = response.data.description;
-            });
+                FactorySlot.getFull({ EventID: eventID, UserID: userEnCours }, function (dataslots) {
+                    $scope.slots = dataslots;
+                }, function (response) {
+                    $scope.errorMessage = response.data.description;
+                });
             }, function (response) {
                 $scope.errorMessage = response.data.description;
             });
@@ -74,9 +72,37 @@ angular.module('clientApp')
         $scope.notParticipate = function (slotID) {
             var slotAnswer = { userID: userEnCours, EventSlotID: slotID, isAvailable: 0 };
             FactoryAnswer.update(slotAnswer, function (response) {
-                
-                 FactorySlot.getFull({EventID: eventID, UserID: userEnCours}, function (dataslots) {
+
+                FactorySlot.getFull({ EventID: eventID, UserID: userEnCours }, function (dataslots) {
                     $scope.slots = dataslots;
+                }, function (response) {
+                    $scope.errorMessage = response.data.description;
+                });
+            }, function (response) {
+                $scope.errorMessage = response.data.description;
+            });
+
+        }
+
+
+        $scope.clickCloture = function () {
+            FactorySlot.getRecommandedSlots({ EventID: eventID }, function (dataslots) {
+                $scope.slotCloture = dataslots;
+                angular.element('#myModalCloture').modal('show');
+            }, function (response) {
+                $scope.errorMessage = response.data.description;
+            });
+        }
+
+       $scope.clickUsers = function (slotChoisi) {
+            console.log(slotChoisi);
+
+            FactorySlot.getNegatives({id: slotChoisi}, function (datanegative) {
+                $scope.NotParticipants = datanegative;
+                
+                FactorySlot.getPositives({id: slotChoisi}, function (datapositive) {
+                    $scope.Participants = datapositive;
+                    angular.element('#myModalUserList').modal('show');
                 }, function (response) {
                     $scope.errorMessage = response.data.description;
                 });
@@ -93,8 +119,6 @@ angular.module('clientApp')
                 angular.element('#myModalCloture').modal('hide');
                 $scope.successMessage = "Clôture de l'événement effectuée.";
             }, function (response) {
-                console.log(response);
-                console.log(response.data.description);
                 $scope.errorMessage = response.data.description;
             });
         }
@@ -125,22 +149,6 @@ angular.module('clientApp')
         $scope.undoEdit = function () {
             $scope.eventEdit = 0;
         }
-
-
-        $scope.editSlot = function (slotID) {
-            slotEnCours = slotID;
-            FactorySlot.get({ id: slotID }, function (data) {
-                var date = new Date(data.day);
-                var heure = new Date(data.time);
-                $scope.timeSlot = data.time;
-                $scope.slotDate = date;
-                $scope.slotComment = data.comment;
-                angular.element('#myModalSlotEdit').modal('show');
-            }, function (response) {
-                $scope.errorMessage = response.data.description;
-            });
-        }
-
 
         $scope.deleteSlot = function (slotID) {
             FactorySlot.delete({ id: slotID }, function (response) {
