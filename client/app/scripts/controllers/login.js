@@ -7,12 +7,22 @@
   
   switch (globalData) {
     case "notConnected":
-      $scope.successMessage = "Merci de vous reconnecter pour continuer.";
+      $scope.successMessage = "Merci de vous connecter pour continuer.";
       dataService.setData("");
       break;
 
     case "registerSuccess":
       $scope.successMessage = "Inscription réussi, vous pouvez vous connecter.";
+      dataService.setData("");
+      break;
+
+    case "deconnexion":
+      $scope.successMessage = "Déconnexion réussie, à bientôt sur DoodleMe !";
+      dataService.setData("");
+      break;
+
+    case "deleteSuccess":
+      $scope.successMessage = "Suppression réussie, adieu :(";
       dataService.setData("");
       break;
   

@@ -9,7 +9,7 @@
         $scope.eventsNotified = data;
     });
 
-    var read = {userID: userEnCours};
+    var read = {userID: currentUser};
 
     FactoryNotifications.markAsRead(read, function(data){
         console.log(data);
