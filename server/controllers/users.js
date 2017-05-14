@@ -80,7 +80,7 @@ router.put('/users/:id', function (req, res) {
             return res.status(500).send({ status: "Erreur", description: err.message });
         }
         if (new_password!=undefined)
-        var query = conn.query('UPDATE users set firstName=?, lastName=?  WHERE ID=?;', req.param.id, function (err, rows) {
+        var query = conn.query('UPDATE users set firstName=?, lastName=?  WHERE ID=?;', data, function (err, rows) {
             if (err) {
                 console.log(err);
                 res.sendStatus(500);
@@ -93,7 +93,7 @@ router.put('/users/:id', function (req, res) {
             }
         });
         else 
-        var query = conn.query('UPDATE users set  WHERE ID=?;', req.param.id, function (err, rows) {
+        var query = conn.query('UPDATE users set firstName=?, lastName=? , passHash=? WHERE ID=?;', data, function (err, rows) {
             if (err) {
                 console.log(err);
                 res.sendStatus(500);
