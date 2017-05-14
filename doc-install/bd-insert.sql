@@ -1,9 +1,9 @@
 INSERT INTO `users` (`ID`, `firstName`, `lastName`, `pseudo`, `registrationDate`, `passHash`) VALUES
-(17, 'Mahdi', 'Hentati', 'Mh0', '2017-05-06 09:14:55', 'mahdi'),
-(18, 'Lucas', 'Uzan', 'Lulu', '2017-05-06 09:14:55', 'lucas'),
-(19, 'David', 'Toutain', 'Imaneet', '2017-05-06 09:15:21', 'david'),
-(20, 'Thomas', 'Roger', 'Toto', '2017-05-06 09:14:55', 'thomas'),
-(21, 'Elisa', 'Dupont', 'Eli83', '2017-05-06 09:14:55', 'elisa');
+(17, 'Mahdi', 'Hentati', 'Mh0', '2017-05-06 09:14:55', '3e79c573d2ad6d9b23ab24237253a52920cf16df9bd39e9fadc0651bab16e594'),
+(18, 'Lucas', 'Uzan', 'Lulu', '2017-05-06 09:14:55', '3e79c573d2ad6d9b23ab24237253a52920cf16df9bd39e9fadc0651bab16e594'),
+(19, 'David', 'Toutain', 'Imaneet', '2017-05-06 09:15:21', '3e79c573d2ad6d9b23ab24237253a52920cf16df9bd39e9fadc0651bab16e594'),
+(20, 'Thomas', 'Roger', 'Toto', '2017-05-06 09:14:55', '3e79c573d2ad6d9b23ab24237253a52920cf16df9bd39e9fadc0651bab16e594'),
+(21, 'Elisa', 'Dupont', 'Eli83', '2017-05-06 09:14:55', '3e79c573d2ad6d9b23ab24237253a52920cf16df9bd39e9fadc0651bab16e594');
 
 INSERT INTO `events` (`ID`, `title`, `description`, `address`, `creatorID`, `closedSlotID`) VALUES
 (1, 'Travail en groupe', 'Faut finir se projet !!! On est en retard !!!!', 'BU', 17, NULL),

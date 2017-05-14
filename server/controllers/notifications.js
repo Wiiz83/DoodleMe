@@ -47,9 +47,28 @@ router.get('/notifications/user/:userID/count', function (req, res) {
 
 
 router.post('api/notifications/markasread/ ', function (req, res) {
-		var read = req.body;
-	var data = [read.userID, read.eventID];
-	for (var i = 0; i < data.length; i++)
+	var userID = req.params.userID; 
+	req.getConnection(function (err, conn) {
+		if (err)
+			return res.status(500).send({ status: "Erreur", description: "Problème de connexion à la base de données" });
+		else {
+			var query = conn.query("INSERT INTO ReadNotifications (userID, eventID)  VALUES (?,?)",
+				data, function (err, result) {
+					if (err) {
+						console.log(query.sql);
+						console.log(err);
+						return res.status(500).send({ status: "Erreur", description: err.message });
+					}
+					else {
+						return res.send({ status: "Succès", description:result.insertId}); 
+					}
+				});
+		}
+	});
+});
+
+router.post('api/notifications/markallasread/ ', function (req, res) {
+ 	for (var i = 0; i < data.length; i++)
 		if (data[i] == undefined) {
 			return res.status(400).send({ status: "Erreur", description: "Requete mal formattée" });
 		}
@@ -71,6 +90,7 @@ router.post('api/notifications/markasread/ ', function (req, res) {
 		}
 	});
 });
+
 module.exports = router;
 
 
