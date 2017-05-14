@@ -49,7 +49,7 @@ router.get('/eventSlots/:id', function (req, res) {
 			console.log(err);
 			return res.sendStatus(500);
 		}
-		var query = conn.query("call doodlme.GetEventSlots(?); select * from eventSlotsDetails; SELECT eventSlotsDetails.*,eventanswers.isAvailable FROM eventanswers RIGHT JOIN eventSlotsDetails ON eventSlotsDetails.ID = eventanswers.EventSlotID AND eventanswers.userID = ?;", data, function (err, rows) {
+		var query = conn.query("call doodlme.GetEventSlots(?); select * from eventSlotsDetails; SELECT eventSlotsDetails.*,eventanswers.isAvailable FROM eventanswers RIGHT JOIN eventSlotsDetails ON eventSlotsDetails.ID = eventanswers.EventSlotID AND eventanswers.userID = ? ORDER BY day, time;", data, function (err, rows) {
 			if (err) {							
 
 				console.log(err);
@@ -72,7 +72,7 @@ router.get('/eventSlots/byEvent/:EventID/', function (req, res) {
 			console.log(err);
 			return res.sendStatus(500);
 		}
-		var query = conn.query("SELECT ID, eventID, comment, DATE_FORMAT(eventDate,'%m-%d-%Y') as day,DATE_FORMAT(eventDate,'%h:%i') as time FROM eventSlots WHERE eventID=?;", eventID, function (err, rows) {
+		var query = conn.query("SELECT ID, eventID, comment, DATE_FORMAT(eventDate,'%m-%d-%Y') as day,DATE_FORMAT(eventDate,'%h:%i') as time FROM eventSlots WHERE eventID=? ORDER BY eventDate;", eventID, function (err, rows) {
 			if (err) {					
 				res.sendStatus(500);
 				console.log(query.sql);
@@ -174,7 +174,7 @@ router.get('/eventSlots/recommanded/:eventID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("call GetEventSlots(?); Select * From eventSlotsDetails  ORDER BY positiveAnswers DESC, negativeAnswers ASC ;",req.params.eventID, function (err, rows) {
+		var query = conn.query("call GetEventSlots(?); Select * From eventSlotsDetails  ORDER BY positiveAnswers DESC, negativeAnswers ASC, day, time ;",req.params.eventID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				console.log(query.sql);
