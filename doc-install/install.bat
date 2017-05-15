@@ -1,10 +1,10 @@
 CD ../client
-npm install
+start npm install
 pause
-bower install
+start bower install
+pause
 CD ../server
-pause
-npm install
+start npm install
 pause
 start /min  node server.js
 start http://localhost:3000/
