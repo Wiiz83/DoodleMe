@@ -186,7 +186,7 @@ router.get('/events/upcoming/closed/answeredBy/:userID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("SELECT E.*, DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day,DATE_FORMAT(S.eventDate,'%h:%i') as time , A.isAvailable FROM events as E, eventslots as S, eventanswers as A WHERE E.closedSlotID IS NOT NULL AND S.ID=E.closedSlotID AND A.EventSlotID=E.closedSlotID AND A.userID=?;"
+		var query = conn.query("SELECT E.*, DATE_FORMAT(S.eventDate, '%m-%d-%Y') AS day, DATE_FORMAT(S.eventDate, '%h:%i') AS time, A.isAvailable FROM events AS E, eventslots AS S, eventanswers AS A WHERE E.closedSlotID IS NOT NULL AND A.EventSlotID = S.ID AND E.creatorID!=A.userID AND S.eventID = E.ID AND A.userID=?;"
 		,req.params.userID, function (err, rows) {
 			
 			if (err) {
