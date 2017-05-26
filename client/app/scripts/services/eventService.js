@@ -58,7 +58,7 @@ angular.module('clientApp')
 			cancellable: true
 		},
 		getMyParticipationsArchived: {
-			url:'http://localhost:3000/api/events/upcoming/archived/anweredBy/:id',
+			url:'http://localhost:3000/api/events/archived/anweredBy/:id',
 			params:{id:'@id'},
 			method: 'GET', 
 			isArray: true, 

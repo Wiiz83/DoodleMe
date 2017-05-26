@@ -39,7 +39,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="event in participationsOpened track by $index">
+                                <tr ng-repeat="event in participationsClosed track by $index">
                                     <td>{{event.title}}</td>
                                     <td>{{event.description}}</td>
                                     <td>{{event.address}}</td>
@@ -76,7 +76,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="event in participationsClosed track by $index">
+                                <tr ng-repeat="event in participationsOpened track by $index">
                                     <td>{{event.title}}</td>
                                     <td>{{event.description}}</td>
                                     <td>{{event.address}}</td>

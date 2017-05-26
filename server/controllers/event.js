@@ -143,13 +143,16 @@ router.put('/events/:id/close/:slotID', function (req, res) {
 /////////////FILTRES
 ////////////////////CREATIONS
 
+//Mes événements à venir : clos et date cloture > aujourd'hui
+//ok
+
 router.get('/events/closed/createdBy/:userID', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('SELECT * FROM events where creatorID=? AND closedSlotID IS NOT NULL ;',req.params.userID, function (err, rows) {
+		var query = conn.query('SELECT * FROM  upcomingEvents where creatorID=? AND  closedSlotID IS NOT NULL;',req.params.userID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				return res.status(500).send({ status: "Erreur", description: err.message });
@@ -160,13 +163,33 @@ router.get('/events/closed/createdBy/:userID', function (req, res) {
 	});
 });
 
+//Mes événements en attente : ouvert et ayant un slot: slot.date > aujourd'hui
+// ok 
 router.get('/events/open/createdBy/:userID', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query('SELECT * FROM events where creatorID = ? AND closedSlotID IS NULL;',req.params.userID, function (err, rows) {
+		var query = conn.query('SELECT * FROM  upcomingEvents where creatorID=? AND  closedSlotID IS  NULL;',req.params.userID, function (err, rows) {
+			if (err) {
+				console.log(err);
+				return res.status(500).send({ status: "Erreur", description: err.message });
+			}
+			else {
+				res.json(rows);
+			}
+		});
+	});
+});
+// évènements ayant closedslot.date <aujourd'hui ou slot.date < aujourd'hui 
+router.get('/events/archived/createdBy/:userID', function (req, res) {
+	req.getConnection(function (err, conn) {
+		if (err) {
+			console.log(err);
+			return res.status(500).send({ status: "Erreur", description: err.message });
+		}
+		var query = conn.query('SELECT * FROM archivedEvents where creatorID = ? ;',req.params.userID, function (err, rows) {
 			if (err) {
 				console.log(err);
 				return res.status(500).send({ status: "Erreur", description: err.message });
@@ -178,15 +201,19 @@ router.get('/events/open/createdBy/:userID', function (req, res) {
 	});
 });
 
+
 //////////////////////REPONSES
 
-router.get('/events/upcoming/closed/answeredBy/:userID', function (req, res) {
+// Events auxquels l'utilisateur a donné une réponse
+
+// A venir et fermés : 
+router.get('/events/upcoming/closed/anweredBy/:userID', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("SELECT E.*, DATE_FORMAT(S.eventDate, '%m-%d-%Y') AS day, DATE_FORMAT(S.eventDate, '%h:%i') AS time, A.isAvailable FROM events AS E, eventslots AS S, eventanswers AS A WHERE E.closedSlotID IS NOT NULL AND A.EventSlotID = S.ID AND E.creatorID!=A.userID AND S.eventID = E.ID AND A.userID=?;"
+		var query = conn.query("select * from upcomingEvents, eventSlots, eventanswers where upcomingEvents.ID=eventSlots.eventID AND eventSlots.ID = eventanswers.EventSlotID AND upcomingEvents.closedSlotID IS NOT NULL AND eventanswers.userID = ? GROUP BY upcomingEvents.ID ;"
 		,req.params.userID, function (err, rows) {
 			
 			if (err) {
@@ -199,18 +226,19 @@ router.get('/events/upcoming/closed/answeredBy/:userID', function (req, res) {
 	});
 });
 
-
-router.get('/events/upcoming/open/answeredBy/:userID', function (req, res) {
+// En attente: à venir et ouverts 
+router.get('/events/upcoming/open/anweredBy/:userID', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("SELECT E.* FROM events as E WHERE events.closedSlotID IS NULL AND EXISTS( SELECT * FROM eventslots as S WHERE S.eventID=E.ID AND closedSlotID IS NOT NULL AND EXISTS( SELECT * FROM eventAnswers as A WHERE A.EventSlotID=S.ID AND A.userID=? AND isAvailable = true) ORDER BY S.eventDate"
+		var query = conn.query("select * from upcomingEvents, eventSlots, eventanswers where upcomingEvents.ID=eventSlots.eventID AND eventSlots.ID = eventanswers.EventSlotID AND upcomingEvents.closedSlotID IS  NULL AND eventanswers.userID = ? GROUP BY upcomingEvents.ID ;"
 		,req.params.userID, function (err, rows) {
 			
 			if (err) {
 				console.log(err);
+				console.log(query.sql);
 				return res.status(500).send({ status: "Erreur", description: err.message });
 			}
 			else
@@ -219,13 +247,14 @@ router.get('/events/upcoming/open/answeredBy/:userID', function (req, res) {
 	});
 });
 
-router.get('/events/archived/answeredBy/:userID', function (req, res) {
+// evenement archivés et avec une réponse 
+router.get('/events/archived/anweredBy/:userID', function (req, res) {
 	req.getConnection(function (err, conn) {
 		if (err) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("SELECT E.* FROM events as E WHERE events.closedSlotID NOT NULL AND EXISTS( SELECT * FROM eventslots as S WHERE S.eventID=E.ID AND closedSlotID IS NOT NULL AND EXISTS( SELECT * FROM eventAnswers as A WHERE A.EventSlotID=S.ID AND A.userID=? AND isAvailable = true) ORDER BY S.eventDate"
+		var query = conn.query("select * from archivedEvents, eventSlots, eventanswers where archivedEvents.ID=eventSlots.eventID AND eventSlots.ID = eventanswers.EventSlotID  AND eventanswers.userID = ? GROUP BY archivedEvents.ID ;"
 		,req.params.userID, function (err, rows) {
 			
 			if (err) {

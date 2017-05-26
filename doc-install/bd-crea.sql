@@ -68,6 +68,44 @@ ADD CONSTRAINT FOREIGN KEY (userID) REFERENCES Users(ID) ON DELETE CASCADE ;
 ALTER TABLE EventAnswers
 ADD CONSTRAINT FOREIGN KEY (EventSlotID) REFERENCES EventSlots(ID) ON DELETE CASCADE  ;
 
+
+CREATE OR REPLACE VIEW archivedEvents
+AS
+SELECT events.*, DATE_FORMAT(eventSlots.eventDate, '%m-%d-%Y') AS day, DATE_FORMAT(eventSlots.eventDate, '%h:%i') as time, eventslots.ID as slotID, eventslots.eventDate, eventslots.comment, max(eventSlots.eventDate) as latestSlot
+FROM events, eventSlots 
+WHERE  eventSlots.eventID =events.ID 
+AND 
+(
+(events.closedSlotID IS NULL 
+ ) 
+OR 
+(
+events.closedSlotID IS NOT NULL 
+AND eventSlots.ID=events.closedSlotID
+)
+)
+group by (events.ID)
+having (events.closedSlotID IS NULL AND latestSlot<NOW() ) OR (events.closedSlotID IS NOT NULL AND eventSlots.eventDate <NOW() ) ;
+
+CREATE OR REPLACE VIEW upcomingEvents
+AS
+SELECT events.*, DATE_FORMAT(eventSlots.eventDate, '%m-%d-%Y') AS day, DATE_FORMAT(eventSlots.eventDate, '%h:%i') as time, eventslots.ID as slotID, eventslots.eventDate, eventslots.comment, max(eventSlots.eventDate) as latestSlot
+FROM events, eventSlots 
+WHERE  eventSlots.eventID =events.ID 
+AND 
+(
+(events.closedSlotID IS NULL 
+ ) 
+OR 
+(
+events.closedSlotID IS NOT NULL 
+AND eventSlots.ID=events.closedSlotID
+)
+)
+group by (events.ID)
+having (events.closedSlotID IS NULL AND latestSlot>NOW() ) OR (events.closedSlotID IS NOT NULL AND events.eventDate >NOW() ) ;
+
+
 DROP PROCEDURE IF EXISTS GetEventSlots;
 
 DELIMITER //
