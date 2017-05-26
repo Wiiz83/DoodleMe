@@ -3,7 +3,7 @@ SELECT slots.*, A1.isAvailable
 FROM eventanswers A1 RIGHT JOIN 
 (
 SELECT S.ID as sid, S.comment, 
-DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day, 
+DATE_FORMAT(S.eventDate,'%d-%m-%Y') as day, 
 DATE_FORMAT(S.eventDate,'%H:%i') as time ,
 SUM(case when A.isAvailable=1 then 1 else 0 end) as positiveAnswers,
 SUM(case when A.isAvailable=0 then 1 else 0 end) as negativeAnswers 
@@ -25,7 +25,7 @@ router.get('/eventSlots/:id', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("SELECT ID, eventID, comment, DATE_FORMAT(eventDate,'%m-%d-%Y') as day,DATE_FORMAT(eventDate,'%H:%i') as time FROM eventSlots WHERE ID=? ;", req.params.id, function (err, rows) {
+		var query = conn.query("SELECT ID, eventID, comment, DATE_FORMAT(eventDate,'%d-%m-%Y') as day,DATE_FORMAT(eventDate,'%H:%i') as time FROM eventSlots WHERE ID=? ;", req.params.id, function (err, rows) {
 			if (err) {
 				console.log(err);
 				return res.status(500).send({ status: "Erreur", description: err.message });
@@ -72,7 +72,7 @@ router.get('/eventSlots/byEvent/:EventID/', function (req, res) {
 			console.log(err);
 			return res.sendStatus(500);
 		}
-		var query = conn.query("SELECT ID, eventID, comment, DATE_FORMAT(eventDate,'%m-%d-%Y') as day,DATE_FORMAT(eventDate,'%H:%i') as time FROM eventSlots WHERE eventID=? ORDER BY eventDate;", eventID, function (err, rows) {
+		var query = conn.query("SELECT ID, eventID, comment, DATE_FORMAT(eventDate,'%d-%m-%Y') as day,DATE_FORMAT(eventDate,'%H:%i') as time FROM eventSlots WHERE eventID=? ORDER BY eventDate;", eventID, function (err, rows) {
 			if (err) {					
 				res.sendStatus(500);
 				console.log(query.sql);
