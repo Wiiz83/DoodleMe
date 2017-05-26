@@ -213,7 +213,7 @@ router.get('/events/upcoming/closed/anweredBy/:userID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("select * from upcomingEvents, eventSlots, eventanswers where upcomingEvents.ID=eventSlots.eventID AND eventSlots.ID = eventanswers.EventSlotID AND upcomingEvents.closedSlotID IS NOT NULL AND eventanswers.userID = ? GROUP BY upcomingEvents.ID ;"
+		var query = conn.query("select upcomingEvents.* from upcomingEvents, eventSlots, eventanswers where upcomingEvents.ID=eventSlots.eventID AND eventSlots.ID = eventanswers.EventSlotID AND upcomingEvents.closedSlotID IS NOT NULL AND eventanswers.userID = ? GROUP BY upcomingEvents.ID ;"
 		,req.params.userID, function (err, rows) {
 			
 			if (err) {
@@ -233,7 +233,7 @@ router.get('/events/upcoming/open/anweredBy/:userID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("select * from upcomingEvents, eventSlots, eventanswers where upcomingEvents.ID=eventSlots.eventID AND eventSlots.ID = eventanswers.EventSlotID AND upcomingEvents.closedSlotID IS  NULL AND eventanswers.userID = ? GROUP BY upcomingEvents.ID ;"
+		var query = conn.query("select upcomingEvents.* from upcomingEvents, eventSlots, eventanswers where upcomingEvents.ID=eventSlots.eventID AND eventSlots.ID = eventanswers.EventSlotID AND upcomingEvents.closedSlotID IS  NULL AND eventanswers.userID = ? GROUP BY upcomingEvents.ID ;"
 		,req.params.userID, function (err, rows) {
 			
 			if (err) {
@@ -254,7 +254,7 @@ router.get('/events/archived/anweredBy/:userID', function (req, res) {
 			console.log(err);
 			return res.status(500).send({ status: "Erreur", description: err.message });
 		}
-		var query = conn.query("select * from archivedEvents, eventSlots, eventanswers where archivedEvents.ID=eventSlots.eventID AND eventSlots.ID = eventanswers.EventSlotID  AND eventanswers.userID = ? GROUP BY archivedEvents.ID ;"
+		var query = conn.query("select archivedEvents.* from archivedEvents, eventSlots, eventanswers where archivedEvents.ID=eventSlots.eventID AND eventSlots.ID = eventanswers.EventSlotID  AND eventanswers.userID = ? GROUP BY archivedEvents.ID ;"
 		,req.params.userID, function (err, rows) {
 			
 			if (err) {

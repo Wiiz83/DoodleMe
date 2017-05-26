@@ -71,7 +71,7 @@ ADD CONSTRAINT FOREIGN KEY (EventSlotID) REFERENCES EventSlots(ID) ON DELETE CAS
 
 CREATE OR REPLACE VIEW archivedEvents
 AS
-SELECT events.*, DATE_FORMAT(eventSlots.eventDate, '%m-%d-%Y') AS day, DATE_FORMAT(eventSlots.eventDate, '%h:%i') as time, eventslots.ID as slotID, eventslots.eventDate, eventslots.comment, max(eventSlots.eventDate) as latestSlot
+SELECT events.*, DATE_FORMAT(eventSlots.eventDate, '%m-%d-%Y') AS day, DATE_FORMAT(eventSlots.eventDate, '%H:%i') as time, eventslots.ID as slotID, eventslots.eventDate, eventslots.comment, max(eventSlots.eventDate) as latestSlot
 FROM events, eventSlots 
 WHERE  eventSlots.eventID =events.ID 
 AND 
@@ -89,7 +89,7 @@ having (events.closedSlotID IS NULL AND latestSlot<NOW() ) OR (events.closedSlot
 
 CREATE OR REPLACE VIEW upcomingEvents
 AS
-SELECT events.*, DATE_FORMAT(eventSlots.eventDate, '%m-%d-%Y') AS day, DATE_FORMAT(eventSlots.eventDate, '%h:%i') as time, eventslots.ID as slotID, eventslots.eventDate, eventslots.comment, max(eventSlots.eventDate) as latestSlot
+SELECT events.*, DATE_FORMAT(eventSlots.eventDate, '%m-%d-%Y') AS day, DATE_FORMAT(eventSlots.eventDate, '%H:%i') as time, eventslots.ID as slotID, eventslots.eventDate, eventslots.comment, max(eventSlots.eventDate) as latestSlot
 FROM events, eventSlots 
 WHERE  eventSlots.eventID =events.ID 
 AND 
@@ -103,7 +103,7 @@ AND eventSlots.ID=events.closedSlotID
 )
 )
 group by (events.ID)
-having (events.closedSlotID IS NULL AND latestSlot>NOW() ) OR (events.closedSlotID IS NOT NULL AND events.eventDate >NOW() ) ;
+having (events.closedSlotID IS NULL AND latestSlot>NOW() ) OR (events.closedSlotID IS NOT NULL AND eventSlots.eventDate >NOW() ) ;
 
 
 DROP PROCEDURE IF EXISTS GetEventSlots;
@@ -116,7 +116,7 @@ BEGIN
 	CREATE TEMPORARY TABLE eventSlotsDetails  
   SELECT S.ID as ID, S.comment, 
   DATE_FORMAT(S.eventDate,'%m-%d-%Y') as day,
-  DATE_FORMAT(S.eventDate,'%h:%i') as time , 
+  DATE_FORMAT(S.eventDate,'%H:%i') as time , 
   SUM(case when A.isAvailable=1 then 1 else 0 end) as positiveAnswers,
   SUM(case when A.isAvailable=0 then 1 else 0 end) as negativeAnswers 
   
