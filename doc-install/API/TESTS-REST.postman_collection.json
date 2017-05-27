@@ -1,0 +1,355 @@
+{
+	"variables": [],
+	"info": {
+		"name": "TESTS-REST",
+		"_postman_id": "ca29bdee-c969-6adf-8a9a-24bcaf19d5a6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "answers",
+			"description": "",
+			"item": [
+				{
+					"name": "eventAnswer_1slot",
+					"request": {
+						"url": "http://localhost:3000/api/eventAnswers/?SlotID=25",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "eventAnswers_put",
+					"request": {
+						"url": "http://localhost:3000/api/eventAnswers/",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n    \"userID\": 18,\n    \"EventSlotID\": 17,\n    \"isAvailable\": 0\n  }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "events",
+			"description": "",
+			"item": [
+				{
+					"name": "events_tous",
+					"request": {
+						"url": "http://localhost:3000/api/events/",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "events_one",
+					"request": {
+						"url": "http://localhost:3000/api/events/7",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "events_post",
+					"request": {
+						"url": "http://localhost:3000/api/events/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \"title\": \"Travail en groupe\",\n    \"description\": \"Ma description\",\n    \"address\": \"BU\",\n    \"creatorID\": 17\n  }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "events_delete",
+					"request": {
+						"url": "http://localhost:3000/api/events/1",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "events_bycreator",
+					"request": {
+						"url": "http://localhost:3000/api/events/createdBy/17",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "events_answered",
+					"request": {
+						"url": "http://localhost:3000/api/events/anweredBy/17",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "event_close",
+					"request": {
+						"url": "http://localhost:3000/api/events/15/close/15",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "events_put",
+					"request": {
+						"url": "http://localhost:3000/api/events/7",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \"title\": \"sqdqsd\",\n    \"description\": \"Ma description\",\n    \"address\": \"BU\",\n    \"creatorID\": 17\n  }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notifications",
+			"description": "",
+			"item": [
+				{
+					"name": "notifcations",
+					"request": {
+						"url": "http://localhost:3000/api/notifications/user/6/",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "slots",
+			"description": "",
+			"item": [
+				{
+					"name": "eventSlot_delete",
+					"request": {
+						"url": "http://localhost:3000/api/eventSlots/1",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "eventSlots_1event",
+					"request": {
+						"url": "http://localhost:3000/api/eventSlots/byEvent/14",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "eventSlot_post",
+					"request": {
+						"url": "http://localhost:3000/api/eventSlots/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventID\": 14,\n    \"day\": \"2017-4-06\",\n    \"time\": \"10:30\",\n    \"comment\": \"commentaire sur le créneau ... \"\n  }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "eventSlot_put",
+					"request": {
+						"url": "http://localhost:3000/api/eventSlots/15",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"day\": \"2017-4-01\",\n    \"time\": \"10:49\",\n    \"comment\": \"commentaire sur le 4 ... \"\n  }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "la_requete",
+					"request": {
+						"url": "http://localhost:3000/api/eventSlots/byEvent/14/user/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "event_recom_slot",
+					"request": {
+						"url": "http://localhost:3000/api/eventSlots/recommanded/14",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "reponses_users",
+					"request": {
+						"url": "http://localhost:3000/api/eventSlots/1/usersAnswers/negative",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"description": "",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"url": "http://localhost:3000/api/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n     \"firstName\": \"ftessdfffffffft0\",\n    \"lastName\": \"test\",\n    \"pseudo\": \"f\",\n    \"password\": \"fff\"\n  }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "users_tous",
+					"request": {
+						"url": "http://localhost:3000/api/users/",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "edit_user",
+					"request": {
+						"url": "http://localhost:3000/api/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n     \"firstName\": \"ftessdfffffffft0\",\n    \"lastName\": \"test\",\n     \"password\": \"fff\"\n  }"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"request": {
+				"url": "http://localhost:3000/api/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"pseudo\": \"test\",\n  \"password\": \"test\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

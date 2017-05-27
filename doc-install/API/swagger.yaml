@@ -1,0 +1,1021 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: TESTS-REST
+  description: Projet DoodleMe
+host: 'localhost:3000'
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /events/:
+    get:
+      description: 'TODO: Add Description'
+      summary: events_tous
+      tags:
+        - events
+      operationId: events_tous
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /events/
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: events_tous
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      description: 'TODO: Add Description'
+      summary: events_post
+      tags:
+        - events
+      operationId: events_post
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/EventsPostrequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /events/
+            headers:
+              Content-Type: application/json
+            body: |-
+              {
+                   "title": "Travail en groupe",
+                  "description": "Ma description",
+                  "address": "BU",
+                  "creatorID": 17
+                }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: events_post
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /events/7:
+    get:
+      description: 'TODO: Add Description'
+      summary: events_one
+      tags:
+        - events
+      operationId: events_one
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /events/7
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: events_one
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    put:
+      description: 'TODO: Add Description'
+      summary: events_put
+      tags:
+        - events
+      operationId: events_put
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/EventsPutrequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: PUT
+            uri: /events/7
+            headers:
+              Content-Type: application/json
+            body: |-
+              {
+                   "title": "sqdqsd",
+                  "description": "Ma description",
+                  "address": "BU",
+                  "creatorID": 17
+                }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: events_put
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /events/1:
+    delete:
+      description: 'TODO: Add Description'
+      summary: events_delete
+      tags:
+        - events
+      operationId: events_delete
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: DELETE
+            uri: /events/1
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: events_delete
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /events/createdBy/17:
+    get:
+      description: 'TODO: Add Description'
+      summary: events_bycreator
+      tags:
+        - events
+      operationId: events_bycreator
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /events/createdBy/17
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: events_bycreator
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /events/anweredBy/17:
+    get:
+      description: 'TODO: Add Description'
+      summary: events_answered
+      tags:
+        - events
+      operationId: events_answered
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /events/anweredBy/17
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: events_answered
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /events/15/close/15:
+    put:
+      description: 'TODO: Add Description'
+      summary: event_close
+      tags:
+        - events
+      operationId: event_close
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: PUT
+            uri: /events/15/close/15
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: event_close
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /register:
+    post:
+      description: 'TODO: Add Description'
+      summary: edit_user
+      tags:
+        - users
+      operationId: edit_user
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/EditUserrequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /register
+            headers:
+              Content-Type: application/json
+            body: |2-
+                {
+                   "firstName": "ftessdfffffffft0",
+                  "lastName": "test",
+                   "password": "fff"
+                }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: edit_user
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /users/:
+    get:
+      description: 'TODO: Add Description'
+      summary: users_tous
+      tags:
+        - users
+      operationId: users_tous
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /users/
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: users_tous
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /eventSlots/1:
+    delete:
+      description: 'TODO: Add Description'
+      summary: eventSlot_delete
+      tags:
+        - slots
+      operationId: eventSlot_delete
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: DELETE
+            uri: /eventSlots/1
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: eventSlot_delete
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /eventSlots/byEvent/14:
+    get:
+      description: 'TODO: Add Description'
+      summary: eventSlots_1event
+      tags:
+        - slots
+      operationId: eventSlots_1event
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /eventSlots/byEvent/14
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: eventSlots_1event
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /eventSlots/:
+    post:
+      description: 'TODO: Add Description'
+      summary: eventSlot_post
+      tags:
+        - slots
+      operationId: eventSlot_post
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/EventslotPostrequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /eventSlots/
+            headers:
+              Content-Type: application/json
+            body: |-
+              {
+                  "eventID": 14,
+                  "day": "2017-4-06",
+                  "time": "10:30",
+                  "comment": "commentaire sur le cr�neau ... "
+                }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: eventSlot_post
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /eventSlots/15:
+    put:
+      description: 'TODO: Add Description'
+      summary: eventSlot_put
+      tags:
+        - slots
+      operationId: eventSlot_put
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/EventslotPutrequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: PUT
+            uri: /eventSlots/15
+            headers:
+              Content-Type: application/json
+            body: |-
+              {
+                  "day": "2017-4-01",
+                  "time": "10:49",
+                  "comment": "commentaire sur le 4 ... "
+                }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: eventSlot_put
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /eventSlots/byEvent/14/user/1:
+    get:
+      description: 'TODO: Add Description'
+      summary: la_requete
+      tags:
+        - slots
+      operationId: la_requete
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /eventSlots/byEvent/14/user/1
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: la_requete
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /eventSlots/recommanded/14:
+    get:
+      description: 'TODO: Add Description'
+      summary: event_recom_slot
+      tags:
+        - slots
+      operationId: event_recom_slot
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /eventSlots/recommanded/14
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: event_recom_slot
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /eventSlots/1/usersAnswers/negative:
+    get:
+      description: 'TODO: Add Description'
+      summary: reponses_users
+      tags:
+        - slots
+      operationId: reponses_users
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /eventSlots/1/usersAnswers/negative
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: reponses_users
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /eventAnswers/:
+    get:
+      description: 'TODO: Add Description'
+      summary: eventAnswer_1slot
+      tags:
+        - answers
+      operationId: eventAnswer_1slot
+      produces:
+        - application/json
+      parameters:
+        - name: SlotID
+          in: query
+          required: true
+          type: integer
+          format: int32
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /eventAnswers/?SlotID=25
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: eventAnswer_1slot
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    put:
+      description: 'TODO: Add Description'
+      summary: eventAnswers_put
+      tags:
+        - answers
+      operationId: eventAnswers_put
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/EventanswersPutrequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: PUT
+            uri: /eventAnswers/
+            headers:
+              Content-Type: application/json
+            body: |2-
+                {
+                  "userID": 18,
+                  "EventSlotID": 17,
+                  "isAvailable": 0
+                }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: eventAnswers_put
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /notifications/user/6/:
+    get:
+      description: 'TODO: Add Description'
+      summary: notifcations
+      tags:
+        - notifications
+      operationId: notifcations
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: GET
+            uri: /notifications/user/6/
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: notifcations
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /login:
+    post:
+      description: 'TODO: Add Description'
+      summary: auth
+      tags:
+        - Misc
+      operationId: auth
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/AuthRequest'
+        - name: Content-Type
+          in: header
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+      security: []
+      x-unitTests:
+        - request:
+            method: POST
+            uri: /login
+            headers:
+              Content-Type: application/json
+            body: |-
+              {
+                "pseudo": "test",
+                "password": "test"
+              }
+          expectedResponse:
+            x-allowExtraHeaders: true
+            x-bodyMatchMode: NONE
+            x-arrayOrderedMatching: false
+            x-arrayCheckCount: false
+            x-matchResponseSchema: true
+            headers: {}
+          x-testShouldPass: true
+          x-testEnabled: true
+          x-testName: auth
+          x-testDescription: 'TODO: Add Description'
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+definitions:
+  EventsPostrequest:
+    title: events_postRequest
+    type: object
+    properties:
+      title:
+        description: ''
+        type: string
+      description:
+        description: ''
+        type: string
+      address:
+        description: ''
+        type: string
+      creatorID:
+        description: ''
+        type: integer
+        format: int32
+    required:
+      - title
+      - description
+      - address
+      - creatorID
+  EventsPutrequest:
+    title: events_putRequest
+    type: object
+    properties:
+      title:
+        description: ''
+        type: string
+      description:
+        description: ''
+        type: string
+      address:
+        description: ''
+        type: string
+      creatorID:
+        description: ''
+        type: integer
+        format: int32
+    required:
+      - title
+      - description
+      - address
+      - creatorID
+  RegisterRequest:
+    title: registerRequest
+    type: object
+    properties:
+      firstName:
+        description: ''
+        type: string
+      lastName:
+        description: ''
+        type: string
+      pseudo:
+        description: ''
+        type: string
+      password:
+        description: ''
+        type: string
+    required:
+      - firstName
+      - lastName
+      - pseudo
+      - password
+  EditUserrequest:
+    title: edit_userRequest
+    type: object
+    properties:
+      firstName:
+        description: ''
+        type: string
+      lastName:
+        description: ''
+        type: string
+      password:
+        description: ''
+        type: string
+    required:
+      - firstName
+      - lastName
+      - password
+  EventslotPostrequest:
+    title: eventSlot_postRequest
+    type: object
+    properties:
+      eventID:
+        description: ''
+        type: integer
+        format: int32
+      day:
+        description: ''
+        type: string
+      time:
+        description: ''
+        type: string
+      comment:
+        description: ''
+        type: string
+    required:
+      - eventID
+      - day
+      - time
+      - comment
+  EventslotPutrequest:
+    title: eventSlot_putRequest
+    type: object
+    properties:
+      day:
+        description: ''
+        type: string
+      time:
+        description: ''
+        type: string
+      comment:
+        description: ''
+        type: string
+    required:
+      - day
+      - time
+      - comment
+  EventanswersPutrequest:
+    title: eventAnswers_putRequest
+    type: object
+    properties:
+      userID:
+        description: ''
+        type: integer
+        format: int32
+      EventSlotID:
+        description: ''
+        type: integer
+        format: int32
+      isAvailable:
+        description: ''
+        type: integer
+        format: int32
+    required:
+      - userID
+      - EventSlotID
+      - isAvailable
+  AuthRequest:
+    title: authRequest
+    type: object
+    properties:
+      pseudo:
+        description: ''
+        type: string
+      password:
+        description: ''
+        type: string
+    required:
+      - pseudo
+      - password
